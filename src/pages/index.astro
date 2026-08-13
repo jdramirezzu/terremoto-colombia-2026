@@ -18,6 +18,10 @@ function serie(campo: 'fallecidos' | 'heridos' | 'desaparecidos') {
     .filter((c) => c[campo] !== null && c[campo] !== undefined)
     .map((c) => ({ etiqueta: c.etiqueta ?? c.fechaCorte, valor: c[campo] as number }));
 }
+// Solo los valores (para el sparkline de StatTile) — mismo filtro de null.
+function historial(campo: 'fallecidos' | 'heridos' | 'desaparecidos') {
+  return serie(campo).map((p) => p.valor);
+}
 
 const fallecidosPorDepto = corte.fallecidosPorDepartamento
   ? Object.entries(corte.fallecidosPorDepartamento).map(([nombre, valor]) => ({
@@ -96,16 +100,29 @@ const wikiLinks = [
   </div>
 
   <h2 id="cifras">Cifras oficiales — corte {fechaCorte}</h2>
+
+  <h3 class="subgrupo-titulo">Personas</h3>
   <div class="stat-grid">
-    <StatTile label="Fallecidos" value={corte.fallecidos} />
-    <StatTile label="Heridos" value={corte.heridos} />
-    <StatTile label="Desaparecidos" value={corte.desaparecidos} />
+    <StatTile label="Fallecidos" value={corte.fallecidos} serie={historial('fallecidos')} />
+    <StatTile label="Heridos" value={corte.heridos} serie={historial('heridos')} />
+    <StatTile label="Desaparecidos" value={corte.desaparecidos} serie={historial('desaparecidos')} />
     <StatTile label="Personas afectadas" value={corte.personasAfectadas} />
+  </div>
+
+  <h3 class="subgrupo-titulo">Infraestructura</h3>
+  <div class="stat-grid">
     <StatTile label="Viviendas destruidas" value={corte.viviendasDestruidas} />
     <StatTile label="Viviendas averiadas" value={corte.viviendasAveriadas} />
+    <StatTile label="Edificios colapsados" value={corte.edificiosColapsados} />
+    <StatTile label="Centros educativos afectados" value={corte.centrosEducativosAfectados} />
+    <StatTile label="Centros comunitarios afectados" value={corte.centrosComunitariosAfectados} />
+    <StatTile label="Centros de salud afectados" value={corte.centrosSaludAfectados} />
   </div>
+
   <p class="source-note">
     Fuente: {corte.fuente} — <a href={corte.fuenteUrl} target="_blank" rel="noopener">ver reporte ↗</a>.
+    Los pequeños gráficos de "Personas" muestran los cortes anteriores — ver
+    el detalle completo más abajo en "Cómo ha evolucionado".
   </p>
 
   <h2>Cómo ha evolucionado</h2>
@@ -124,6 +141,18 @@ const wikiLinks = [
   {fallecidosPorDepto.length > 0 && (
     <>
       <h2>Fallecidos por departamento</h2>
+      <div class="filtro-region">
+        <label for="filtro-region-select">Resaltar un departamento:</label>
+        <select id="filtro-region-select">
+          <option value="">Todos</option>
+          {fallecidosPorDepto.map((d) => <option value={d.nombre}>{d.nombre}</option>)}
+        </select>
+      </div>
+      <p class="source-note">
+        El filtro resalta el departamento en este gráfico y enlaza a su página. Los
+        gráficos de "Cómo ha evolucionado" de arriba son nacionales — no tenemos
+        todavía series históricas por departamento, solo el corte más reciente.
+      </p>
       <div class="charts-grid">
         <GraficoBarras id="grafico-fallecidos-depto" titulo={`Corte ${fechaCorte}`} barras={fallecidosPorDepto} />
       </div>
@@ -155,3 +184,35 @@ const wikiLinks = [
     ))}
   </div>
 </Layout>
+
+<script>
+  // Filtro de "resaltar región" sobre el gráfico de fallecidos por
+  // departamento: aplica la forma "emphasis" (una barra en el hue de
+  // acento, el resto en gris) en vez de un color por departamento —
+  // es la que corresponde cuando el punto es "este departamento", no
+  // "distinguir 5 identidades a la vez".
+  function activarFiltroRegion() {
+    const select = document.querySelector<HTMLSelectElement>('#filtro-region-select');
+    const grafico = document.querySelector<HTMLElement>('#grafico-fallecidos-depto');
+    if (!select || !grafico) return;
+
+    select.addEventListener('change', () => {
+      const elegido = select!.value;
+      const filas = grafico!.querySelectorAll<HTMLElement>('.grafico-barra-fila');
+      filas.forEach((fila) => {
+        const pista = fila.querySelector<HTMLElement>('.grafico-barra-pista');
+        const nombre = pista?.dataset.nombre;
+        const esElegido = !elegido || nombre === elegido;
+        fila.classList.toggle('desenfasis', !esElegido);
+      });
+      if (elegido) {
+        const filaElegida = [...filas].find(
+          (f) => f.querySelector<HTMLElement>('.grafico-barra-pista')?.dataset.nombre === elegido,
+        );
+        filaElegida?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+  }
+  activarFiltroRegion();
+  document.addEventListener('astro:page-load', activarFiltroRegion);
+</script>

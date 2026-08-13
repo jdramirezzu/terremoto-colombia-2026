@@ -92,6 +92,15 @@ a {
   color: var(--text-primary);
 }
 
+.subgrupo-titulo {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin: 20px 0 8px;
+}
+
 .stat-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -119,6 +128,34 @@ a {
   font-size: 0.85rem;
   color: var(--text-secondary);
   margin-top: 4px;
+}
+
+/* Neutral a propósito — nunca verde/rojo. Una cifra de víctimas que sube
+   no es una métrica de negocio en rojo, es información. */
+.stat-delta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.stat-sparkline {
+  display: block;
+  width: 64px;
+  height: 22px;
+  margin-top: 8px;
+  overflow: visible;
+}
+
+.stat-sparkline-linea {
+  fill: none;
+  stroke: var(--text-muted);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.stat-sparkline-punto {
+  fill: var(--accent);
 }
 
 .source-note {
@@ -542,4 +579,39 @@ footer.site {
 .grafico-tabla th {
   color: var(--text-muted);
   font-weight: 600;
+}
+
+.filtro-region {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 0 4px;
+}
+
+.filtro-region label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.filtro-region select {
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+
+/* Forma "emphasis": la fila elegida se queda en el hue de acento (estilos
+   por defecto de .grafico-barra-relleno), el resto pasa a gris — nunca se
+   reasigna un color por departamento, solo se atenúa. */
+.grafico-barra-fila.desenfasis .grafico-barra-relleno {
+  background: var(--gridline);
+}
+
+.grafico-barra-fila.desenfasis .grafico-barra-nombre,
+.grafico-barra-fila.desenfasis .grafico-barra-valor {
+  color: var(--text-muted);
+  opacity: 0.7;
 }

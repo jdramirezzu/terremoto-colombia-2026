@@ -4,13 +4,59 @@ interface Props {
   // null: dato no reportado todavía en este corte — normal en una
   // emergencia en curso, se muestra como "—" en vez de un 0 engañoso.
   value: number | null;
+  // Valores históricos en orden cronológico (el último debe ser === value).
+  // Opcional: no todas las cifras tienen más de un corte todavía.
+  serie?: number[];
 }
 
-const { label, value } = Astro.props;
-const formatted = value === null ? '—' : new Intl.NumberFormat('es-CO').format(value);
+const { label, value, serie } = Astro.props;
+const fmt = new Intl.NumberFormat('es-CO');
+const formatted = value === null ? '—' : fmt.format(value);
+
+const historial = (serie ?? []).filter((v): v is number => v !== null && v !== undefined);
+const tieneTendencia = historial.length >= 2;
+const delta = tieneTendencia ? historial[historial.length - 1] - historial[historial.length - 2] : null;
+
+// Sparkline: SVG chico, un solo hue apagado — la línea es contexto, no el
+// dato principal (ese ya es el número grande de arriba). Sin escala de
+// "bueno/malo": en cifras de víctimas una subida no es una mala métrica de
+// negocio, es información. Nunca se colorea en verde/rojo.
+const W = 64;
+const H = 22;
+const PAD = 3;
+function puntos() {
+  if (!tieneTendencia) return '';
+  const max = Math.max(...historial);
+  const min = Math.min(...historial);
+  const rango = max - min || 1;
+  return historial
+    .map((v, i) => {
+      const x = PAD + (i / (historial.length - 1)) * (W - PAD * 2);
+      const y = H - PAD - ((v - min) / rango) * (H - PAD * 2);
+      return `${x},${y}`;
+    })
+    .join(' ');
+}
+const spark = puntos();
+const ultimoPunto = historial.length
+  ? spark.split(' ')[spark.split(' ').length - 1]
+  : null;
 ---
 
 <div class="stat-tile">
   <div class="value">{formatted}</div>
   <div class="label">{label}</div>
+  {delta !== null && (
+    <div class="stat-delta">
+      {delta === 0 ? '=' : delta > 0 ? '↑' : '↓'} {fmt.format(Math.abs(delta))} vs. corte anterior
+    </div>
+  )}
+  {spark && (
+    <svg class="stat-sparkline" viewBox={`0 0 ${W} ${H}`} aria-hidden="true">
+      <polyline points={spark} class="stat-sparkline-linea" />
+      {ultimoPunto && (
+        <circle cx={ultimoPunto.split(',')[0]} cy={ultimoPunto.split(',')[1]} r="2" class="stat-sparkline-punto" />
+      )}
+    </svg>
+  )}
 </div>
