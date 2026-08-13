@@ -18,10 +18,11 @@ wiki y las cifras.
      mencione, cuando sea posible).
    - Actualiza `verificadoPor` con tu nombre/usuario y `fechaVerificacion`
      con la fecha en que lo confirmaste.
-   - Si no puedes confirmarlo contra la fuente oficial todavía, dilo
-     explícitamente en `verificadoPor` — un dato marcado como "sin
-     verificar" es mucho mejor que uno que aparenta estar verificado sin
-     estarlo.
+   - Cambia `estado` a `"verificado"` **solo** si confirmaste el dato
+     directamente en el canal oficial de la entidad (no un artículo de
+     prensa). Si no, déjalo en `"sin-verificar"` — ese campo es lo que
+     controla el badge que ve la persona visitante (✅ vs ⚠️), así que nunca
+     lo cambies "para que se vea mejor".
 4. Abre el Pull Request (GitHub te guía). Alguien del equipo lo revisa
    antes de publicarlo — por el riesgo de canales de donación falsos,
    **el contenido de `donar-dinero` y `donar-especie` siempre pasa por

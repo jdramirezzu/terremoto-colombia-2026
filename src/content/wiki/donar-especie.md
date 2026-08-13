@@ -3,6 +3,7 @@ titulo: "Donar en especie: centros de acopio"
 categoria: "donar-especie"
 resumen: "Puntos de acopio habilitados y qué elementos se están solicitando específicamente (no todo centro recibe todo)."
 fuente: "https://www.infobae.com/colombia/2026/08/10/centros-de-acopio-habilitados-en-colombia-tras-el-terremoto-guia-por-ciudad-para-donar-y-ayudar-a-las-victimas/"
+estado: "sin-verificar"
 verificadoPor: "Borrador inicial a partir de cobertura de prensa — pendiente de verificación directa antes de publicar"
 fechaVerificacion: 2026-08-13
 orden: 1

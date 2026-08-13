@@ -12,10 +12,14 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
+// timeZone: 'UTC' evita que un build corrido en Colombia (UTC-5) muestre el
+// día anterior — las fechas del front-matter son solo-fecha (sin hora), y
+// coerce.date() las ancla a medianoche UTC.
 const fecha = entry.data.fechaVerificacion.toLocaleDateString('es-CO', {
   day: 'numeric',
   month: 'long',
   year: 'numeric',
+  timeZone: 'UTC',
 });
 ---
 
@@ -24,10 +28,15 @@ const fecha = entry.data.fechaVerificacion.toLocaleDateString('es-CO', {
   <h1>{entry.data.titulo}</h1>
 
   <div>
-    <span class="verify-badge">📅 Verificado: {fecha}</span>
+    {entry.data.estado === 'verificado' ? (
+      <span class="verify-badge verify-badge--ok">✅ Verificado directamente con la fuente</span>
+    ) : (
+      <span class="verify-badge verify-badge--warn">⚠️ Sin verificar — borrador a partir de prensa</span>
+    )}
+    <span class="verify-badge">🕓 Última revisión: {fecha}</span>
     <span class="verify-badge">🔗 <a href={entry.data.fuente} target="_blank" rel="noopener">Fuente</a></span>
   </div>
-  <p class="source-note">Verificado por: {entry.data.verificadoPor}</p>
+  <p class="source-note">{entry.data.verificadoPor}</p>
 
   <Content />
 </Layout>

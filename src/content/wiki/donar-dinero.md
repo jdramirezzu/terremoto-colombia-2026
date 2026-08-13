@@ -3,6 +3,7 @@ titulo: "Donar dinero a canales verificados"
 categoria: "donar-dinero"
 resumen: "Cuentas y campañas reportadas por medios como canales oficiales de donación económica para los afectados por el terremoto."
 fuente: "https://www.eltiempo.com/colombia/otras-ciudades/como-ayudar-tras-terremoto-de-7-4-en-colombia-estos-son-los-centros-de-acopio-bancos-de-sangre-y-alimentos-canales-oficiales-y-puntos-de-donacion-3577631"
+estado: "sin-verificar"
 verificadoPor: "Borrador inicial a partir de cobertura de prensa (El Tiempo, El Espectador) — SIN verificar aún contra la entidad emisora. No tratar como confirmado."
 fechaVerificacion: 2026-08-13
 orden: 1

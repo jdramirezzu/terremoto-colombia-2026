@@ -3,6 +3,7 @@ titulo: "Ofrecerte como voluntario o voluntaria"
 categoria: "voluntariado"
 resumen: "Canales oficiales para inscribirte como voluntario en la respuesta al terremoto, según tu perfil (rescate, salud, logística, psicosocial)."
 fuente: "https://www.cruzrojacolombiana.org"
+estado: "sin-verificar"
 verificadoPor: "Borrador inicial del equipo — pendiente de verificación directa contra la fuente oficial antes de publicar"
 fechaVerificacion: 2026-08-13
 orden: 1

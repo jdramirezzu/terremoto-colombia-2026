@@ -3,6 +3,7 @@ titulo: "Pedir ayuda: albergue, censo de damnificados y subsidios"
 categoria: "pedir-ayuda"
 resumen: "Cómo registrarte como persona afectada, acceder a albergues temporales y a los trámites de ayuda humanitaria del Gobierno."
 fuente: "https://www.gestiondelriesgo.gov.co"
+estado: "sin-verificar"
 verificadoPor: "Borrador inicial del equipo — pendiente de verificación directa contra la fuente oficial antes de publicar"
 fechaVerificacion: 2026-08-13
 orden: 1

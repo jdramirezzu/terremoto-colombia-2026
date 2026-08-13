@@ -3,6 +3,7 @@ titulo: "Reportar daños, personas desaparecidas o afectaciones"
 categoria: "reportar"
 resumen: "Líneas oficiales para reportar daños en vivienda, infraestructura o personas desaparecidas ante el terremoto del 10 de agosto de 2026."
 fuente: "https://www.gestiondelriesgo.gov.co"
+estado: "sin-verificar"
 verificadoPor: "Borrador inicial del equipo — pendiente de verificación directa contra la fuente oficial antes de publicar"
 fechaVerificacion: 2026-08-13
 orden: 1

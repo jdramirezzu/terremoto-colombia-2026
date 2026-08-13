@@ -14,6 +14,7 @@
   --accent: #2a78d6;
   --status-critical: #d03b3b;
   --status-warning: #fab219;
+  --status-good: #0ca30c;
   --font-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
@@ -30,6 +31,7 @@
     --accent: #3987e5;
     --status-critical: #e66767;
     --status-warning: #fab219;
+    --status-good: #0ca30c;
   }
 }
 
@@ -45,6 +47,7 @@
   --accent: #3987e5;
   --status-critical: #e66767;
   --status-warning: #fab219;
+  --status-good: #0ca30c;
 }
 
 * {
@@ -163,6 +166,17 @@ a {
   border-radius: 999px;
   padding: 4px 10px;
   margin: 4px 8px 4px 0;
+}
+
+/* El estado nunca depende solo del color: cada variante trae su propio
+   ícono + texto (✅/⚠️), el borde es un refuerzo, no el único canal. */
+.verify-badge--ok {
+  border-color: var(--status-good);
+}
+
+.verify-badge--warn {
+  border-color: var(--status-warning);
+  color: var(--text-primary);
 }
 
 nav.topnav {

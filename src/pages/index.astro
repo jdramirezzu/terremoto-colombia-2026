@@ -4,10 +4,14 @@ import StatTile from '../components/StatTile.astro';
 import cifras from '../../data/cifras.json';
 
 const corte = cifras.cortes[cifras.cortes.length - 1];
+// timeZone: 'UTC' evita que un build corrido en Colombia (UTC-5) muestre el
+// día anterior — las fechas en cifras.json son solo-fecha, ancladas a
+// medianoche UTC por el parser de Date.
 const fechaCorte = new Date(corte.fechaCorte).toLocaleDateString('es-CO', {
   day: 'numeric',
   month: 'long',
   year: 'numeric',
+  timeZone: 'UTC',
 });
 
 const wikiLinks = [
@@ -22,7 +26,7 @@ const wikiLinks = [
 <Layout title="Inicio">
   <h1>Terremoto de Colombia, agosto 2026</h1>
   <p>
-    Sismo de magnitud {cifras.evento.magnitud} el {new Date(cifras.evento.fecha).toLocaleDateString('es-CO', { day: 'numeric', month: 'long' })},
+    Sismo de magnitud {cifras.evento.magnitud} el {new Date(cifras.evento.fecha).toLocaleDateString('es-CO', { day: 'numeric', month: 'long', timeZone: 'UTC' })},
     epicentro en {cifras.evento.epicentro}. Afecta principalmente a {cifras.departamentosPrincipales.join(', ')}.
   </p>
 

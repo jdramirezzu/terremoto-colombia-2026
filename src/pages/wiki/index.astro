@@ -20,6 +20,11 @@ entries.sort((a, b) => a.data.orden - b.data.orden);
       <a class="card" href={`/wiki/${entry.slug}/`}>
         <h3>{entry.data.titulo}</h3>
         <p>{entry.data.resumen}</p>
+        {entry.data.estado === 'verificado' ? (
+          <span class="verify-badge verify-badge--ok">✅ Verificado</span>
+        ) : (
+          <span class="verify-badge verify-badge--warn">⚠️ Sin verificar</span>
+        )}
       </a>
     ))}
   </div>
