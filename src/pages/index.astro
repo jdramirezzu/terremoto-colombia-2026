@@ -22,13 +22,24 @@ function historial(campo: 'fallecidos' | 'heridos' | 'desaparecidos') {
   return serie(campo).map((p) => p.valor);
 }
 
-const fallecidosPorDepto = corte.fallecidosPorDepartamento
-  ? Object.entries(corte.fallecidosPorDepartamento).map(([nombre, valor]) => ({
-      nombre,
-      valor: valor as number,
-      href: `/wiki/${regionesData.departamentos.find((d) => d.nombre === nombre)?.slug ?? ''}/`,
-    }))
-  : [];
+// Desglose regional para el filtro — cada métrica trae su propia fecha de
+// corte y fuente (no todas vienen del mismo momento, ver
+// $schemaDesgloseRegional en cifras.json). Se le agrega una fecha legible
+// acá para no repetir lógica de formateo en el cliente.
+const desgloseRegional = Object.fromEntries(
+  Object.entries(cifras.desgloseRegional).map(([metrica, info]) => [
+    metrica,
+    {
+      ...info,
+      fechaCorteLegible: new Date(info.fechaCorte).toLocaleDateString('es-CO', {
+        day: 'numeric',
+        month: 'short',
+        timeZone: 'UTC',
+      }),
+    },
+  ]),
+);
+
 // timeZone: 'UTC' evita que un build corrido en Colombia (UTC-5) muestre el
 // día anterior — las fechas en cifras.json son solo-fecha, ancladas a
 // medianoche UTC por el parser de Date.
@@ -100,44 +111,41 @@ const wikiLinks = [
 
   <h2 id="cifras">Cifras oficiales — corte {fechaCorte}</h2>
 
-  {fallecidosPorDepto.length > 0 && (
-    <div class="filtro-region">
-      <label for="filtro-cifras-select">Ver cifras de:</label>
-      <select id="filtro-cifras-select">
-        <option value="">Colombia (nacional)</option>
-        {fallecidosPorDepto.map((d) => (
-          <option value={d.nombre} data-fallecidos={d.valor}>{d.nombre}</option>
-        ))}
-      </select>
-    </div>
-  )}
+  <div class="filtro-region">
+    <label for="filtro-cifras-select">Ver cifras de:</label>
+    <select id="filtro-cifras-select">
+      <option value="">Colombia (nacional)</option>
+      {regionesData.departamentos.map((d) => <option value={d.nombre}>{d.nombre}</option>)}
+    </select>
+  </div>
   <p class="source-note" id="nota-filtro-cifras" hidden>
-    📍 Mostrando <strong>fallecidos</strong> específicos del departamento elegido
-    (fuente: {corte.fuenteFallecidosPorDepartamento}). El resto de las cifras de
-    esta página sigue siendo la cifra nacional — todavía no tenemos ese desglose
-    por departamento. ¿Lo tienes? <a href="/reportar/">Repórtalo</a>.
+    📍 Mostrando lo que tenemos para el departamento elegido. Cada cifra indica su
+    propia fecha de corte — no todas vienen del mismo momento, y las que dicen
+    <strong>"cifra nacional"</strong> es porque todavía no encontramos ese dato
+    desagregado por departamento. ¿Lo tienes? <a href="/reportar/">Repórtalo</a>.
   </p>
+  <script type="application/json" id="desglose-regional-data" set:html={JSON.stringify(desgloseRegional)} />
 
   <h3 class="subgrupo-titulo">Personas</h3>
   <div class="stat-grid">
-    <StatTile id="stat-fallecidos" label="Fallecidos" value={corte.fallecidos} serie={historial('fallecidos')} />
-    <StatTile label="Heridos" value={corte.heridos} serie={historial('heridos')} />
-    <StatTile label="Desaparecidos" value={corte.desaparecidos} serie={historial('desaparecidos')} />
-    <StatTile label="Personas afectadas" value={corte.personasAfectadas} />
+    <StatTile label="Fallecidos" value={corte.fallecidos} serie={historial('fallecidos')} metric="fallecidos" />
+    <StatTile label="Heridos" value={corte.heridos} serie={historial('heridos')} metric="heridos" />
+    <StatTile label="Desaparecidos" value={corte.desaparecidos} serie={historial('desaparecidos')} metric="desaparecidos" />
+    <StatTile label="Personas afectadas" value={corte.personasAfectadas} metric="personasAfectadas" />
   </div>
 
   <h3 class="subgrupo-titulo">Infraestructura</h3>
   <div class="stat-grid">
-    <StatTile label="Viviendas destruidas" value={corte.viviendasDestruidas} />
-    <StatTile label="Viviendas averiadas" value={corte.viviendasAveriadas} />
-    <StatTile label="Edificios colapsados" value={corte.edificiosColapsados} />
-    <StatTile label="Centros educativos afectados" value={corte.centrosEducativosAfectados} />
-    <StatTile label="Centros comunitarios afectados" value={corte.centrosComunitariosAfectados} />
-    <StatTile label="Centros de salud afectados" value={corte.centrosSaludAfectados} />
+    <StatTile label="Viviendas destruidas" value={corte.viviendasDestruidas} metric="viviendasDestruidas" />
+    <StatTile label="Viviendas averiadas" value={corte.viviendasAveriadas} metric="viviendasAveriadas" />
+    <StatTile label="Edificios colapsados" value={corte.edificiosColapsados} metric="edificiosColapsados" />
+    <StatTile label="Centros educativos afectados" value={corte.centrosEducativosAfectados} metric="centrosEducativosAfectados" />
+    <StatTile label="Centros comunitarios afectados" value={corte.centrosComunitariosAfectados} metric="centrosComunitariosAfectados" />
+    <StatTile label="Centros de salud afectados" value={corte.centrosSaludAfectados} metric="centrosSaludAfectados" />
   </div>
 
   <p class="source-note">
-    Fuente: {corte.fuente} — <a href={corte.fuenteUrl} target="_blank" rel="noopener">ver reporte ↗</a>.
+    Fuente (cifras nacionales): {corte.fuente} — <a href={corte.fuenteUrl} target="_blank" rel="noopener">ver reporte ↗</a>.
     Los pequeños gráficos de "Personas" muestran los cortes anteriores — ver
     el detalle completo más abajo en "Cómo ha evolucionado".
   </p>
@@ -181,42 +189,77 @@ const wikiLinks = [
 </Layout>
 
 <script>
-  // Filtro de región para la sección de cifras: NO es para comparar
-  // departamentos entre sí, es para que alguien vea la cifra de su propio
-  // departamento. Por ahora solo "fallecidos" tiene desglose regional real
-  // — se actualiza ese tile en el lugar (valor + etiqueta) y se oculta su
-  // delta/sparkline nacional mientras está activo, para no insinuar una
-  // tendencia regional que no medimos. El resto de los tiles se queda
-  // igual (cifra nacional) y la nota debajo del selector lo deja explícito.
+  // Filtro de región para TODA la sección de cifras (Personas +
+  // Infraestructura): NO es para comparar departamentos entre sí, es para
+  // que alguien vea las cifras de su propio departamento. Genérico sobre
+  // cualquier tile con data-metric — donde el desglose regional (embebido
+  // más arriba como JSON) tiene dato para ese metric+departamento, se
+  // actualiza el tile en el lugar; donde no, se queda en la cifra nacional
+  // y se marca explícitamente como tal, para no fingir un desglose que no
+  // existe.
+  interface InfoMetrica {
+    fechaCorte: string;
+    fechaCorteLegible: string;
+    fuente: string;
+    valores: Record<string, number | null>;
+  }
+
   function activarFiltroCifras() {
     const select = document.querySelector<HTMLSelectElement>('#filtro-cifras-select');
-    const tileFallecidos = document.querySelector<HTMLElement>('#stat-fallecidos');
     const nota = document.querySelector<HTMLElement>('#nota-filtro-cifras');
-    if (!select || !tileFallecidos || !nota) return;
+    const datosEl = document.querySelector<HTMLScriptElement>('#desglose-regional-data');
+    if (!select || !nota || !datosEl) return;
 
-    const valorEl = tileFallecidos.querySelector<HTMLElement>('.value');
-    const labelEl = tileFallecidos.querySelector<HTMLElement>('.label');
-    const labelNacional = tileFallecidos.dataset.labelNacional ?? '';
-    const valorNacional = tileFallecidos.dataset.valueNacional ?? '';
+    const desglose = JSON.parse(datosEl.textContent || '{}') as Record<string, InfoMetrica>;
+    const tiles = document.querySelectorAll<HTMLElement>('[data-metric]');
     const fmt = new Intl.NumberFormat('es-CO');
 
     select.addEventListener('change', () => {
-      const opcion = select!.selectedOptions[0];
       const depto = select!.value;
-      const fallecidosDepto = opcion?.dataset.fallecidos;
+      nota!.hidden = !depto;
 
-      if (!depto || !fallecidosDepto) {
-        if (valorEl) valorEl.textContent = valorNacional === '' ? '—' : fmt.format(Number(valorNacional));
-        if (labelEl) labelEl.textContent = labelNacional;
-        tileFallecidos!.classList.remove('regional-activo');
-        nota!.hidden = true;
-        return;
-      }
+      tiles.forEach((tile) => {
+        const metric = tile.dataset.metric ?? '';
+        const valorEl = tile.querySelector<HTMLElement>('.value');
+        const labelEl = tile.querySelector<HTMLElement>('.label');
+        const tagEl = tile.querySelector<HTMLElement>('.region-tag');
+        const labelNacional = tile.dataset.labelNacional ?? '';
+        const valorNacional = tile.dataset.valueNacional ?? '';
+        const nacionalTexto = valorNacional === '' ? '—' : fmt.format(Number(valorNacional));
 
-      if (valorEl) valorEl.textContent = fmt.format(Number(fallecidosDepto));
-      if (labelEl) labelEl.textContent = `Fallecidos en ${depto}`;
-      tileFallecidos!.classList.add('regional-activo');
-      nota!.hidden = false;
+        const restaurarNacional = () => {
+          if (valorEl) valorEl.textContent = nacionalTexto;
+          if (labelEl) labelEl.textContent = labelNacional;
+          tile.classList.remove('regional-activo');
+        };
+
+        if (!depto) {
+          restaurarNacional();
+          if (tagEl) tagEl.hidden = true;
+          return;
+        }
+
+        const infoMetrica = desglose[metric];
+        const valorRegional = infoMetrica?.valores?.[depto];
+
+        if (infoMetrica && valorRegional !== undefined && valorRegional !== null) {
+          if (valorEl) valorEl.textContent = fmt.format(valorRegional);
+          if (labelEl) labelEl.textContent = `${labelNacional} en ${depto}`;
+          tile.classList.add('regional-activo');
+          if (tagEl) {
+            tagEl.hidden = false;
+            tagEl.className = 'region-tag';
+            tagEl.textContent = `📍 corte ${infoMetrica.fechaCorteLegible}`;
+          }
+        } else {
+          restaurarNacional();
+          if (tagEl) {
+            tagEl.hidden = false;
+            tagEl.className = 'region-tag region-tag--nacional';
+            tagEl.textContent = 'cifra nacional (sin desglose)';
+          }
+        }
+      });
     });
   }
   activarFiltroCifras();

@@ -25,10 +25,38 @@ const { depto, entries } = Astro.props;
 const { nacional, departamento, municipiosSlugs } = entriesForDepartamento(entries, depto.slug);
 const combinadas = [...nacional, ...departamento];
 
-const corte = cifras.cortes[cifras.cortes.length - 1];
+const MOSTRAR_METRICA: Record<string, string> = {
+  fallecidos: 'Fallecidos',
+  heridos: 'Heridos',
+  desaparecidos: 'Desaparecidos',
+  viviendasDestruidas: 'Viviendas destruidas',
+  viviendasAveriadas: 'Viviendas averiadas',
+  edificiosColapsados: 'Edificios colapsados',
+  centrosEducativosAfectados: 'Centros educativos afectados',
+  centrosComunitariosAfectados: 'Centros comunitarios afectados',
+  centrosSaludAfectados: 'Centros de salud afectados',
+};
+
 // Coincide por nombre exacto contra data/cifras.json — si el nombre de un
-// departamento cambia en un archivo, cambia en el otro (son solo 5).
-const fallecidosDepto = (corte.fallecidosPorDepartamento as Record<string, number>)[depto.nombre];
+// departamento cambia en un archivo, cambia en el otro (son solo 5). Cada
+// métrica trae su propia fecha de corte — no todas vienen del mismo
+// momento (ver $schemaDesgloseRegional en cifras.json) — así que solo se
+// muestran las que sí tienen dato para este departamento, sin rellenar
+// huecos.
+const cifrasDepto = Object.entries(cifras.desgloseRegional)
+  .map(([metrica, info]) => ({
+    metrica,
+    label: MOSTRAR_METRICA[metrica] ?? metrica,
+    valor: info.valores[depto.nombre as keyof typeof info.valores],
+    fechaCorte: info.fechaCorte,
+    fuente: info.fuente,
+    fuenteUrl: info.fuenteUrl,
+  }))
+  .filter((c) => c.valor !== null && c.valor !== undefined);
+
+// Fuentes únicas citadas abajo del grid, sin repetir la misma línea por
+// cada métrica que comparte fuente.
+const fuentesDepto = [...new Map(cifrasDepto.map((c) => [c.fuenteUrl, c])).values()];
 
 function nombreMunicipio(slug: string) {
   const entry = entries.find((e) => e.slug.includes(`/${slug}/`) && e.data.municipio);
@@ -43,13 +71,22 @@ function nombreMunicipio(slug: string) {
   <p><a href="/wiki/">← Volver a la wiki</a></p>
   <h1>Ayuda en {depto.nombre}</h1>
 
-  {fallecidosDepto !== undefined && (
+  {cifrasDepto.length > 0 && (
     <>
       <div class="stat-grid">
-        <StatTile label={`Fallecidos reportados en ${depto.nombre}`} value={fallecidosDepto} />
+        {cifrasDepto.map((c) => (
+          <StatTile label={`${c.label} en ${depto.nombre}`} value={c.valor as number} />
+        ))}
       </div>
       <p class="source-note">
-        Fuente: {corte.fuenteFallecidosPorDepartamento}
+        {fuentesDepto.map((f, i) => (
+          <>
+            {i > 0 && ' · '}
+            Fuente ({new Date(f.fechaCorte).toLocaleDateString('es-CO', { day: 'numeric', month: 'short', timeZone: 'UTC' })}): {f.fuente}
+          </>
+        ))}
+        . No todas las cifras de esta página vienen del mismo corte — puede que
+        no sumen exactamente con las cifras nacionales de la portada.
       </p>
     </>
   )}

@@ -85,14 +85,128 @@
       "centrosEducativosAfectados": 2198,
       "centrosComunitariosAfectados": 825,
       "centrosSaludAfectados": 216,
-      "fuenteFallecidosPorDepartamento": "Semana, citando el balance de la UNGRD del 13 de agosto: https://www.semana.com/nacion/cali/articulo/ungrd-emite-nuevo-balance-sobre-el-terremoto-del-10-de-agosto-valle-y-risaralda-con-la-mayor-cifra-de-personas-fallecidas/202632/ — suma 272 de los 273 fallecidos totales (diferencia probablemente por un caso pendiente de clasificar geográficamente al momento del reporte).",
-      "fallecidosPorDepartamento": {
+      "fuenteFallecidosPorDepartamento": null,
+      "fallecidosPorDepartamento": null
+    }
+  ],
+  "$schemaDesgloseRegional": "Cifras por departamento — cada MÉTRICA tiene su propia fuente y fecha de corte, no una sola para todo. 'fallecidos' viene del corte del 13 de agosto (el más reciente); el resto de las métricas vienen de un corte del 11 de agosto, dos días antes — por eso NO deben sumar los totales nacionales de 'cortes' arriba, son una foto de un momento distinto de la emergencia. null = no encontramos ese dato a nivel departamental para ese departamento, no es un cero real.",
+  "desgloseRegional": {
+    "fallecidos": {
+      "fechaCorte": "2026-08-13",
+      "fuente": "Semana, citando el balance de la UNGRD del 13 de agosto",
+      "fuenteUrl": "https://www.semana.com/nacion/cali/articulo/ungrd-emite-nuevo-balance-sobre-el-terremoto-del-10-de-agosto-valle-y-risaralda-con-la-mayor-cifra-de-personas-fallecidas/202632/",
+      "verificadoPor": "Suma 272 de los 273 fallecidos nacionales del mismo corte (diferencia probablemente por un caso pendiente de clasificar geográficamente al momento del reporte).",
+      "valores": {
         "Valle del Cauca": 148,
         "Risaralda": 104,
         "Chocó": 13,
         "Caldas": 6,
         "Quindío": 1
       }
+    },
+    "heridos": {
+      "fechaCorte": "2026-08-11",
+      "fuente": "Balance departamental UNGRD, corte mañana 11 de agosto — reportado por Valora Analitik",
+      "fuenteUrl": "https://www.valoraanalitik.com/terremoto-en-colombia-balance-de-departamentos-y-ciudades-mas-afectadas/",
+      "verificadoPor": "Fuente única, sin cruzar con un segundo medio todavía — tratar como referencia, no como confirmado.",
+      "valores": {
+        "Valle del Cauca": 1648,
+        "Risaralda": 224,
+        "Chocó": 131,
+        "Caldas": 274,
+        "Quindío": 306
+      }
+    },
+    "desaparecidos": {
+      "fechaCorte": "2026-08-11",
+      "fuente": "Balance departamental UNGRD, corte mañana 11 de agosto — reportado por Valora Analitik",
+      "fuenteUrl": "https://www.valoraanalitik.com/terremoto-en-colombia-balance-de-departamentos-y-ciudades-mas-afectadas/",
+      "verificadoPor": "Fuente única — no reportó cifra departamental de desaparecidos para Caldas ni Quindío en este corte.",
+      "valores": {
+        "Valle del Cauca": 171,
+        "Risaralda": 14,
+        "Chocó": 10,
+        "Caldas": null,
+        "Quindío": null
+      }
+    },
+    "viviendasDestruidas": {
+      "fechaCorte": "2026-08-11",
+      "fuente": "Balance departamental UNGRD, corte mañana 11 de agosto — reportado por Valora Analitik",
+      "fuenteUrl": "https://www.valoraanalitik.com/terremoto-en-colombia-balance-de-departamentos-y-ciudades-mas-afectadas/",
+      "verificadoPor": "Fuente única, sin cruzar con un segundo medio todavía.",
+      "valores": {
+        "Valle del Cauca": 256,
+        "Risaralda": 0,
+        "Chocó": 715,
+        "Caldas": 156,
+        "Quindío": 3
+      }
+    },
+    "viviendasAveriadas": {
+      "fechaCorte": "2026-08-11",
+      "fuente": "Balance departamental UNGRD, corte mañana 11 de agosto — reportado por Valora Analitik",
+      "fuenteUrl": "https://www.valoraanalitik.com/terremoto-en-colombia-balance-de-departamentos-y-ciudades-mas-afectadas/",
+      "verificadoPor": "Fuente única, sin cruzar con un segundo medio todavía.",
+      "valores": {
+        "Valle del Cauca": 1073,
+        "Risaralda": 40,
+        "Chocó": 1832,
+        "Caldas": 1959,
+        "Quindío": 2144
+      }
+    },
+    "edificiosColapsados": {
+      "fechaCorte": "2026-08-11",
+      "fuente": "Balance departamental UNGRD, corte mañana 11 de agosto — reportado por Valora Analitik",
+      "fuenteUrl": "https://www.valoraanalitik.com/terremoto-en-colombia-balance-de-departamentos-y-ciudades-mas-afectadas/",
+      "verificadoPor": "Fuente única — no reportó cifra departamental para Chocó ni Quindío en este corte.",
+      "valores": {
+        "Valle del Cauca": 44,
+        "Risaralda": 0,
+        "Chocó": null,
+        "Caldas": 4,
+        "Quindío": null
+      }
+    },
+    "centrosEducativosAfectados": {
+      "fechaCorte": "2026-08-11",
+      "fuente": "Balance departamental UNGRD, corte mañana 11 de agosto — reportado por Valora Analitik",
+      "fuenteUrl": "https://www.valoraanalitik.com/terremoto-en-colombia-balance-de-departamentos-y-ciudades-mas-afectadas/",
+      "verificadoPor": "Fuente única — solo reportó esta cifra a nivel departamental para Caldas; para los demás solo hay cifras a nivel de la ciudad capital, que no son lo mismo que el departamento y se dejan fuera para no confundir.",
+      "valores": {
+        "Valle del Cauca": null,
+        "Risaralda": null,
+        "Chocó": null,
+        "Caldas": 220,
+        "Quindío": null
+      }
+    },
+    "centrosComunitariosAfectados": {
+      "fechaCorte": "2026-08-11",
+      "fuente": "Balance departamental UNGRD, corte mañana 11 de agosto — reportado por Valora Analitik",
+      "fuenteUrl": "https://www.valoraanalitik.com/terremoto-en-colombia-balance-de-departamentos-y-ciudades-mas-afectadas/",
+      "verificadoPor": "Fuente única — solo reportó esta cifra a nivel departamental para Caldas.",
+      "valores": {
+        "Valle del Cauca": null,
+        "Risaralda": null,
+        "Chocó": null,
+        "Caldas": 76,
+        "Quindío": null
+      }
+    },
+    "centrosSaludAfectados": {
+      "fechaCorte": "2026-08-11",
+      "fuente": "Balance departamental UNGRD, corte mañana 11 de agosto — reportado por Valora Analitik",
+      "fuenteUrl": "https://www.valoraanalitik.com/terremoto-en-colombia-balance-de-departamentos-y-ciudades-mas-afectadas/",
+      "verificadoPor": "Fuente única — solo reportó esta cifra a nivel departamental para Caldas.",
+      "valores": {
+        "Valle del Cauca": null,
+        "Risaralda": null,
+        "Chocó": null,
+        "Caldas": 15,
+        "Quindío": null
+      }
     }
-  ]
+  }
 }

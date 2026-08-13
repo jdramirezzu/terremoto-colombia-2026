@@ -8,9 +8,15 @@ interface Props {
   // Valores históricos en orden cronológico (el último debe ser === value).
   // Opcional: no todas las cifras tienen más de un corte todavía.
   serie?: number[];
+  // Clave dentro de data/cifras.json → desgloseRegional, para que el
+  // filtro de región (en index.astro) sepa qué tile actualizar y con qué
+  // dato. Sin esto, el tile nunca cambia con el filtro — se queda
+  // nacional siempre (correcto para métricas sin desglose, como
+  // "Personas afectadas").
+  metric?: string;
 }
 
-const { id, label, value, serie } = Astro.props;
+const { id, label, value, serie, metric } = Astro.props;
 const fmt = new Intl.NumberFormat('es-CO');
 const formatted = value === null ? '—' : fmt.format(value);
 
@@ -44,7 +50,13 @@ const ultimoPunto = historial.length
   : null;
 ---
 
-<div class="stat-tile" id={id} data-label-nacional={label} data-value-nacional={value ?? ''}>
+<div
+  class="stat-tile"
+  id={id}
+  data-metric={metric}
+  data-label-nacional={label}
+  data-value-nacional={value ?? ''}
+>
   <div class="value">{formatted}</div>
   <div class="label">{label}</div>
   {delta !== null && (
@@ -60,4 +72,5 @@ const ultimoPunto = historial.length
       )}
     </svg>
   )}
+  {metric && <div class="region-tag" hidden></div>}
 </div>
