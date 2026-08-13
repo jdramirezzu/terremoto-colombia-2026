@@ -1,10 +1,31 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import StatTile from '../components/StatTile.astro';
+import GraficoLinea from '../components/charts/GraficoLinea.astro';
+import GraficoBarras from '../components/charts/GraficoBarras.astro';
 import cifras from '../../data/cifras.json';
 import regionesData from '../../data/regiones.json';
 
 const corte = cifras.cortes[cifras.cortes.length - 1];
+
+// Series de tiempo para los gráficos — se arma sola a partir de cifras.json,
+// así que agregar un corte nuevo ahí (dato editorial) hace crecer el
+// gráfico solo, sin tocar código. Se filtran los null: en una emergencia en
+// curso no todos los cortes reportan las mismas cifras, y mostrar un hueco
+// es más honesto que inventar un valor.
+function serie(campo: 'fallecidos' | 'heridos' | 'desaparecidos') {
+  return cifras.cortes
+    .filter((c) => c[campo] !== null && c[campo] !== undefined)
+    .map((c) => ({ etiqueta: c.etiqueta ?? c.fechaCorte, valor: c[campo] as number }));
+}
+
+const fallecidosPorDepto = corte.fallecidosPorDepartamento
+  ? Object.entries(corte.fallecidosPorDepartamento).map(([nombre, valor]) => ({
+      nombre,
+      valor: valor as number,
+      href: `/wiki/${regionesData.departamentos.find((d) => d.nombre === nombre)?.slug ?? ''}/`,
+    }))
+  : [];
 // timeZone: 'UTC' evita que un build corrido en Colombia (UTC-5) muestre el
 // día anterior — las fechas en cifras.json son solo-fecha, ancladas a
 // medianoche UTC por el parser de Date.
@@ -86,6 +107,29 @@ const wikiLinks = [
   <p class="source-note">
     Fuente: {corte.fuente} — <a href={corte.fuenteUrl} target="_blank" rel="noopener">ver reporte ↗</a>.
   </p>
+
+  <h2>Cómo ha evolucionado</h2>
+  <p class="source-note">
+    Cada punto es un corte oficial distinto, con su propia fuente (pasa el mouse o
+    entra con teclado para ver el detalle). Es normal que algunas cifras bajen y
+    otras suban entre un corte y el siguiente — así se ve una emergencia real
+    mientras la información se va confirmando, no un error.
+  </p>
+  <div class="charts-grid">
+    <GraficoLinea id="grafico-fallecidos" titulo="Fallecidos" puntos={serie('fallecidos')} />
+    <GraficoLinea id="grafico-heridos" titulo="Heridos" puntos={serie('heridos')} />
+    <GraficoLinea id="grafico-desaparecidos" titulo="Desaparecidos" puntos={serie('desaparecidos')} />
+  </div>
+
+  {fallecidosPorDepto.length > 0 && (
+    <>
+      <h2>Fallecidos por departamento</h2>
+      <div class="charts-grid">
+        <GraficoBarras id="grafico-fallecidos-depto" titulo={`Corte ${fechaCorte}`} barras={fallecidosPorDepto} />
+      </div>
+      <p class="source-note">Fuente: {corte.fuenteFallecidosPorDepartamento}</p>
+    </>
+  )}
 
   <h2>Cómo ayudar</h2>
   <div class="card-grid">

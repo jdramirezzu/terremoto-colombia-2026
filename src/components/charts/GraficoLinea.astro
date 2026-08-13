@@ -1,0 +1,134 @@
+---
+// Gráfico de línea de una sola serie (magnitud en el tiempo). Eje X
+// categórico por etiqueta de corte (los cortes no están espaciados en el
+// tiempo de forma uniforme — un eje temporal real exageraría huecos que no
+// existen), eje Y lineal desde 0. Un solo hue (--accent): es una serie,
+// no varias, así que no hace falta paleta categórica ni leyenda.
+interface Punto {
+  etiqueta: string;
+  valor: number;
+}
+
+interface Props {
+  puntos: Punto[];
+  titulo: string;
+  id: string;
+}
+
+const { puntos, titulo, id } = Astro.props;
+
+const W = 480;
+const H = 180;
+const PAD_L = 12;
+const PAD_R = 12;
+const PAD_T = 20;
+const PAD_B = 28;
+
+const valores = puntos.map((p) => p.valor);
+const max = Math.max(...valores);
+const yMax = max * 1.15 || 1;
+const yMin = 0;
+
+function x(i: number) {
+  if (puntos.length === 1) return PAD_L;
+  return PAD_L + (i / (puntos.length - 1)) * (W - PAD_L - PAD_R);
+}
+function y(v: number) {
+  return H - PAD_B - ((v - yMin) / (yMax - yMin)) * (H - PAD_T - PAD_B);
+}
+
+const lineaPuntos = puntos.map((p, i) => `${x(i)},${y(p.valor)}`).join(' ');
+const ultimo = puntos[puntos.length - 1];
+const formateador = new Intl.NumberFormat('es-CO');
+---
+
+<div class="grafico-linea" data-grafico-linea>
+  <h3 class="grafico-titulo">{titulo}</h3>
+  <div class="grafico-svg-wrap">
+    <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-labelledby={`${id}-desc`} class="grafico-svg">
+      <desc id={`${id}-desc`}>
+        {titulo}: {puntos.map((p) => `${p.etiqueta} ${formateador.format(p.valor)}`).join(', ')}.
+      </desc>
+      <line x1={PAD_L} y1={H - PAD_B} x2={W - PAD_R} y2={H - PAD_B} class="grafico-eje" />
+      <polyline points={lineaPuntos} class="grafico-linea-trazo" />
+      {puntos.map((p, i) => (
+        <g>
+          <circle cx={x(i)} cy={y(p.valor)} r="4" class="grafico-punto" />
+          <circle
+            cx={x(i)}
+            cy={y(p.valor)}
+            r="14"
+            class="grafico-punto-hit"
+            tabindex="0"
+            role="img"
+            aria-label={`${p.etiqueta}: ${formateador.format(p.valor)}`}
+            data-etiqueta={p.etiqueta}
+            data-valor={formateador.format(p.valor)}
+          />
+          <text x={x(i)} y={H - PAD_B + 16} class="grafico-eje-label" text-anchor={i === 0 ? 'start' : i === puntos.length - 1 ? 'end' : 'middle'}>
+            {p.etiqueta}
+          </text>
+        </g>
+      ))}
+      <text x={x(puntos.length - 1)} y={y(ultimo.valor) - 12} class="grafico-valor-final" text-anchor="end">
+        {formateador.format(ultimo.valor)}
+      </text>
+    </svg>
+    <div class="grafico-tooltip" hidden></div>
+  </div>
+  <details class="grafico-tabla">
+    <summary>Ver como tabla</summary>
+    <table>
+      <thead>
+        <tr><th>Corte</th><th>Valor</th></tr>
+      </thead>
+      <tbody>
+        {puntos.map((p) => (
+          <tr><td>{p.etiqueta}</td><td>{formateador.format(p.valor)}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </details>
+</div>
+
+<script>
+  function activarGraficosLinea() {
+    document.querySelectorAll<HTMLElement>('[data-grafico-linea]').forEach((contenedor) => {
+      const tooltip = contenedor.querySelector<HTMLElement>('.grafico-tooltip');
+      if (!tooltip) return;
+
+      function mostrar(punto: SVGCircleElement) {
+        const etiqueta = punto.dataset.etiqueta ?? '';
+        const valor = punto.dataset.valor ?? '';
+        tooltip!.innerHTML = '';
+        const strong = document.createElement('strong');
+        strong.textContent = valor;
+        const span = document.createElement('span');
+        span.textContent = etiqueta;
+        tooltip!.append(strong, document.createElement('br'), span);
+        tooltip!.hidden = false;
+
+        const cx = punto.cx.baseVal.value;
+        const cy = punto.cy.baseVal.value;
+        const svg = punto.ownerSVGElement!;
+        const ptRect = svg.getBoundingClientRect();
+        const escalaX = ptRect.width / svg.viewBox.baseVal.width;
+        const escalaY = ptRect.height / svg.viewBox.baseVal.height;
+        tooltip!.style.left = `${cx * escalaX}px`;
+        tooltip!.style.top = `${cy * escalaY}px`;
+      }
+      function ocultar() {
+        tooltip!.hidden = true;
+      }
+
+      contenedor.querySelectorAll<SVGCircleElement>('.grafico-punto-hit').forEach((punto) => {
+        punto.addEventListener('pointerenter', () => mostrar(punto));
+        punto.addEventListener('focus', () => mostrar(punto));
+        punto.addEventListener('pointerleave', ocultar);
+        punto.addEventListener('blur', ocultar);
+      });
+    });
+  }
+  activarGraficosLinea();
+  document.addEventListener('astro:page-load', activarGraficosLinea);
+</script>

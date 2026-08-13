@@ -1,11 +1,13 @@
 ---
 interface Props {
   label: string;
-  value: number;
+  // null: dato no reportado todavía en este corte — normal en una
+  // emergencia en curso, se muestra como "—" en vez de un 0 engañoso.
+  value: number | null;
 }
 
 const { label, value } = Astro.props;
-const formatted = new Intl.NumberFormat('es-CO').format(value);
+const formatted = value === null ? '—' : new Intl.NumberFormat('es-CO').format(value);
 ---
 
 <div class="stat-tile">
