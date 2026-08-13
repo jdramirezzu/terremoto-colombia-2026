@@ -127,6 +127,11 @@ a {
   margin-top: 24px;
 }
 
+.nota-verificacion {
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

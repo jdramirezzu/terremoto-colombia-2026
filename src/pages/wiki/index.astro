@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import NotaVerificacion from '../../components/NotaVerificacion.astro';
 import { getCollection } from 'astro:content';
 import { parseWikiSlug } from '../../lib/wiki';
 import regionesData from '../../../data/regiones.json';
@@ -24,14 +25,10 @@ const nacionales = entries
       <a class="card" href={`/wiki/${entry.slug}/`}>
         <h3>{entry.data.titulo}</h3>
         <p>{entry.data.resumen}</p>
-        {entry.data.estado === 'verificado' ? (
-          <span class="verify-badge verify-badge--ok">✅ Verificado</span>
-        ) : (
-          <span class="verify-badge verify-badge--warn">⚠️ Sin verificar</span>
-        )}
       </a>
     ))}
   </div>
+  <NotaVerificacion entries={nacionales} />
 
   <h2>📍 Ayuda por región</h2>
   <p class="source-note">

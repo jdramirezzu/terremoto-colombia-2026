@@ -40,15 +40,9 @@ const fecha = entry.data.fechaVerificacion.toLocaleDateString('es-CO', {
   <h1>{entry.data.titulo}</h1>
 
   <div>
-    {entry.data.estado === 'verificado' ? (
-      <span class="verify-badge verify-badge--ok">✅ Verificado directamente con la fuente</span>
-    ) : (
-      <span class="verify-badge verify-badge--warn">⚠️ Sin verificar — borrador a partir de prensa</span>
-    )}
     <span class="verify-badge">🕓 Última revisión: {fecha}</span>
     <span class="verify-badge">🔗 <a href={entry.data.fuente} target="_blank" rel="noopener">Fuente</a></span>
   </div>
-  <p class="source-note">{entry.data.verificadoPor}</p>
 
   {entry.data.pasos && (
     <>
@@ -58,6 +52,11 @@ const fecha = entry.data.fechaVerificacion.toLocaleDateString('es-CO', {
   )}
 
   <Content />
+
+  <p class="source-note nota-verificacion">
+    {entry.data.estado === 'verificado' ? '✅ Verificado directamente con la fuente oficial.' : '⚠️ Todavía sin verificar directamente con la fuente oficial.'}{' '}
+    {entry.data.verificadoPor}
+  </p>
 
   <FormularioReporte pagina={`/wiki/${entry.slug}/`} titulo="¿Este dato está mal o desactualizado?" />
 </Layout>

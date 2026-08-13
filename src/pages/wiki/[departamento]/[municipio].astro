@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import NotaVerificacion from '../../../components/NotaVerificacion.astro';
 import { getCollection } from 'astro:content';
 import { CATEGORIAS } from '../../../content/config';
 import { entriesForMunicipio, parseWikiSlug } from '../../../lib/wiki';
@@ -66,11 +67,6 @@ const combinadas = [...nacional, ...departamento, ...municipio];
                 <h3>{entry.data.titulo}</h3>
                 <p>{entry.data.resumen}</p>
                 <span class="verify-badge">{etiquetaAlcance}</span>
-                {entry.data.estado === 'verificado' ? (
-                  <span class="verify-badge verify-badge--ok">✅ Verificado</span>
-                ) : (
-                  <span class="verify-badge verify-badge--warn">⚠️ Sin verificar</span>
-                )}
               </a>
             );
           })}
@@ -78,4 +74,5 @@ const combinadas = [...nacional, ...departamento, ...municipio];
       </>
     );
   })}
+  <NotaVerificacion entries={combinadas} />
 </Layout>

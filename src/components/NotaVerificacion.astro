@@ -1,0 +1,40 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entries: CollectionEntry<'wiki'>[];
+}
+
+const { entries } = Astro.props;
+const verificados = entries.filter((e) => e.data.estado === 'verificado');
+const sinVerificar = entries.filter((e) => e.data.estado !== 'verificado');
+---
+
+{entries.length > 0 && (
+  <p class="source-note nota-verificacion">
+    {verificados.length > 0 && (
+      <>
+        ✅ Verificados directamente con su fuente oficial:{' '}
+        {verificados.map((e, i) => (
+          <>
+            {i > 0 && ', '}
+            <a href={`/wiki/${e.slug}/`}>{e.data.titulo}</a>
+          </>
+        ))}
+        .{' '}
+      </>
+    )}
+    {sinVerificar.length > 0 && (
+      <>
+        ⚠️ Todavía sin verificar directamente:{' '}
+        {sinVerificar.map((e, i) => (
+          <>
+            {i > 0 && ', '}
+            <a href={`/wiki/${e.slug}/`}>{e.data.titulo}</a>
+          </>
+        ))}
+        .
+      </>
+    )}
+  </p>
+)}
