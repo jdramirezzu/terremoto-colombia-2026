@@ -4,6 +4,9 @@
   "private": true,
   "description": "Dashboard y wiki de canales oficiales para el terremoto de Colombia de agosto de 2026 (Chocó, Valle del Cauca, Risaralda, Caldas).",
   "type": "module",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
