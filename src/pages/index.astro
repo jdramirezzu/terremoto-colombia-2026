@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import StatTile from '../components/StatTile.astro';
 import GraficoLinea from '../components/charts/GraficoLinea.astro';
-import GraficoBarras from '../components/charts/GraficoBarras.astro';
 import cifras from '../../data/cifras.json';
 import regionesData from '../../data/regiones.json';
 
@@ -101,9 +100,27 @@ const wikiLinks = [
 
   <h2 id="cifras">Cifras oficiales — corte {fechaCorte}</h2>
 
+  {fallecidosPorDepto.length > 0 && (
+    <div class="filtro-region">
+      <label for="filtro-cifras-select">Ver cifras de:</label>
+      <select id="filtro-cifras-select">
+        <option value="">Colombia (nacional)</option>
+        {fallecidosPorDepto.map((d) => (
+          <option value={d.nombre} data-fallecidos={d.valor}>{d.nombre}</option>
+        ))}
+      </select>
+    </div>
+  )}
+  <p class="source-note" id="nota-filtro-cifras" hidden>
+    📍 Mostrando <strong>fallecidos</strong> específicos del departamento elegido
+    (fuente: {corte.fuenteFallecidosPorDepartamento}). El resto de las cifras de
+    esta página sigue siendo la cifra nacional — todavía no tenemos ese desglose
+    por departamento. ¿Lo tienes? <a href="/reportar/">Repórtalo</a>.
+  </p>
+
   <h3 class="subgrupo-titulo">Personas</h3>
   <div class="stat-grid">
-    <StatTile label="Fallecidos" value={corte.fallecidos} serie={historial('fallecidos')} />
+    <StatTile id="stat-fallecidos" label="Fallecidos" value={corte.fallecidos} serie={historial('fallecidos')} />
     <StatTile label="Heridos" value={corte.heridos} serie={historial('heridos')} />
     <StatTile label="Desaparecidos" value={corte.desaparecidos} serie={historial('desaparecidos')} />
     <StatTile label="Personas afectadas" value={corte.personasAfectadas} />
@@ -138,28 +155,6 @@ const wikiLinks = [
     <GraficoLinea id="grafico-desaparecidos" titulo="Desaparecidos" puntos={serie('desaparecidos')} />
   </div>
 
-  {fallecidosPorDepto.length > 0 && (
-    <>
-      <h2>Fallecidos por departamento</h2>
-      <div class="filtro-region">
-        <label for="filtro-region-select">Resaltar un departamento:</label>
-        <select id="filtro-region-select">
-          <option value="">Todos</option>
-          {fallecidosPorDepto.map((d) => <option value={d.nombre}>{d.nombre}</option>)}
-        </select>
-      </div>
-      <p class="source-note">
-        El filtro resalta el departamento en este gráfico y enlaza a su página. Los
-        gráficos de "Cómo ha evolucionado" de arriba son nacionales — no tenemos
-        todavía series históricas por departamento, solo el corte más reciente.
-      </p>
-      <div class="charts-grid">
-        <GraficoBarras id="grafico-fallecidos-depto" titulo={`Corte ${fechaCorte}`} barras={fallecidosPorDepto} />
-      </div>
-      <p class="source-note">Fuente: {corte.fuenteFallecidosPorDepartamento}</p>
-    </>
-  )}
-
   <h2>Cómo ayudar</h2>
   <div class="card-grid">
     {wikiLinks.map((l) => (
@@ -186,33 +181,44 @@ const wikiLinks = [
 </Layout>
 
 <script>
-  // Filtro de "resaltar región" sobre el gráfico de fallecidos por
-  // departamento: aplica la forma "emphasis" (una barra en el hue de
-  // acento, el resto en gris) en vez de un color por departamento —
-  // es la que corresponde cuando el punto es "este departamento", no
-  // "distinguir 5 identidades a la vez".
-  function activarFiltroRegion() {
-    const select = document.querySelector<HTMLSelectElement>('#filtro-region-select');
-    const grafico = document.querySelector<HTMLElement>('#grafico-fallecidos-depto');
-    if (!select || !grafico) return;
+  // Filtro de región para la sección de cifras: NO es para comparar
+  // departamentos entre sí, es para que alguien vea la cifra de su propio
+  // departamento. Por ahora solo "fallecidos" tiene desglose regional real
+  // — se actualiza ese tile en el lugar (valor + etiqueta) y se oculta su
+  // delta/sparkline nacional mientras está activo, para no insinuar una
+  // tendencia regional que no medimos. El resto de los tiles se queda
+  // igual (cifra nacional) y la nota debajo del selector lo deja explícito.
+  function activarFiltroCifras() {
+    const select = document.querySelector<HTMLSelectElement>('#filtro-cifras-select');
+    const tileFallecidos = document.querySelector<HTMLElement>('#stat-fallecidos');
+    const nota = document.querySelector<HTMLElement>('#nota-filtro-cifras');
+    if (!select || !tileFallecidos || !nota) return;
+
+    const valorEl = tileFallecidos.querySelector<HTMLElement>('.value');
+    const labelEl = tileFallecidos.querySelector<HTMLElement>('.label');
+    const labelNacional = tileFallecidos.dataset.labelNacional ?? '';
+    const valorNacional = tileFallecidos.dataset.valueNacional ?? '';
+    const fmt = new Intl.NumberFormat('es-CO');
 
     select.addEventListener('change', () => {
-      const elegido = select!.value;
-      const filas = grafico!.querySelectorAll<HTMLElement>('.grafico-barra-fila');
-      filas.forEach((fila) => {
-        const pista = fila.querySelector<HTMLElement>('.grafico-barra-pista');
-        const nombre = pista?.dataset.nombre;
-        const esElegido = !elegido || nombre === elegido;
-        fila.classList.toggle('desenfasis', !esElegido);
-      });
-      if (elegido) {
-        const filaElegida = [...filas].find(
-          (f) => f.querySelector<HTMLElement>('.grafico-barra-pista')?.dataset.nombre === elegido,
-        );
-        filaElegida?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      const opcion = select!.selectedOptions[0];
+      const depto = select!.value;
+      const fallecidosDepto = opcion?.dataset.fallecidos;
+
+      if (!depto || !fallecidosDepto) {
+        if (valorEl) valorEl.textContent = valorNacional === '' ? '—' : fmt.format(Number(valorNacional));
+        if (labelEl) labelEl.textContent = labelNacional;
+        tileFallecidos!.classList.remove('regional-activo');
+        nota!.hidden = true;
+        return;
       }
+
+      if (valorEl) valorEl.textContent = fmt.format(Number(fallecidosDepto));
+      if (labelEl) labelEl.textContent = `Fallecidos en ${depto}`;
+      tileFallecidos!.classList.add('regional-activo');
+      nota!.hidden = false;
     });
   }
-  activarFiltroRegion();
-  document.addEventListener('astro:page-load', activarFiltroRegion);
+  activarFiltroCifras();
+  document.addEventListener('astro:page-load', activarFiltroCifras);
 </script>

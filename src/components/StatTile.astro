@@ -1,5 +1,6 @@
 ---
 interface Props {
+  id?: string;
   label: string;
   // null: dato no reportado todavía en este corte — normal en una
   // emergencia en curso, se muestra como "—" en vez de un 0 engañoso.
@@ -9,7 +10,7 @@ interface Props {
   serie?: number[];
 }
 
-const { label, value, serie } = Astro.props;
+const { id, label, value, serie } = Astro.props;
 const fmt = new Intl.NumberFormat('es-CO');
 const formatted = value === null ? '—' : fmt.format(value);
 
@@ -43,7 +44,7 @@ const ultimoPunto = historial.length
   : null;
 ---
 
-<div class="stat-tile">
+<div class="stat-tile" id={id} data-label-nacional={label} data-value-nacional={value ?? ''}>
   <div class="value">{formatted}</div>
   <div class="label">{label}</div>
   {delta !== null && (

@@ -158,6 +158,22 @@ a {
   fill: var(--accent);
 }
 
+/* Cuando un StatTile muestra la cifra de un departamento en vez de la
+   nacional, el delta y el sparkline (que son tendencia NACIONAL) se
+   ocultan — mostrarlos junto a un número regional insinuaría una
+   tendencia que no medimos a ese nivel. */
+.stat-tile.regional-activo .stat-delta,
+.stat-tile.regional-activo .stat-sparkline {
+  display: none;
+}
+
+.stat-tile .region-tag {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 0.75rem;
+  color: var(--accent);
+}
+
 .source-note {
   font-size: 0.8rem;
   color: var(--text-muted);
@@ -413,8 +429,7 @@ footer.site {
   margin: 16px 0 24px;
 }
 
-.grafico-linea,
-.grafico-barras {
+.grafico-linea {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -498,58 +513,6 @@ footer.site {
   font-size: 0.9rem;
 }
 
-.grafico-barras-lista {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.grafico-barra-fila {
-  display: grid;
-  grid-template-columns: 110px 1fr;
-  align-items: center;
-  gap: 8px;
-}
-
-.grafico-barra-nombre {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.grafico-barra-pista {
-  position: relative;
-  height: 20px;
-  background: var(--gridline);
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.grafico-barra-pista:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-.grafico-barra-relleno {
-  height: 100%;
-  background: var(--accent);
-  border-radius: 0 4px 4px 0;
-  min-width: 4px;
-}
-
-.grafico-barra-valor {
-  position: absolute;
-  left: calc(100% + 8px);
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  white-space: nowrap;
-}
-
 .grafico-tabla {
   margin-top: 12px;
 }
@@ -601,17 +564,4 @@ footer.site {
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: 6px 10px;
-}
-
-/* Forma "emphasis": la fila elegida se queda en el hue de acento (estilos
-   por defecto de .grafico-barra-relleno), el resto pasa a gris — nunca se
-   reasigna un color por departamento, solo se atenúa. */
-.grafico-barra-fila.desenfasis .grafico-barra-relleno {
-  background: var(--gridline);
-}
-
-.grafico-barra-fila.desenfasis .grafico-barra-nombre,
-.grafico-barra-fila.desenfasis .grafico-barra-valor {
-  color: var(--text-muted);
-  opacity: 0.7;
 }
