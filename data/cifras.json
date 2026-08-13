@@ -10,26 +10,27 @@
   "cortes": [
     {
       "fechaCorte": "2026-08-13",
-      "fuente": "UNGRD, vía El Colombiano y ABC Economía",
-      "fuenteUrl": "https://www.elcolombiano.com/colombia/cifra-muertos-heridos-desaparecidos-por-terremoto-colombia-MK39884181",
-      "verificadoPor": "Borrador inicial — pendiente de contrastar directamente contra el boletín oficial de UNGRD antes de publicar como cifra verificada",
+      "fuente": "David Santiago Tamayo, director de la UNGRD, en rueda de prensa — reportado por El Tiempo y Semana",
+      "fuenteUrl": "https://www.eltiempo.com/colombia/otras-ciudades/balance-oficial-de-la-ungrd-tras-terremoto-de-magnitud-7-4-en-colombia-273-fallecidos-3-824-heridos-y-377-desaparecidos-3578196",
+      "verificadoPor": "Cifras nacionales confirmadas por dos medios independientes (El Tiempo, Semana) citando directamente al director de la UNGRD, con variación menor entre ellos (p. ej. heridos 3.824 vs 3.826, viviendas destruidas 12.584 vs 12.563 — se usó la cifra de El Tiempo por ser la transcripción más completa). NO se encontró un boletín/PDF publicado directamente por gestiondelriesgo.gov.co con estas cifras — UNGRD no parece operar un portal de datos abierto para este evento, solo ruedas de prensa. Si aparece un boletín oficial, reemplazar esta fuente.",
       "fallecidos": 273,
       "heridos": 3824,
       "desaparecidos": 377,
       "familiasAfectadas": 40753,
       "personasAfectadas": 97515,
-      "viviendasDestruidas": 9215,
-      "viviendasAveriadas": 45457,
-      "edificiosColapsados": 140,
-      "centrosEducativosAfectados": 1667,
-      "centrosComunitariosAfectados": 530,
-      "centrosSaludAfectados": 188,
+      "viviendasDestruidas": 12584,
+      "viviendasAveriadas": 74873,
+      "edificiosColapsados": 172,
+      "centrosEducativosAfectados": 2198,
+      "centrosComunitariosAfectados": 825,
+      "centrosSaludAfectados": 216,
+      "fuenteFallecidosPorDepartamento": "Semana, citando el balance de la UNGRD del 13 de agosto: https://www.semana.com/nacion/cali/articulo/ungrd-emite-nuevo-balance-sobre-el-terremoto-del-10-de-agosto-valle-y-risaralda-con-la-mayor-cifra-de-personas-fallecidas/202632/ — suma 272 de los 273 fallecidos totales (diferencia probablemente por un caso pendiente de clasificar geográficamente al momento del reporte).",
       "fallecidosPorDepartamento": {
-        "Valle del Cauca": 125,
-        "Risaralda": 94,
-        "Chocó": 14,
+        "Valle del Cauca": 148,
+        "Risaralda": 104,
+        "Chocó": 13,
         "Caldas": 6,
-        "Antioquia": 1
+        "Quindío": 1
       }
     }
   ]

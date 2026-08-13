@@ -4,7 +4,7 @@ categoria: "donar-dinero"
 resumen: "Cuenta oficial reportada de la Gobernación del Chocó para ayuda humanitaria."
 fuente: "https://www.infobae.com/colombia/2026/08/13/gobierno-anuncia-albergues-energia-y-reconstruccion-para-choco-tras-el-terremoto/"
 estado: "sin-verificar"
-verificadoPor: "Borrador a partir de cobertura de prensa — SIN verificar aún contra la Gobernación del Chocó directamente. No tratar como confirmado."
+verificadoPor: "Intentamos verificar directamente: revisamos choco.gov.co (sección de noticias) y buscamos su cuenta oficial en X — no encontramos el comunicado ahí. El dato SÍ es consistente entre El Colombiano y El Tiempo, con el mismo detalle (NIT, 'Fondo Departamental de Gestión del Riesgo del Chocó', y la frase 'la administración departamental pidió verificar el dato antes de transferir'), lo cual es una señal razonable pero no reemplaza confirmación directa. No tratar como confirmado."
 fechaVerificacion: 2026-08-13
 orden: 1
 ---

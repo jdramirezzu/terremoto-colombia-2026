@@ -5,10 +5,12 @@
 // día coincidieran, Astro fallaría el build al generar rutas duplicadas,
 // así que el conflicto nunca pasa desapercibido.
 import Layout from '../../../layouts/Layout.astro';
+import StatTile from '../../../components/StatTile.astro';
 import { getCollection } from 'astro:content';
 import { CATEGORIAS } from '../../../content/config';
 import { entriesForDepartamento } from '../../../lib/wiki';
 import regionesData from '../../../../data/regiones.json';
+import cifras from '../../../../data/cifras.json';
 
 export async function getStaticPaths() {
   const entries = await getCollection('wiki');
@@ -22,6 +24,11 @@ const { depto, entries } = Astro.props;
 const { nacional, departamento, municipiosSlugs } = entriesForDepartamento(entries, depto.slug);
 const combinadas = [...nacional, ...departamento];
 
+const corte = cifras.cortes[cifras.cortes.length - 1];
+// Coincide por nombre exacto contra data/cifras.json — si el nombre de un
+// departamento cambia en un archivo, cambia en el otro (son solo 5).
+const fallecidosDepto = (corte.fallecidosPorDepartamento as Record<string, number>)[depto.nombre];
+
 function nombreMunicipio(slug: string) {
   const entry = entries.find((e) => e.slug.includes(`/${slug}/`) && e.data.municipio);
   return entry?.data.municipio ?? slug;
@@ -34,6 +41,18 @@ function nombreMunicipio(slug: string) {
 >
   <p><a href="/wiki/">← Volver a la wiki</a></p>
   <h1>Ayuda en {depto.nombre}</h1>
+
+  {fallecidosDepto !== undefined && (
+    <>
+      <div class="stat-grid">
+        <StatTile label={`Fallecidos reportados en ${depto.nombre}`} value={fallecidosDepto} />
+      </div>
+      <p class="source-note">
+        Fuente: {corte.fuenteFallecidosPorDepartamento}
+      </p>
+    </>
+  )}
+
   <p class="source-note">
     Se muestran los canales nacionales junto con los que son específicos de
     este departamento. Si tu ciudad aparece abajo, entra ahí para ver
