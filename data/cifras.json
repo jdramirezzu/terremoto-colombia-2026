@@ -7,7 +7,6 @@
     "epicentro": "San José del Palmar, Chocó",
     "fuenteEpicentro": "https://es.wikipedia.org/wiki/Terremoto_de_Colombia_de_2026"
   },
-  "departamentosPrincipales": ["Valle del Cauca", "Risaralda", "Chocó", "Caldas"],
   "cortes": [
     {
       "fechaCorte": "2026-08-13",

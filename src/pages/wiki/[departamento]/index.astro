@@ -1,0 +1,94 @@
+---
+// Nota de colisión: los slugs de data/regiones.json nunca deben coincidir
+// con los 5 slugs nacionales (reportar-danos, pedir-ayuda, donar-dinero,
+// donar-especie, voluntariado) — ambos viven bajo /wiki/<slug>/. Si algún
+// día coincidieran, Astro fallaría el build al generar rutas duplicadas,
+// así que el conflicto nunca pasa desapercibido.
+import Layout from '../../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { CATEGORIAS } from '../../../content/config';
+import { entriesForDepartamento } from '../../../lib/wiki';
+import regionesData from '../../../../data/regiones.json';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('wiki');
+  return regionesData.departamentos.map((depto) => ({
+    params: { departamento: depto.slug },
+    props: { depto, entries },
+  }));
+}
+
+const { depto, entries } = Astro.props;
+const { nacional, departamento, municipiosSlugs } = entriesForDepartamento(entries, depto.slug);
+const combinadas = [...nacional, ...departamento];
+
+function nombreMunicipio(slug: string) {
+  const entry = entries.find((e) => e.slug.includes(`/${slug}/`) && e.data.municipio);
+  return entry?.data.municipio ?? slug;
+}
+---
+
+<Layout
+  title={`Ayuda en ${depto.nombre}`}
+  description={`Canales oficiales de ayuda para el terremoto, específicos de ${depto.nombre}.`}
+>
+  <p><a href="/wiki/">← Volver a la wiki</a></p>
+  <h1>Ayuda en {depto.nombre}</h1>
+  <p class="source-note">
+    Se muestran los canales nacionales junto con los que son específicos de
+    este departamento. Si tu ciudad aparece abajo, entra ahí para ver
+    también sus canales locales.
+  </p>
+
+  {municipiosSlugs.length > 0 && (
+    <>
+      <h2>Elige tu ciudad</h2>
+      <div class="card-grid">
+        {municipiosSlugs.map((slug) => (
+          <a class="card" href={`/wiki/${depto.slug}/${slug}/`}>
+            <h3>{nombreMunicipio(slug)}</h3>
+            <p>Ver canales locales de {nombreMunicipio(slug)}</p>
+          </a>
+        ))}
+      </div>
+    </>
+  )}
+
+  {CATEGORIAS.map((cat) => {
+    const items = combinadas.filter((e) => e.data.categoria === cat.slug);
+    if (items.length === 0) return null;
+    return (
+      <>
+        <h2>{cat.label}</h2>
+        <div class="card-grid">
+          {items.map((entry) => (
+            <a class="card" href={`/wiki/${entry.slug}/`}>
+              <h3>{entry.data.titulo}</h3>
+              <p>{entry.data.resumen}</p>
+              {entry.data.estado === 'verificado' ? (
+                <span class="verify-badge verify-badge--ok">✅ Verificado</span>
+              ) : (
+                <span class="verify-badge verify-badge--warn">⚠️ Sin verificar</span>
+              )}
+            </a>
+          ))}
+        </div>
+      </>
+    );
+  })}
+
+  {departamento.length === 0 && municipiosSlugs.length === 0 && (
+    <div class="banner">
+      Todavía no tenemos canales específicos de {depto.nombre} más allá de
+      los nacionales de arriba. ¿Los conoces? Puedes agregarlos — ver
+      <a href="https://github.com/jdramirezzu/terremoto-colombia-2026/blob/master/CONTRIBUTING.md" target="_blank" rel="noopener">cómo contribuir</a>.
+    </div>
+  )}
+  {departamento.length === 0 && municipiosSlugs.length > 0 && (
+    <p class="source-note">
+      Todavía no tenemos canales a nivel departamental para {depto.nombre}
+      — solo de las ciudades de arriba. Si conoces uno departamental
+      (gobernación), agrégalo.
+    </p>
+  )}
+</Layout>

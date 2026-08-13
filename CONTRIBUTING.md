@@ -26,11 +26,42 @@ wiki y las cifras.
 4. Abre el Pull Request (GitHub te guía). Alguien del equipo lo revisa
    antes de publicarlo — por el riesgo de canales de donación falsos,
    **el contenido de `donar-dinero` y `donar-especie` siempre pasa por
-   revisión humana antes de mergear**, sin excepción.
+   revisión humana antes de mergear**, sin excepción. Esto aplica igual a
+   contenido regional — una cuenta hiperlocal de una gobernación o
+   alcaldía es exactamente el mismo riesgo de estafa que una nacional.
 
 ¿No tienes cuenta de GitHub o prefieres no usarla? Abre un
 [issue](../../issues/new/choose) describiendo el dato a corregir — alguien
 del equipo lo traslada.
+
+### Agregar contenido de un departamento o ciudad
+
+El contenido regional vive bajo `src/content/wiki/departamentos/` y su
+**alcance se define por la carpeta**, no por un campo dentro del archivo:
+
+```
+src/content/wiki/departamentos/
+  <departamento-slug>/
+    <categoria>.md              # canal departamental (ej. cuenta de una gobernación)
+    <municipio-slug>/
+      <categoria>.md            # canal local de esa ciudad (ej. un punto de acopio)
+```
+
+Para agregar una **ciudad nueva** dentro de un departamento que ya existe
+(ej. Tuluá dentro de Valle del Cauca):
+1. En GitHub, ve a `src/content/wiki/departamentos/valle-del-cauca/`.
+2. "Add file" → "Create new file" y escribe `tulua/donar-especie.md` como
+   nombre — GitHub crea la carpeta `tulua/` automáticamente por la barra.
+3. Llena el frontmatter igual que cualquier otra entrada, agregando
+   `municipio: "Tuluá"` (nombre con tildes, es solo para mostrar en
+   pantalla). No hace falta tocar ningún archivo de código ni una lista
+   central de "ciudades válidas" — la página se genera sola en el
+   siguiente deploy si la carpeta tiene al menos un archivo.
+
+Para agregar un **departamento nuevo** (una decisión de alcance, no solo
+de contenido — implica que confirmamos afectación real): agrega una
+entrada a `data/regiones.json` además de crear los archivos de contenido.
+La revisión del PR es el filtro real de "¿esto de verdad fue afectado?".
 
 ## Ruta 2 — Contribuir código
 

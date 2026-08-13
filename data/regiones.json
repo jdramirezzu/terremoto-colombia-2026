@@ -1,0 +1,10 @@
+{
+  "$schema": "Lista curada de departamentos con página propia en /wiki/. Agregar uno aquí es una decisión de alcance (afectación real confirmada), revisada por PR — no una lista administrativa completa de Colombia.",
+  "departamentos": [
+    { "slug": "valle-del-cauca", "nombre": "Valle del Cauca" },
+    { "slug": "risaralda", "nombre": "Risaralda" },
+    { "slug": "choco", "nombre": "Chocó" },
+    { "slug": "caldas", "nombre": "Caldas" },
+    { "slug": "quindio", "nombre": "Quindío" }
+  ]
+}

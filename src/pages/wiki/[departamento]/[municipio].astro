@@ -1,0 +1,81 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { CATEGORIAS } from '../../../content/config';
+import { entriesForMunicipio, parseWikiSlug } from '../../../lib/wiki';
+import regionesData from '../../../../data/regiones.json';
+
+export async function getStaticPaths() {
+  const validSlugs = new Set(regionesData.departamentos.map((d) => d.slug));
+  const entries = await getCollection('wiki');
+
+  // Solo se genera página para ciudades que realmente tienen al menos un
+  // archivo de contenido — agregar una ciudad nueva es solo crear el
+  // archivo .md, sin tocar ninguna lista central de "ciudades válidas".
+  const claves = new Map<string, { departamentoSlug: string; municipioSlug: string }>();
+  for (const entry of entries) {
+    const p = parseWikiSlug(entry.slug);
+    if (p.ambito !== 'municipio' || !validSlugs.has(p.departamentoSlug!)) continue;
+    claves.set(`${p.departamentoSlug}/${p.municipioSlug}`, {
+      departamentoSlug: p.departamentoSlug!,
+      municipioSlug: p.municipioSlug!,
+    });
+  }
+
+  return [...claves.values()].map(({ departamentoSlug, municipioSlug }) => {
+    const depto = regionesData.departamentos.find((d) => d.slug === departamentoSlug)!;
+    return {
+      params: { departamento: departamentoSlug, municipio: municipioSlug },
+      props: { depto, municipioSlug, entries },
+    };
+  });
+}
+
+const { depto, municipioSlug, entries } = Astro.props;
+const { nacional, departamento, municipio } = entriesForMunicipio(entries, depto.slug, municipioSlug);
+const nombreMunicipio = municipio.find((e) => e.data.municipio)?.data.municipio ?? municipioSlug;
+const combinadas = [...nacional, ...departamento, ...municipio];
+---
+
+<Layout
+  title={`Ayuda en ${nombreMunicipio}, ${depto.nombre}`}
+  description={`Canales oficiales de ayuda para el terremoto, específicos de ${nombreMunicipio}.`}
+>
+  <p>
+    <a href="/wiki/">Wiki</a> → <a href={`/wiki/${depto.slug}/`}>{depto.nombre}</a> → {nombreMunicipio}
+  </p>
+  <h1>Ayuda en {nombreMunicipio}</h1>
+  <p class="source-note">
+    Combina canales nacionales, departamentales ({depto.nombre}) y locales
+    de {nombreMunicipio} — cada tarjeta indica su alcance.
+  </p>
+
+  {CATEGORIAS.map((cat) => {
+    const items = combinadas.filter((e) => e.data.categoria === cat.slug);
+    if (items.length === 0) return null;
+    return (
+      <>
+        <h2>{cat.label}</h2>
+        <div class="card-grid">
+          {items.map((entry) => {
+            const ambito = parseWikiSlug(entry.slug).ambito;
+            const etiquetaAlcance =
+              ambito === 'municipio' ? `📍 ${nombreMunicipio}` : ambito === 'departamento' ? `📍 ${depto.nombre}` : '🇨🇴 Nacional';
+            return (
+              <a class="card" href={`/wiki/${entry.slug}/`}>
+                <h3>{entry.data.titulo}</h3>
+                <p>{entry.data.resumen}</p>
+                <span class="verify-badge">{etiquetaAlcance}</span>
+                {entry.data.estado === 'verificado' ? (
+                  <span class="verify-badge verify-badge--ok">✅ Verificado</span>
+                ) : (
+                  <span class="verify-badge verify-badge--warn">⚠️ Sin verificar</span>
+                )}
+              </a>
+            );
+          })}
+        </div>
+      </>
+    );
+  })}
+</Layout>

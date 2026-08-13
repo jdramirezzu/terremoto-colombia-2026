@@ -5,6 +5,8 @@ title: "[ACOPIO] "
 labels: ["contenido"]
 ---
 
+**Departamento:**
+
 **Ciudad / municipio:**
 
 **Dirección exacta:**

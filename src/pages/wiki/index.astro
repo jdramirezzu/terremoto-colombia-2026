@@ -1,9 +1,13 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { parseWikiSlug } from '../../lib/wiki';
+import regionesData from '../../../data/regiones.json';
 
 const entries = await getCollection('wiki');
-entries.sort((a, b) => a.data.orden - b.data.orden);
+const nacionales = entries
+  .filter((e) => parseWikiSlug(e.slug).ambito === 'nacional')
+  .sort((a, b) => a.data.orden - b.data.orden);
 ---
 
 <Layout title="Wiki de ayuda">
@@ -16,7 +20,7 @@ entries.sort((a, b) => a.data.orden - b.data.orden);
   </p>
 
   <div class="card-grid">
-    {entries.map((entry) => (
+    {nacionales.map((entry) => (
       <a class="card" href={`/wiki/${entry.slug}/`}>
         <h3>{entry.data.titulo}</h3>
         <p>{entry.data.resumen}</p>
@@ -25,6 +29,20 @@ entries.sort((a, b) => a.data.orden - b.data.orden);
         ) : (
           <span class="verify-badge verify-badge--warn">⚠️ Sin verificar</span>
         )}
+      </a>
+    ))}
+  </div>
+
+  <h2>📍 Ayuda por región</h2>
+  <p class="source-note">
+    Elige tu departamento para ver también los canales oficiales locales
+    (gobernación, alcaldía) además de los nacionales de arriba.
+  </p>
+  <div class="card-grid">
+    {regionesData.departamentos.map((d) => (
+      <a class="card" href={`/wiki/${d.slug}/`}>
+        <h3>{d.nombre}</h3>
+        <p>Canales oficiales específicos de {d.nombre}.</p>
       </a>
     ))}
   </div>

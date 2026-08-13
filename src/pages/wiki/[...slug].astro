@@ -12,6 +12,16 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
+// Contenido regional vive bajo departamentos/<depto>/[<ciudad>/]<categoria> —
+// mismo alcance que la ruta agregada de /wiki/<depto>/[<ciudad>]/, así que
+// enlazamos de vuelta a esa vista en vez de solo al índice general.
+const parts = entry.slug.split('/');
+const backHref =
+  parts[0] === 'departamentos'
+    ? parts.length === 4
+      ? `/wiki/${parts[1]}/${parts[2]}/`
+      : `/wiki/${parts[1]}/`
+    : '/wiki/';
 // timeZone: 'UTC' evita que un build corrido en Colombia (UTC-5) muestre el
 // día anterior — las fechas del front-matter son solo-fecha (sin hora), y
 // coerce.date() las ancla a medianoche UTC.
@@ -24,7 +34,7 @@ const fecha = entry.data.fechaVerificacion.toLocaleDateString('es-CO', {
 ---
 
 <Layout title={entry.data.titulo} description={entry.data.resumen}>
-  <p><a href="/wiki/">← Volver a la wiki</a></p>
+  <p><a href={backHref}>← Volver</a></p>
   <h1>{entry.data.titulo}</h1>
 
   <div>

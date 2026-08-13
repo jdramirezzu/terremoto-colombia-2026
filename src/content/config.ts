@@ -24,7 +24,21 @@ const wiki = defineCollection({
     verificadoPor: z.string(),
     fechaVerificacion: z.coerce.date(),
     orden: z.number().default(0),
+    // Solo para mostrar el nombre bonito (con tildes) del municipio en el
+    // título/breadcrumb. NO es la fuente de verdad de a qué departamento o
+    // ciudad pertenece la entrada — eso lo define la ruta del archivo
+    // (src/lib/wiki.ts), para que nunca puedan desincronizarse.
+    municipio: z.string().optional(),
   }),
 });
 
 export const collections = { wiki };
+
+// Espejo del enum `categoria` de arriba — mantener ambos en sync.
+export const CATEGORIAS = [
+  { slug: 'reportar', label: 'Reportar daños o desaparecidos' },
+  { slug: 'pedir-ayuda', label: 'Pedir ayuda' },
+  { slug: 'donar-dinero', label: 'Donar dinero' },
+  { slug: 'donar-especie', label: 'Donar en especie' },
+  { slug: 'voluntariado', label: 'Ser voluntario' },
+] as const;

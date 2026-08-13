@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import StatTile from '../components/StatTile.astro';
 import cifras from '../../data/cifras.json';
+import regionesData from '../../data/regiones.json';
 
 const corte = cifras.cortes[cifras.cortes.length - 1];
 // timeZone: 'UTC' evita que un build corrido en Colombia (UTC-5) muestre el
@@ -27,7 +28,14 @@ const wikiLinks = [
   <h1>Terremoto de Colombia, agosto 2026</h1>
   <p>
     Sismo de magnitud {cifras.evento.magnitud} el {new Date(cifras.evento.fecha).toLocaleDateString('es-CO', { day: 'numeric', month: 'long', timeZone: 'UTC' })},
-    epicentro en {cifras.evento.epicentro}. Afecta principalmente a {cifras.departamentosPrincipales.join(', ')}.
+    epicentro en {cifras.evento.epicentro}. Afecta principalmente a{' '}
+    {regionesData.departamentos.map((d, i) => (
+      <>
+        {i > 0 && (i === regionesData.departamentos.length - 1 ? ' y ' : ', ')}
+        <a href={`/wiki/${d.slug}/`}>{d.nombre}</a>
+      </>
+    ))}
+    .
   </p>
 
   <div class="banner">
@@ -59,6 +67,20 @@ const wikiLinks = [
       <a class="card" href={l.href}>
         <h3>{l.h}</h3>
         <p>{l.p}</p>
+      </a>
+    ))}
+  </div>
+
+  <h2>📍 Ayuda por región</h2>
+  <p class="source-note">
+    Cada departamento tiene canales oficiales propios (gobernación, alcaldías) además
+    de los nacionales de arriba — elige el tuyo.
+  </p>
+  <div class="card-grid">
+    {regionesData.departamentos.map((d) => (
+      <a class="card" href={`/wiki/${d.slug}/`}>
+        <h3>{d.nombre}</h3>
+        <p>Canales oficiales específicos de {d.nombre}.</p>
       </a>
     ))}
   </div>
