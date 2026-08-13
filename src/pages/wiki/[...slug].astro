@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import FormularioReporte from '../../components/FormularioReporte.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -49,4 +50,6 @@ const fecha = entry.data.fechaVerificacion.toLocaleDateString('es-CO', {
   <p class="source-note">{entry.data.verificadoPor}</p>
 
   <Content />
+
+  <FormularioReporte pagina={`/wiki/${entry.slug}/`} titulo="¿Este dato está mal o desactualizado?" />
 </Layout>

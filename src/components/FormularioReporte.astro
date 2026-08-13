@@ -1,0 +1,64 @@
+---
+interface Props {
+  // URL de la página a la que se refiere el reporte. El servidor prefiere
+  // el header Referer real cuando existe (ver src/pages/api/reportar.ts) —
+  // esto es solo el respaldo para navegadores que no lo envían.
+  pagina?: string;
+  titulo?: string;
+}
+
+const { pagina = '', titulo = '¿Ves un error o quieres reportar algo?' } = Astro.props;
+---
+
+<section class="reporte-form">
+  <h2>{titulo}</h2>
+  <p class="source-note">
+    No necesitas cuenta de GitHub — esto crea automáticamente un reporte
+    que el equipo revisa antes de publicar cualquier cambio.
+  </p>
+  <form method="POST" action="/api/reportar">
+    <input type="hidden" name="pagina" value={pagina} />
+    <p class="campo-honeypot" aria-hidden="true">
+      <label for="sitio_web">No llenar este campo</label>
+      <input type="text" id="sitio_web" name="sitio_web" tabindex="-1" autocomplete="off" />
+    </p>
+
+    <label for="tipo">Tipo de reporte</label>
+    <select id="tipo" name="tipo" required>
+      <option value="canal-no-verificado">🚨 Canal no verificado / posible estafa</option>
+      <option value="actualizar-cifra">📊 Actualizar una cifra oficial</option>
+      <option value="agregar-centro-acopio">📦 Agregar/actualizar un centro de acopio o canal</option>
+      <option value="otro">Otro</option>
+    </select>
+
+    <label for="descripcion">Descripción *</label>
+    <textarea
+      id="descripcion"
+      name="descripcion"
+      required
+      minlength="10"
+      maxlength="4000"
+      rows="4"
+      placeholder="Cuéntanos qué encontraste o qué debería corregirse."></textarea>
+
+    <label for="fuente">Fuente o evidencia (opcional)</label>
+    <input
+      type="text"
+      id="fuente"
+      name="fuente"
+      maxlength="300"
+      placeholder="Link o de dónde sacaste este dato"
+    />
+
+    <label for="contacto">Contacto (opcional)</label>
+    <input
+      type="text"
+      id="contacto"
+      name="contacto"
+      maxlength="300"
+      placeholder="Tu correo, si quieres que te respondamos"
+    />
+
+    <button type="submit">Enviar reporte</button>
+  </form>
+</section>

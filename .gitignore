@@ -1,6 +1,7 @@
 # build
 dist/
 .astro/
+.vercel/
 
 # deps
 node_modules/

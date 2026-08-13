@@ -23,21 +23,39 @@ verificación es, ahora mismo, la contribución de mayor impacto posible.
 
 ## Cómo está construido
 
-- [Astro](https://astro.build) — sitio 100% estático, sin backend, liviano
-  (páginas ~8KB) para cargar rápido en conexiones débiles.
+- [Astro](https://astro.build) en modo **híbrido**: casi todo el sitio es
+  HTML estático (liviano, ~8KB por página, rápido en conexiones débiles),
+  salvo `/reportar/` y `/api/reportar` (ver abajo), que son las dos únicas
+  rutas dinámicas.
 - Contenido de la wiki en Markdown con front-matter tipado
   (`src/content/wiki/*.md`, schema en `src/content/config.ts`) — se puede
   editar directamente en la interfaz web de GitHub, sin instalar nada.
 - Cifras del dashboard en `data/cifras.json`, versionadas por corte de
   fecha — nunca se sobrescribe un corte anterior, se agrega uno nuevo.
 
-## Correr el proyecto localmente
+## Formulario de reportes (sin necesitar GitHub)
 
-```bash
-npm install
-npm run dev       # http://localhost:4321
-npm run build     # genera /dist, valida tipos de contenido
-```
+Cualquier persona puede reportar un dato desde `/reportar/` (o desde el
+formulario al final de cada página de la wiki) sin tener cuenta de
+GitHub — el endpoint `src/pages/api/reportar.ts` crea automáticamente un
+[Issue en este repositorio](../../issues) con lo que la persona escribió.
+Para que esto funcione en un despliegue propio, hace falta configurar una
+variable de entorno — ver la sección siguiente.
+
+### Configurar `GITHUB_TOKEN` (solo quien despliega)
+
+1. Crea un **fine-grained personal access token** en
+   [github.com/settings/personal-access-tokens/new](https://github.com/settings/personal-access-tokens/new):
+   - **Repository access:** solo este repositorio (`terremoto-colombia-2026`), no todos.
+   - **Permisos:** `Issues` → `Read and write`. Ningún otro permiso.
+2. En Vercel: Project Settings → Environment Variables → agrega
+   `GITHUB_TOKEN` con el valor del token (marcar para Production).
+3. Redeploy. Mientras no esté configurado, el formulario sigue
+   funcionando sin romperse — solo muestra un mensaje pidiendo escribir
+   por otro medio, en vez de crear el Issue.
+
+**Nunca pegues el token en un commit, en un issue, ni se lo compartas a
+nadie fuera de la configuración de variables de entorno de Vercel.**
 
 ## Cómo contribuir
 

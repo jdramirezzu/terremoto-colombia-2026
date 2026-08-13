@@ -1,7 +1,15 @@
 # Cómo contribuir
 
-Gracias por sumarte. Hay dos rutas separadas — elige la que corresponda a
+Gracias por sumarte. Hay tres rutas separadas — elige la que corresponda a
 lo que quieres aportar, no necesitas saber programar para ayudar.
+
+## Ruta 0 — Reportar algo sin cuenta de GitHub
+
+Si solo quieres avisar de un dato mal o desactualizado, sin crear una
+cuenta ni hacer un PR: usa el formulario en [`/reportar/`](https://terremoto-colombia-2026.vercel.app/reportar/)
+del sitio, o el que aparece al final de cada página de la wiki. Esto crea
+automáticamente un Issue en este repositorio, que alguien del equipo
+revisa igual que cualquier otro reporte.
 
 ## Ruta 1 — Contribuir contenido (no requiere código)
 

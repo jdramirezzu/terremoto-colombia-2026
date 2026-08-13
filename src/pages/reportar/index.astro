@@ -1,0 +1,39 @@
+---
+// Necesita leer ?enviado=1 / ?error=1 en cada visita real, no en build
+// time — por eso esta página (y solo esta, además del propio endpoint)
+// se saca del modo estático.
+export const prerender = false;
+
+import Layout from '../../layouts/Layout.astro';
+import FormularioReporte from '../../components/FormularioReporte.astro';
+
+const enviado = Astro.url.searchParams.get('enviado') === '1';
+const error = Astro.url.searchParams.get('error') === '1';
+---
+
+<Layout
+  title="Reportar un error o pedir verificación"
+  description="Reporta un canal no verificado, una cifra desactualizada o cualquier otro error, sin necesitar cuenta de GitHub."
+>
+  <p><a href="/wiki/">← Volver a la wiki</a></p>
+  <h1>Reportar un error o pedir verificación</h1>
+  <p class="source-note">
+    Este formulario crea automáticamente un reporte que el equipo revisa
+    antes de publicar cualquier cambio — no necesitas cuenta de GitHub.
+  </p>
+
+  {enviado && (
+    <div class="banner">
+      <strong>¡Gracias!</strong> Tu reporte quedó registrado y alguien del
+      equipo lo va a revisar.
+    </div>
+  )}
+  {error && (
+    <div class="banner">
+      <strong>No pudimos enviar tu reporte.</strong> Intenta de nuevo en un
+      momento, o escríbenos directamente si el problema persiste.
+    </div>
+  )}
+
+  <FormularioReporte titulo="Cuéntanos qué encontraste" />
+</Layout>
