@@ -29,6 +29,18 @@ const wiki = defineCollection({
     // ciudad pertenece la entrada — eso lo define la ruta del archivo
     // (src/lib/wiki.ts), para que nunca puedan desincronizarse.
     municipio: z.string().optional(),
+    // Guía paso a paso opcional — solo para trámites donde exista un
+    // proceso oficial real y documentado (no se inventan pasos). Cuando
+    // existe, se renderiza como una lista numerada antes del resto del
+    // contenido.
+    pasos: z
+      .array(
+        z.object({
+          titulo: z.string(),
+          detalle: z.string(),
+        }),
+      )
+      .optional(),
   }),
 });
 

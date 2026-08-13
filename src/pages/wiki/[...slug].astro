@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import FormularioReporte from '../../components/FormularioReporte.astro';
+import GuiaPasos from '../../components/GuiaPasos.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -48,6 +49,13 @@ const fecha = entry.data.fechaVerificacion.toLocaleDateString('es-CO', {
     <span class="verify-badge">🔗 <a href={entry.data.fuente} target="_blank" rel="noopener">Fuente</a></span>
   </div>
   <p class="source-note">{entry.data.verificadoPor}</p>
+
+  {entry.data.pasos && (
+    <>
+      <h2>Paso a paso</h2>
+      <GuiaPasos pasos={entry.data.pasos} />
+    </>
+  )}
 
   <Content />
 

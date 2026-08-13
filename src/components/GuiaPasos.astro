@@ -1,0 +1,24 @@
+---
+interface Paso {
+  titulo: string;
+  detalle: string;
+}
+
+interface Props {
+  pasos: Paso[];
+}
+
+const { pasos } = Astro.props;
+---
+
+<div class="pasos-guia">
+  {pasos.map((paso, i) => (
+    <div class="paso">
+      <div class="paso-numero">{i + 1}</div>
+      <div class="paso-contenido">
+        <h3>{paso.titulo}</h3>
+        <p>{paso.detalle}</p>
+      </div>
+    </div>
+  ))}
+</div>

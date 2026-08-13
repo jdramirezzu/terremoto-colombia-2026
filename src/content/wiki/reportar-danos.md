@@ -1,13 +1,26 @@
 ---
 titulo: "Reportar daños, personas desaparecidas o afectaciones"
 categoria: "reportar"
-resumen: "Líneas oficiales para reportar daños en vivienda, infraestructura o personas desaparecidas ante el terremoto del 10 de agosto de 2026."
-fuente: "https://www.gestiondelriesgo.gov.co"
+resumen: "Guía paso a paso para reportar daños en tu vivienda y empezar a acreditar tu condición de damnificado, más líneas oficiales de reporte."
+fuente: "https://www.elpais.com.co/cali/guia-para-familias-afectadas-en-cali-que-hacer-para-reportar-danos-y-acreditar-la-condicion-de-damnificado-1312.html"
 estado: "sin-verificar"
-verificadoPor: "Los portales son oficiales; los detalles de contacto específicos siguen pendientes de confirmación línea por línea."
+verificadoPor: "Pasos generalizados a partir de una guía de El País (Cali) y confirmados de forma independiente por Vanguardia — el proceso en sí (reporte → censo/RUD → valoración técnica → documentación) es consistente entre ambas fuentes, aunque el canal exacto de reporte cambia según tu municipio."
 fechaVerificacion: 2026-08-13
 orden: 1
+pasos:
+  - titulo: "Reporta el daño a tu municipio"
+    detalle: "Comunica la afectación a la alcaldía o la oficina de Gestión del Riesgo de tu municipio (o al canal específico de tu ciudad, si tu wiki regional tiene uno). Incluye tu nombre, cédula, dirección exacta, una descripción breve de los daños y fotos o video si es seguro tomarlos. Guarda una captura de tu reporte y cualquier número de radicado."
+  - titulo: "Entiende que reportar no es lo mismo que estar censado"
+    detalle: "El Registro Único de Damnificados (RUD) lo arma la autoridad territorial, no te inscribes tú directamente. Después de reportar, pregunta explícitamente: ¿quedé incluido en el censo?, ¿cuándo hacen la inspección técnica?, ¿cómo verifico después mi registro?"
+  - titulo: "Consigue y conserva la valoración técnica"
+    detalle: "Cuando un funcionario, ingeniero o arquitecto visite tu vivienda, pide el número de visita/acta/radicado y el concepto técnico por escrito. Si es seguro, documenta los daños antes de reparar nada — pero tu seguridad es lo primero."
+  - titulo: "Arma tu carpeta de damnificado"
+    detalle: "Junta documentos de identidad, prueba de propiedad o arriendo (escritura, contrato, recibos), fotos/videos de los daños, radicados, actas de inspección y facturas de gastos. Esta carpeta es la que después te permite acceder a ayuda humanitaria o subsidios."
 ---
+
+Los pasos de arriba aplican para acreditar tu vivienda como afectada. Para
+reportar una persona desaparecida o necesitar ayuda de rescate, usa estos
+canales directamente:
 
 ## UNGRD — Unidad Nacional para la Gestión del Riesgo de Desastres
 

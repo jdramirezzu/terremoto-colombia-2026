@@ -304,3 +304,60 @@ footer.site {
   height: 1px;
   overflow: hidden;
 }
+
+.pasos-guia {
+  margin: 24px 0 32px;
+}
+
+.paso {
+  display: flex;
+  gap: 16px;
+  position: relative;
+}
+
+.paso:not(:last-child) {
+  padding-bottom: 20px;
+}
+
+/* Línea vertical que conecta los círculos — un solo pseudo-elemento en vez
+   de un borde por paso, así no queda un tramo colgando después del último. */
+.paso:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 15px;
+  top: 32px;
+  bottom: 0;
+  width: 2px;
+  background: var(--gridline);
+}
+
+.paso-numero {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  z-index: 1;
+}
+
+.paso-contenido {
+  padding-top: 3px;
+}
+
+.paso-contenido h3 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.paso-contenido p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
