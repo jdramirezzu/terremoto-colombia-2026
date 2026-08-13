@@ -1,0 +1,61 @@
+---
+import Layout from '../layouts/Layout.astro';
+import StatTile from '../components/StatTile.astro';
+import cifras from '../../data/cifras.json';
+
+const corte = cifras.cortes[cifras.cortes.length - 1];
+const fechaCorte = new Date(corte.fechaCorte).toLocaleDateString('es-CO', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+
+const wikiLinks = [
+  { href: '/wiki/reportar-danos/', h: 'Reportar daños o desaparecidos', p: 'Líneas oficiales de reporte.' },
+  { href: '/wiki/pedir-ayuda/', h: 'Pedir ayuda', p: 'Censo de damnificados, albergues, ayuda humanitaria.' },
+  { href: '/wiki/donar-dinero/', h: 'Donar dinero', p: 'Canales económicos — verificar antes de transferir.' },
+  { href: '/wiki/donar-especie/', h: 'Donar en especie', p: 'Centros de acopio y qué se necesita.' },
+  { href: '/wiki/voluntariado/', h: 'Ser voluntario', p: 'Canales formales de voluntariado.' },
+];
+---
+
+<Layout title="Inicio">
+  <h1>Terremoto de Colombia, agosto 2026</h1>
+  <p>
+    Sismo de magnitud {cifras.evento.magnitud} el {new Date(cifras.evento.fecha).toLocaleDateString('es-CO', { day: 'numeric', month: 'long' })},
+    epicentro en {cifras.evento.epicentro}. Afecta principalmente a {cifras.departamentosPrincipales.join(', ')}.
+  </p>
+
+  <div class="banner">
+    <strong>Proyecto en construcción, mantenido por voluntarios.</strong>
+    Las cifras y canales aquí listados parten de cobertura de prensa y
+    todavía están pendientes de verificación directa contra la fuente
+    oficial (ver nota en cada página). No tomes decisiones de donación
+    basándote solo en esto — contrasta siempre con la entidad oficial.
+    <a href="/wiki/">¿Quieres ayudar a verificar? Empieza aquí →</a>
+  </div>
+
+  <h2>Cifras oficiales — corte {fechaCorte}</h2>
+  <div class="stat-grid">
+    <StatTile label="Fallecidos" value={corte.fallecidos} />
+    <StatTile label="Heridos" value={corte.heridos} />
+    <StatTile label="Desaparecidos" value={corte.desaparecidos} />
+    <StatTile label="Personas afectadas" value={corte.personasAfectadas} />
+    <StatTile label="Viviendas destruidas" value={corte.viviendasDestruidas} />
+    <StatTile label="Viviendas averiadas" value={corte.viviendasAveriadas} />
+  </div>
+  <p class="source-note">
+    Fuente: {corte.fuente} — <a href={corte.fuenteUrl} target="_blank" rel="noopener">ver reporte ↗</a>.
+    {corte.verificadoPor}
+  </p>
+
+  <h2>Cómo ayudar</h2>
+  <div class="card-grid">
+    {wikiLinks.map((l) => (
+      <a class="card" href={l.href}>
+        <h3>{l.h}</h3>
+        <p>{l.p}</p>
+      </a>
+    ))}
+  </div>
+</Layout>

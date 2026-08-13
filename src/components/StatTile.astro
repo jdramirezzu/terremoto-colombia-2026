@@ -1,0 +1,14 @@
+---
+interface Props {
+  label: string;
+  value: number;
+}
+
+const { label, value } = Astro.props;
+const formatted = new Intl.NumberFormat('es-CO').format(value);
+---
+
+<div class="stat-tile">
+  <div class="value">{formatted}</div>
+  <div class="label">{label}</div>
+</div>

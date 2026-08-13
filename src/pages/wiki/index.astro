@@ -1,0 +1,26 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const entries = await getCollection('wiki');
+entries.sort((a, b) => a.data.orden - b.data.orden);
+---
+
+<Layout title="Wiki de ayuda">
+  <h1>Wiki de canales oficiales</h1>
+  <p>
+    Cada entrada indica su fuente y quién la verificó por última vez. Si
+    encuentras un dato desactualizado o un canal sospechoso, abre un issue
+    en el repositorio — es la contribución más valiosa que puedes hacer
+    ahora mismo.
+  </p>
+
+  <div class="card-grid">
+    {entries.map((entry) => (
+      <a class="card" href={`/wiki/${entry.slug}/`}>
+        <h3>{entry.data.titulo}</h3>
+        <p>{entry.data.resumen}</p>
+      </a>
+    ))}
+  </div>
+</Layout>

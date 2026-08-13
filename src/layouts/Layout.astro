@@ -1,0 +1,41 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = 'Cifras oficiales y canales verificados para ayudar tras el terremoto de Colombia de agosto de 2026.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} · Terremoto Colombia 2026</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <div class="wrap">
+      <nav class="topnav">
+        <a href="/" aria-current={Astro.url.pathname === '/' ? 'page' : undefined}>Inicio</a>
+        <a href="/wiki/" aria-current={Astro.url.pathname.startsWith('/wiki') ? 'page' : undefined}>Wiki de ayuda</a>
+        <a href="https://github.com/" target="_blank" rel="noopener">Contribuir en GitHub ↗</a>
+      </nav>
+      <main>
+        <slot />
+      </main>
+      <footer class="site">
+        Proyecto de código abierto, mantenido por voluntarios. La información
+        se ofrece de buena fe pero puede contener errores — verifica siempre
+        contra la fuente oficial citada en cada página antes de tomar una
+        decisión, especialmente para donaciones económicas.
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+{
+  "$schema": "Estructura de cifras oficiales. Cada corte lleva su fuente y fecha — nunca sobrescribas un corte anterior, agrega uno nuevo. El sitio siempre muestra el último.",
+  "evento": {
+    "nombre": "Terremoto de Colombia de 2026",
+    "fecha": "2026-08-10",
+    "magnitud": 7.4,
+    "epicentro": "San José del Palmar, Chocó",
+    "fuenteEpicentro": "https://es.wikipedia.org/wiki/Terremoto_de_Colombia_de_2026"
+  },
+  "departamentosPrincipales": ["Valle del Cauca", "Risaralda", "Chocó", "Caldas"],
+  "cortes": [
+    {
+      "fechaCorte": "2026-08-13",
+      "fuente": "UNGRD, vía El Colombiano y ABC Economía",
+      "fuenteUrl": "https://www.elcolombiano.com/colombia/cifra-muertos-heridos-desaparecidos-por-terremoto-colombia-MK39884181",
+      "verificadoPor": "Borrador inicial — pendiente de contrastar directamente contra el boletín oficial de UNGRD antes de publicar como cifra verificada",
+      "fallecidos": 273,
+      "heridos": 3824,
+      "desaparecidos": 377,
+      "familiasAfectadas": 40753,
+      "personasAfectadas": 97515,
+      "viviendasDestruidas": 9215,
+      "viviendasAveriadas": 45457,
+      "edificiosColapsados": 140,
+      "centrosEducativosAfectados": 1667,
+      "centrosComunitariosAfectados": 530,
+      "centrosSaludAfectados": 188,
+      "fallecidosPorDepartamento": {
+        "Valle del Cauca": 125,
+        "Risaralda": 94,
+        "Chocó": 14,
+        "Caldas": 6,
+        "Antioquia": 1
+      }
+    }
+  ]
+}

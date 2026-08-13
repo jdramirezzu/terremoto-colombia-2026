@@ -1,0 +1,33 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('wiki');
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const fecha = entry.data.fechaVerificacion.toLocaleDateString('es-CO', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<Layout title={entry.data.titulo} description={entry.data.resumen}>
+  <p><a href="/wiki/">← Volver a la wiki</a></p>
+  <h1>{entry.data.titulo}</h1>
+
+  <div>
+    <span class="verify-badge">📅 Verificado: {fecha}</span>
+    <span class="verify-badge">🔗 <a href={entry.data.fuente} target="_blank" rel="noopener">Fuente</a></span>
+  </div>
+  <p class="source-note">Verificado por: {entry.data.verificadoPor}</p>
+
+  <Content />
+</Layout>
