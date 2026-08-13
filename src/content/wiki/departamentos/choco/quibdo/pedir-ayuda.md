@@ -10,6 +10,8 @@ municipio: "Quibdó"
 orden: 1
 ---
 
+🔗 **Portal oficial:** [quibdo-choco.gov.co](https://www.quibdo-choco.gov.co)
+
 ## Coliseo de Boxeo de Quibdó
 
 Habilitado como espacio de alojamiento temporal. Dirección reportada:
@@ -17,8 +19,7 @@ Calle 30 # 17, barrio Las Américas, frente al Comando de Policía de
 Quibdó.
 
 El Gobierno identificó la necesidad de habilitar un segundo espacio de
-albergue en la ciudad — este contenido debería actualizarse si se
-confirma.
+albergue en la ciudad.
 
 ## Búsqueda y rescate
 

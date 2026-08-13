@@ -42,6 +42,13 @@ wiki y las cifras.
 [issue](../../issues/new/choose) describiendo el dato a corregir — alguien
 del equipo lo traslada.
 
+### Checklist antes de marcar algo como `"verificado"` (especialmente `donar-dinero`)
+
+- [ ] El dato aparece en el sitio web oficial de la entidad, no solo en prensa.
+- [ ] El número de cuenta/llave coincide en al menos dos fuentes independientes.
+- [ ] Se registró quién lo verificó y cuándo (`verificadoPor`, `fechaVerificacion`).
+- [ ] Si no lograste confirmarlo directamente, se queda en `"sin-verificar"` — no pasa nada, es mejor ser honestos que optimistas.
+
 ### Agregar contenido de un departamento o ciudad
 
 El contenido regional vive bajo `src/content/wiki/departamentos/` y su

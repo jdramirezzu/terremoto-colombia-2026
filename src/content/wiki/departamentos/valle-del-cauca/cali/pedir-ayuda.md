@@ -10,6 +10,8 @@ municipio: "Cali"
 orden: 2
 ---
 
+🔗 **Portal oficial:** [cali.gov.co](https://www.cali.gov.co)
+
 ## Coliseo de Hockey — Complejo Panamericano
 
 Habilitado como centro de acopio y atención para personas con viviendas

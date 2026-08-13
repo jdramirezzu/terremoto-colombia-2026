@@ -18,7 +18,7 @@ const fechaCorte = new Date(corte.fechaCorte).toLocaleDateString('es-CO', {
 const wikiLinks = [
   { href: '/wiki/reportar-danos/', h: 'Reportar daños o desaparecidos', p: 'Líneas oficiales de reporte.' },
   { href: '/wiki/pedir-ayuda/', h: 'Pedir ayuda', p: 'Censo de damnificados, albergues, ayuda humanitaria.' },
-  { href: '/wiki/donar-dinero/', h: 'Donar dinero', p: 'Canales económicos — verificar antes de transferir.' },
+  { href: '/wiki/donar-dinero/', h: 'Donar dinero', p: 'Canales económicos, con link directo a cada entidad.' },
   { href: '/wiki/donar-especie/', h: 'Donar en especie', p: 'Centros de acopio y qué se necesita.' },
   { href: '/wiki/voluntariado/', h: 'Ser voluntario', p: 'Canales formales de voluntariado.' },
 ];
@@ -38,16 +38,43 @@ const wikiLinks = [
     .
   </p>
 
-  <div class="banner">
-    <strong>Proyecto en construcción, mantenido por voluntarios.</strong>
-    Las cifras y canales aquí listados parten de cobertura de prensa y
-    todavía están pendientes de verificación directa contra la fuente
-    oficial (ver nota en cada página). No tomes decisiones de donación
-    basándote solo en esto — contrasta siempre con la entidad oficial.
-    <a href="/wiki/">¿Quieres ayudar a verificar? Empieza aquí →</a>
+  <div class="intro-grid">
+    <div class="intro-card">
+      <h2>🔎 Busco información o ayuda</h2>
+      <ul>
+        <li><a href="#cifras">Ver las cifras oficiales</a> del sismo.</li>
+        <li><a href="/wiki/">Wiki de canales nacionales</a>: reportar, pedir ayuda, donar, voluntariado.</li>
+        <li><a href="#region">Elige tu departamento y ciudad</a> para canales locales (gobernación, alcaldía).</li>
+      </ul>
+    </div>
+    <div class="intro-card">
+      <h2>🤝 Quiero contribuir</h2>
+      <ul>
+        <li>
+          <a href="/reportar/">Reporta un dato mal o desactualizado</a> — sin necesitar cuenta de GitHub,
+          en un formulario de 1 minuto.
+        </li>
+        <li>
+          ¿Tienes cómo confirmar un canal contra su fuente oficial? Eso es lo que más
+          necesitamos ahora mismo.
+        </li>
+        <li>
+          <a href="https://github.com/jdramirezzu/terremoto-colombia-2026/blob/master/CONTRIBUTING.md" target="_blank" rel="noopener">
+            Cómo contribuir código o contenido
+          </a> directamente en GitHub.
+        </li>
+      </ul>
+    </div>
   </div>
 
-  <h2>Cifras oficiales — corte {fechaCorte}</h2>
+  <div class="banner">
+    <strong>Proyecto en construcción, mantenido por voluntarios.</strong>
+    Cada canal indica si ya fue confirmado directamente con la entidad oficial (✅) o
+    sigue pendiente de esa confirmación (⚠️) — revisa el badge antes de donar.
+    <a href="/reportar/">¿Ves algo mal? Repórtalo aquí →</a>
+  </div>
+
+  <h2 id="cifras">Cifras oficiales — corte {fechaCorte}</h2>
   <div class="stat-grid">
     <StatTile label="Fallecidos" value={corte.fallecidos} />
     <StatTile label="Heridos" value={corte.heridos} />
@@ -58,7 +85,6 @@ const wikiLinks = [
   </div>
   <p class="source-note">
     Fuente: {corte.fuente} — <a href={corte.fuenteUrl} target="_blank" rel="noopener">ver reporte ↗</a>.
-    {corte.verificadoPor}
   </p>
 
   <h2>Cómo ayudar</h2>
@@ -71,7 +97,7 @@ const wikiLinks = [
     ))}
   </div>
 
-  <h2>📍 Ayuda por región</h2>
+  <h2 id="region">📍 Ayuda por región</h2>
   <p class="source-note">
     Cada departamento tiene canales oficiales propios (gobernación, alcaldías) además
     de los nacionales de arriba — elige el tuyo.

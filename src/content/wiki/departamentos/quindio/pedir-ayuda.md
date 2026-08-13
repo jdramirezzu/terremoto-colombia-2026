@@ -9,6 +9,9 @@ fechaVerificacion: 2026-08-13
 orden: 1
 ---
 
+🔗 **Portales oficiales:** [quindio.gov.co](https://www.quindio.gov.co) ·
+[armenia.gov.co](https://www.armenia.gov.co)
+
 Armenia, Calarcá, Circasia, Montenegro y Quimbaya concentran buena parte
 de los daños reportados en el departamento (en Armenia: 159 personas
 lesionadas, 591 viviendas afectadas).
@@ -25,6 +28,4 @@ lesionadas, 591 viviendas afectadas).
 ## Falta por confirmar
 
 No encontramos todavía un punto de acopio o cuenta de donaciones oficial
-específico de Armenia/Quindío — si lo conoces, agrégalo (ver
-`CONTRIBUTING.md`). Esta es de las entradas más incompletas de la wiki
-por ahora.
+específico de Armenia/Quindío — si lo conoces, [repórtalo](/reportar/).

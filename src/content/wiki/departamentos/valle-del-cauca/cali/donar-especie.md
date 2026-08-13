@@ -10,6 +10,8 @@ municipio: "Cali"
 orden: 1
 ---
 
+🔗 **Portal oficial:** [cali.gov.co](https://www.cali.gov.co)
+
 ## Puntos de acopio en Cali
 
 - Antigua sede de **Licores del Valle** — Carrera 1 # 26-85, 7:00 a.m. a

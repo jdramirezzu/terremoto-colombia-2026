@@ -10,10 +10,9 @@ municipio: "Pereira"
 orden: 1
 ---
 
-> 🚨 **Máxima precaución.** Confirma este dato directamente con la
-> Sociedad de Mejoras de Pereira o la Alcaldía antes de transferir dinero
-> o de marcar esta entrada como verificada.
-
 ## Sociedad de Mejoras de Pereira
+
+🔗 **Portal oficial:** [smpereira.org](https://www.smpereira.org/es/) —
+confirma ahí antes de transferir.
 
 Reportada con cuenta de ahorros **Bancolombia** número `27000000533`.

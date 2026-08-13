@@ -9,14 +9,12 @@ fechaVerificacion: 2026-08-13
 orden: 1
 ---
 
+🔗 **Portales oficiales:** [valledelcauca.gov.co](https://www.valledelcauca.gov.co) ·
+[cali.gov.co](https://www.cali.gov.co)
+
 La Gobernación del Valle del Cauca declaró **calamidad pública** en el
 departamento tras el sismo. El Gobierno Nacional, la Gobernación y la
 Alcaldía de Cali coordinan la atención de la emergencia de forma
-conjunta — ver boletines oficiales en `valledelcauca.gov.co` y
-`cali.gov.co`.
-
-Es el único departamento de los 4 principales con un portal de boletines
-oficiales propio fácil de encontrar — buen punto de partida para
-verificar cualquier otro dato de esta wiki referido al Valle.
+conjunta con boletines propios.
 
 Si tu ciudad es Cali o Buenaventura, revisa también los canales locales.

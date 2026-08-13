@@ -10,11 +10,12 @@ municipio: "Buenaventura"
 orden: 1
 ---
 
+🔗 **Portal oficial:** [buenaventura.gov.co](https://www.buenaventura.gov.co)
+
 ## Centro comercial Único Uno
 
 Reportado como punto de acopio habilitado en Buenaventura para
 donaciones destinadas a las familias afectadas por el terremoto.
 
-Esta entrada tiene poca información todavía — si tienes horario, qué
-recibe exactamente, o un canal oficial directo de la Alcaldía de
-Buenaventura, agrégalo (ver `CONTRIBUTING.md`).
+Falta horario y qué recibe exactamente — si lo sabes,
+[repórtalo](/reportar/).

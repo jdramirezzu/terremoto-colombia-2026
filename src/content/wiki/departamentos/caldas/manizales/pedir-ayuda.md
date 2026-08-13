@@ -10,6 +10,9 @@ municipio: "Manizales"
 orden: 1
 ---
 
+🔗 **Portales oficiales:** [manizales.gov.co](https://www.manizales.gov.co) ·
+[caldas.gov.co](https://www.caldas.gov.co)
+
 ## Albergues habilitados
 
 - **Coliseo Mayor** — el primero en activarse; la Defensoría del Pueblo

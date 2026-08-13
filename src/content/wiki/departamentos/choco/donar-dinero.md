@@ -9,12 +9,10 @@ fechaVerificacion: 2026-08-13
 orden: 1
 ---
 
-> 🚨 **Máxima precaución.** Igual que con los canales nacionales, confirma
-> este número **directamente en un canal oficial de la Gobernación del
-> Chocó** (su sitio web o cuenta social verificada) antes de transferir
-> dinero o de marcar esta entrada como verificada.
-
 ## Gobernación del Chocó — cuenta de ayuda humanitaria
+
+🔗 **Portal oficial:** [choco.gov.co](https://www.choco.gov.co) — confirma
+ahí antes de transferir.
 
 Reportada como cuenta de ahorros en **Banco de Bogotá**, número
 `578818429`, a nombre de "Ayuda humanitaria", NIT `891.680.010-3`.
