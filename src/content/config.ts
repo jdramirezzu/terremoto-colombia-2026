@@ -10,6 +10,7 @@ const wiki = defineCollection({
   schema: z.object({
     titulo: z.string(),
     categoria: z.enum([
+      'revisar-danos',
       'reportar',
       'pedir-ayuda',
       'donar-dinero',
@@ -48,6 +49,7 @@ export const collections = { wiki };
 
 // Espejo del enum `categoria` de arriba — mantener ambos en sync.
 export const CATEGORIAS = [
+  { slug: 'revisar-danos', label: 'Revisar daños en tu vivienda' },
   { slug: 'reportar', label: 'Reportar daños o desaparecidos' },
   { slug: 'pedir-ayuda', label: 'Pedir ayuda' },
   { slug: 'donar-dinero', label: 'Donar dinero' },
