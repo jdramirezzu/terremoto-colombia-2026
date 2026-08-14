@@ -4,50 +4,71 @@
    como un solo sistema. */
 :root {
   color-scheme: light;
-  --page: #f9f9f7;
-  --surface: #fcfcfb;
+  --page: #f4f2ea;
+  --surface: #fbfaf5;
   --text-primary: #0b0b0b;
   --text-secondary: #52514e;
   --text-muted: #898781;
   --border: rgba(11, 11, 11, 0.1);
   --gridline: #e1e0d9;
-  --accent: #2a78d6;
-  --status-critical: #d03b3b;
-  --status-warning: #fab219;
-  --status-good: #0ca30c;
+  --accent: #5f7452;
+  --accent-strong: #46583c;
+  --accent-soft: rgba(95, 116, 82, 0.08);
+  --status-fallecidos: #b23b32;
+  --status-heridos: #b8892e;
+  --status-heridos-soft: rgba(184, 137, 46, 0.1);
+  --status-verificado: #4a6f8a;
+  --status-verificado-soft: rgba(74, 111, 138, 0.1);
+  --status-pendiente: #b8892e;
+  --status-pendiente-soft: rgba(184, 137, 46, 0.12);
+  --group-infra-tint: rgba(11, 11, 11, 0.03);
   --font-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:where(:not([data-theme="light"])) {
     color-scheme: dark;
-    --page: #0d0d0d;
-    --surface: #1a1a19;
+    --page: #1c1a16;
+    --surface: #262319;
     --text-primary: #ffffff;
     --text-secondary: #c3c2b7;
     --text-muted: #898781;
     --border: rgba(255, 255, 255, 0.1);
-    --gridline: #2c2c2a;
-    --accent: #3987e5;
-    --status-critical: #e66767;
-    --status-warning: #fab219;
-    --status-good: #0ca30c;
+    --gridline: #332f27;
+    --accent: #8fae83;
+    --accent-strong: #b3cba8;
+    --accent-soft: rgba(143, 174, 131, 0.12);
+    --status-fallecidos: #e2685f;
+    --status-heridos: #d9a94f;
+    --status-heridos-soft: rgba(217, 169, 79, 0.14);
+    --status-verificado: #7fa3bd;
+    --status-verificado-soft: rgba(127, 163, 189, 0.14);
+    --status-pendiente: #d9a94f;
+    --status-pendiente-soft: rgba(217, 169, 79, 0.14);
+    --group-infra-tint: rgba(255, 255, 255, 0.035);
   }
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --page: #0d0d0d;
-  --surface: #1a1a19;
+  --page: #1c1a16;
+  --surface: #262319;
   --text-primary: #ffffff;
   --text-secondary: #c3c2b7;
   --text-muted: #898781;
   --border: rgba(255, 255, 255, 0.1);
-  --gridline: #2c2c2a;
-  --accent: #3987e5;
-  --status-critical: #e66767;
-  --status-warning: #fab219;
-  --status-good: #0ca30c;
+  --gridline: #332f27;
+  --accent: #8fae83;
+  --accent-strong: #b3cba8;
+  --accent-soft: rgba(143, 174, 131, 0.12);
+  --status-fallecidos: #e2685f;
+  --status-heridos: #d9a94f;
+  --status-heridos-soft: rgba(217, 169, 79, 0.14);
+  --status-verificado: #7fa3bd;
+  --status-verificado-soft: rgba(127, 163, 189, 0.14);
+  --status-pendiente: #d9a94f;
+  --status-pendiente-soft: rgba(217, 169, 79, 0.14);
+  --group-infra-tint: rgba(255, 255, 255, 0.035);
 }
 
 * {
@@ -77,15 +98,84 @@ a {
   padding: 0 20px;
 }
 
+.hero-panel {
+  background: var(--surface);
+  border-radius: 24px;
+  padding: 48px 32px;
+  margin: 24px 0;
+  text-align: center;
+}
+
+.hero-panel h1 {
+  font-size: clamp(1.9rem, 1.5rem + 1.8vw, 2.75rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0 0 16px;
+}
+
+.hero-panel .hero-lead {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  max-width: 46ch;
+  margin: 0 auto;
+}
+
+.pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 22px;
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.pill-btn:hover {
+  filter: brightness(1.08);
+}
+
 .banner {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-left: 4px solid var(--status-warning);
+  border-left: 4px solid var(--status-pendiente);
   border-radius: 8px;
   padding: 16px 20px;
   margin: 24px 0;
   font-size: 0.95rem;
   color: var(--text-secondary);
+}
+
+.page-intro {
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 32px;
+  margin: 24px 0;
+}
+
+.page-intro h1 {
+  margin: 0 0 12px;
+  font-size: clamp(1.6rem, 1.35rem + 1.2vw, 2.2rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.page-intro p {
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 60ch;
+}
+
+.page-intro .volver {
+  display: inline-block;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
 }
 
 .banner strong {
@@ -101,19 +191,28 @@ a {
   margin: 20px 0 8px;
 }
 
+/* Cada grupo (Personas / Infraestructura) lleva su propio tinte de fondo
+   suave — un solo color por grupo, no por tile, para que el conjunto se
+   lea como "una categoría" sin volverse arcoíris. El color específico por
+   métrica (rojo/ámbar/terracota) vive en el valor de cada tarjeta. */
 .stat-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 2px;
-  background: var(--gridline);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  overflow: hidden;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  border-radius: 12px;
+  padding: 16px;
   margin: 24px 0;
 }
 
+.stat-grid--personas {
+  background: var(--accent-soft);
+}
+
+.stat-grid--infraestructura {
+  background: var(--group-infra-tint);
+}
+
 .stat-tile {
-  background: var(--surface);
   padding: 16px;
 }
 
@@ -124,14 +223,27 @@ a {
   font-variant-numeric: proportional-nums;
 }
 
+.stat-tile.metrica-fallecidos .value {
+  color: var(--status-fallecidos);
+}
+
+.stat-tile.metrica-heridos .value {
+  color: var(--status-heridos);
+}
+
+.stat-tile.metrica-desaparecidos .value {
+  color: var(--accent);
+}
+
 .stat-tile .label {
   font-size: 0.85rem;
   color: var(--text-secondary);
   margin-top: 4px;
 }
 
-/* Neutral a propósito — nunca verde/rojo. Una cifra de víctimas que sube
-   no es una métrica de negocio en rojo, es información. */
+/* El texto nunca depende solo del color: sigue diciendo "subió/bajó" en
+   palabras. El color de abajo identifica QUÉ métrica es, no si la subida
+   es buena o mala — por eso nunca se usa verde para "bajó". */
 .stat-delta {
   font-size: 0.75rem;
   color: var(--text-muted);
@@ -149,13 +261,21 @@ a {
 .stat-sparkline-linea {
   fill: none;
   stroke: var(--text-muted);
-  stroke-width: 1.5;
-  stroke-linejoin: round;
-  stroke-linecap: round;
+  stroke-width: 1.25;
+  stroke-linejoin: miter;
+  stroke-linecap: butt;
 }
 
-.stat-sparkline-punto {
-  fill: var(--accent);
+.stat-tile.metrica-fallecidos .stat-sparkline-linea {
+  stroke: var(--status-fallecidos);
+}
+
+.stat-tile.metrica-heridos .stat-sparkline-linea {
+  stroke: var(--status-heridos);
+}
+
+.stat-tile.metrica-desaparecidos .stat-sparkline-linea {
+  stroke: var(--accent);
 }
 
 /* Cuando un StatTile muestra la cifra de un departamento en vez de la
@@ -267,12 +387,20 @@ a {
 /* El estado nunca depende solo del color: cada variante trae su propio
    ícono + texto (✅/⚠️), el borde es un refuerzo, no el único canal. */
 .verify-badge--ok {
-  border-color: var(--status-good);
+  border-color: var(--status-verificado);
+  background: var(--status-verificado-soft);
+  color: var(--status-verificado);
 }
 
 .verify-badge--warn {
-  border-color: var(--status-warning);
-  color: var(--text-primary);
+  border-color: var(--status-pendiente);
+  background: var(--status-pendiente-soft);
+  color: var(--status-pendiente);
+}
+
+.verify-badge .icono-linea {
+  color: inherit;
+  margin-right: 4px;
 }
 
 nav.topnav {
@@ -353,8 +481,8 @@ footer.site {
   color: white;
   background: var(--accent);
   border: none;
-  border-radius: 6px;
-  padding: 10px 18px;
+  border-radius: 999px;
+  padding: 10px 22px;
   cursor: pointer;
 }
 
@@ -469,16 +597,10 @@ footer.site {
 
 .grafico-linea-trazo {
   fill: none;
-  stroke: var(--accent);
-  stroke-width: 2;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-}
-
-.grafico-punto {
-  fill: var(--accent);
-  stroke: var(--surface);
-  stroke-width: 2;
+  stroke: var(--linea-color, var(--accent));
+  stroke-width: 1.5;
+  stroke-linejoin: miter;
+  stroke-linecap: butt;
 }
 
 .grafico-punto-hit {
@@ -551,6 +673,72 @@ footer.site {
 .grafico-tabla th {
   color: var(--text-muted);
   font-weight: 600;
+}
+
+.mapa-regiones {
+  max-width: 300px;
+  margin: 20px auto 8px;
+}
+
+.mapa-regiones svg {
+  width: 100%;
+  height: auto;
+}
+
+.mapa-regiones a {
+  cursor: pointer;
+}
+
+.mapa-regiones a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.mapa-zona {
+  fill: var(--gridline);
+  stroke: var(--surface);
+  stroke-width: 2;
+  transition: fill 0.15s;
+}
+
+.mapa-regiones a:hover .mapa-zona,
+.mapa-regiones a:focus-visible .mapa-zona {
+  fill: var(--accent-soft);
+}
+
+.mapa-etiqueta {
+  font-size: 9px;
+  fill: var(--text-secondary);
+  font-family: var(--font-sans);
+  pointer-events: none;
+}
+
+.icono-linea {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: -5px;
+  margin-right: 6px;
+  color: var(--accent);
+}
+
+.icono-linea svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Familias de significado para "Cómo ayudar": pocos colores, uno por
+   grupo de acción, aplicado solo al ícono (el fondo de la tarjeta se
+   queda neutro) para que la categoría se note sin volverse arcoíris. */
+.card-icono--urgente,
+.card-icono--material,
+.card-icono--acompanamiento {
+  color: var(--accent);
 }
 
 .filtro-region {

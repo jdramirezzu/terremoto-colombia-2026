@@ -1,0 +1,65 @@
+---
+// Mapa esquemático (no cartográfico) de los 5 departamentos con página
+// propia — formas dibujadas a mano en la posición relativa aproximada, sin
+// datos externos ni librería de mapas (prioridad: carga rápida en datos
+// móviles limitados). Cada zona es un enlace real a /wiki/<slug>/ — mismo
+// destino que el enlace de texto del párrafo de arriba, sin JS necesario.
+interface Departamento {
+  slug: string;
+  nombre: string;
+}
+
+interface Props {
+  departamentos: Departamento[];
+}
+
+const { departamentos } = Astro.props;
+
+// cx/cy/rx/ry/rotate ajustados a mano para que las 5 formas no se
+// superpongan y guarden la posición relativa real (Chocó en la costa,
+// Valle al sur de Chocó, Caldas/Risaralda/Quindío agrupados al este —
+// el Eje Cafetero).
+const zonas: Record<string, { tipo: 'ellipse' | 'circle'; cx: number; cy: number; rx: number; ry?: number; rotate?: number; labelDy?: number }> = {
+  'Chocó': { tipo: 'ellipse', cx: 65, cy: 140, rx: 55, ry: 118, rotate: -6 },
+  'Valle del Cauca': { tipo: 'ellipse', cx: 150, cy: 205, rx: 58, ry: 62, rotate: -18, labelDy: 10 },
+  'Caldas': { tipo: 'ellipse', cx: 230, cy: 72, rx: 45, ry: 38, rotate: 8 },
+  'Risaralda': { tipo: 'ellipse', cx: 203, cy: 130, rx: 34, ry: 28 },
+  'Quindío': { tipo: 'circle', cx: 200, cy: 177, rx: 21 },
+};
+---
+
+<div class="mapa-regiones">
+  <svg viewBox="0 0 340 280" role="img" aria-label="Mapa esquemático de los departamentos afectados">
+    {departamentos.map((d) => {
+      const z = zonas[d.nombre];
+      if (!z) return null;
+      return (
+        <a href={`/wiki/${d.slug}/`} aria-label={d.nombre}>
+          <g transform={z.rotate ? `rotate(${z.rotate} ${z.cx} ${z.cy})` : undefined}>
+            {z.tipo === 'circle' ? (
+              <circle class="mapa-zona" cx={z.cx} cy={z.cy} r={z.rx} />
+            ) : (
+              <ellipse class="mapa-zona" cx={z.cx} cy={z.cy} rx={z.rx} ry={z.ry} />
+            )}
+          </g>
+        </a>
+      );
+    })}
+    {departamentos.map((d) => {
+      const z = zonas[d.nombre];
+      if (!z) return null;
+      return (
+        <text class="mapa-etiqueta" x={z.cx} y={z.cy + (z.labelDy ? -3 : 3)} text-anchor="middle" aria-hidden="true">
+          {d.nombre.includes(' ') ? (
+            <>
+              {d.nombre.split(' ')[0]}
+              <tspan x={z.cx} dy="10">{d.nombre.split(' ').slice(1).join(' ')}</tspan>
+            </>
+          ) : (
+            d.nombre
+          )}
+        </text>
+      );
+    })}
+  </svg>
+</div>

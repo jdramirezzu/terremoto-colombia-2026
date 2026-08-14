@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import FormularioReporte from '../../components/FormularioReporte.astro';
 import GuiaPasos from '../../components/GuiaPasos.astro';
+import { iconos } from '../../lib/iconos';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -36,12 +37,13 @@ const fecha = entry.data.fechaVerificacion.toLocaleDateString('es-CO', {
 ---
 
 <Layout title={entry.data.titulo} description={entry.data.resumen}>
-  <p><a href={backHref}>← Volver</a></p>
-  <h1>{entry.data.titulo}</h1>
-
-  <div>
-    <span class="verify-badge">🕓 Última revisión: {fecha}</span>
-    <span class="verify-badge">🔗 <a href={entry.data.fuente} target="_blank" rel="noopener">Fuente</a></span>
+  <div class="page-intro">
+    <a class="volver" href={backHref}>← Volver</a>
+    <h1>{entry.data.titulo}</h1>
+    <div>
+      <span class="verify-badge"><span class="icono-linea" aria-hidden="true" set:html={iconos.reloj} />Última revisión: {fecha}</span>
+      <span class="verify-badge"><span class="icono-linea" aria-hidden="true" set:html={iconos.enlace} /><a href={entry.data.fuente} target="_blank" rel="noopener">Fuente</a></span>
+    </div>
   </div>
 
   {entry.data.pasos && (
@@ -54,7 +56,12 @@ const fecha = entry.data.fechaVerificacion.toLocaleDateString('es-CO', {
   <Content />
 
   <p class="source-note nota-verificacion">
-    {entry.data.estado === 'verificado' ? '✅ Verificado directamente con la fuente oficial.' : '⚠️ Todavía sin verificar directamente con la fuente oficial.'}{' '}
+    {entry.data.estado === 'verificado' ? (
+      <span class="icono-linea" style="color: var(--status-verificado)" aria-hidden="true" set:html={iconos.check} />
+    ) : (
+      <span class="icono-linea" style="color: var(--status-pendiente)" aria-hidden="true" set:html={iconos.alerta} />
+    )}
+    {entry.data.estado === 'verificado' ? 'Verificado directamente con la fuente oficial.' : 'Todavía sin verificar directamente con la fuente oficial.'}{' '}
     {entry.data.verificadoPor}
   </p>
 

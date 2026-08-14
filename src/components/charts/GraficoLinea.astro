@@ -13,9 +13,13 @@ interface Props {
   puntos: Punto[];
   titulo: string;
   id: string;
+  // Color de identidad de la métrica (no de tendencia) — mismo valor que
+  // usa el StatTile correspondiente, para que el color siga significando
+  // "esta métrica" en todo el sitio, nunca "subió/bajó".
+  color?: string;
 }
 
-const { puntos, titulo, id } = Astro.props;
+const { puntos, titulo, id, color } = Astro.props;
 
 const W = 480;
 const H = 180;
@@ -42,7 +46,7 @@ const ultimo = puntos[puntos.length - 1];
 const formateador = new Intl.NumberFormat('es-CO');
 ---
 
-<div class="grafico-linea" data-grafico-linea>
+<div class="grafico-linea" data-grafico-linea style={color ? `--linea-color: ${color}` : undefined}>
   <h3 class="grafico-titulo">{titulo}</h3>
   <div class="grafico-svg-wrap">
     <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-labelledby={`${id}-desc`} class="grafico-svg">
@@ -53,7 +57,6 @@ const formateador = new Intl.NumberFormat('es-CO');
       <polyline points={lineaPuntos} class="grafico-linea-trazo" />
       {puntos.map((p, i) => (
         <g>
-          <circle cx={x(i)} cy={y(p.valor)} r="4" class="grafico-punto" />
           <circle
             cx={x(i)}
             cy={y(p.valor)}

@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import NotaVerificacion from '../../components/NotaVerificacion.astro';
 import { getCollection } from 'astro:content';
 import { parseWikiSlug } from '../../lib/wiki';
+import { iconos } from '../../lib/iconos';
 import regionesData from '../../../data/regiones.json';
 
 const entries = await getCollection('wiki');
@@ -12,13 +13,15 @@ const nacionales = entries
 ---
 
 <Layout title="Wiki de ayuda">
-  <h1>Wiki de canales oficiales</h1>
-  <p>
-    Cada entrada indica su fuente y quién la verificó por última vez. Si
-    encuentras un dato desactualizado o un canal sospechoso, abre un issue
-    en el repositorio — es la contribución más valiosa que puedes hacer
-    ahora mismo.
-  </p>
+  <div class="page-intro">
+    <h1>Wiki de canales oficiales</h1>
+    <p>
+      Cada entrada indica su fuente y quién la verificó por última vez. Si
+      encuentras un dato desactualizado o un canal sospechoso, abre un issue
+      en el repositorio — es la contribución más valiosa que puedes hacer
+      ahora mismo.
+    </p>
+  </div>
 
   <div class="card-grid">
     {nacionales.map((entry) => (
@@ -30,7 +33,7 @@ const nacionales = entries
   </div>
   <NotaVerificacion entries={nacionales} />
 
-  <h2>📍 Ayuda por región</h2>
+  <h2><span class="icono-linea" aria-hidden="true" set:html={iconos.pin} /> Ayuda por región</h2>
   <p class="source-note">
     Elige tu departamento para ver también los canales oficiales locales
     (gobernación, alcaldía) además de los nacionales de arriba.

@@ -45,13 +45,10 @@ function puntos() {
     .join(' ');
 }
 const spark = puntos();
-const ultimoPunto = historial.length
-  ? spark.split(' ')[spark.split(' ').length - 1]
-  : null;
 ---
 
 <div
-  class="stat-tile"
+  class:list={['stat-tile', metric && `metrica-${metric}`]}
   id={id}
   data-metric={metric}
   data-label-nacional={label}
@@ -67,9 +64,6 @@ const ultimoPunto = historial.length
   {spark && (
     <svg class="stat-sparkline" viewBox={`0 0 ${W} ${H}`} aria-hidden="true">
       <polyline points={spark} class="stat-sparkline-linea" />
-      {ultimoPunto && (
-        <circle cx={ultimoPunto.split(',')[0]} cy={ultimoPunto.split(',')[1]} r="2" class="stat-sparkline-punto" />
-      )}
     </svg>
   )}
   {metric && <div class="region-tag" hidden></div>}

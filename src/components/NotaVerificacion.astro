@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { iconos } from '../lib/iconos';
 
 interface Props {
   entries: CollectionEntry<'wiki'>[];
@@ -14,7 +15,8 @@ const sinVerificar = entries.filter((e) => e.data.estado !== 'verificado');
   <p class="source-note nota-verificacion">
     {verificados.length > 0 && (
       <>
-        ✅ Verificados directamente con su fuente oficial:{' '}
+        <span class="icono-linea" style="color: var(--status-verificado)" aria-hidden="true" set:html={iconos.check} />
+        Verificados directamente con su fuente oficial:{' '}
         {verificados.map((e, i) => (
           <>
             {i > 0 && ', '}
@@ -26,7 +28,8 @@ const sinVerificar = entries.filter((e) => e.data.estado !== 'verificado');
     )}
     {sinVerificar.length > 0 && (
       <>
-        ⚠️ Todavía sin verificar directamente:{' '}
+        <span class="icono-linea" style="color: var(--status-pendiente)" aria-hidden="true" set:html={iconos.alerta} />
+        Todavía sin verificar directamente:{' '}
         {sinVerificar.map((e, i) => (
           <>
             {i > 0 && ', '}
