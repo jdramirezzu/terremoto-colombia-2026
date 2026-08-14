@@ -12,7 +12,8 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "sismos:actualizar": "node scripts/actualizar-sismos.mjs"
   },
   "dependencies": {
     "@astrojs/vercel": "^7.8.2",

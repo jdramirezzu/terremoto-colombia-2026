@@ -52,6 +52,31 @@ const fechaCorte = new Date(corte.fechaCorte).toLocaleDateString('es-CO', {
   timeZone: 'UTC',
 });
 
+// Desde el 14 de agosto hay más de un corte por día (6:30 a.m. y 9:00 a.m.,
+// con cifras distintas), así que la fecha sola ya no identifica cuál se está
+// mostrando — cuando la fuente declara la hora del corte, se muestra.
+function horaLegible(hhmm: string | null) {
+  if (!hhmm) return null;
+  const [h, m] = hhmm.split(':').map(Number);
+  const h12 = h % 12 === 0 ? 12 : h % 12;
+  return `${h12}:${String(m).padStart(2, '0')} ${h < 12 ? 'a.m.' : 'p.m.'}`;
+}
+const horaCorte = horaLegible(corte.horaCorte);
+
+// Avance forense — fuente y fecha propias, distintas a las de UNGRD (ver
+// $schemaIdentificacionVictimas en cifras.json). Se muestra junto al bloque
+// de "Personas" porque es lo que le sirve a una familia que está buscando a
+// alguien, pero deliberadamente como nota y no como stat-tile: no es una
+// cifra comparable con las de arriba.
+const identificacion = cifras.identificacionVictimas;
+const fechaIdentificacion = new Date(identificacion.fechaCorte).toLocaleDateString('es-CO', {
+  day: 'numeric',
+  month: 'long',
+  timeZone: 'UTC',
+});
+const horaIdentificacion = horaLegible(identificacion.horaCorte);
+const fmt = new Intl.NumberFormat('es-CO');
+
 // grupo determina el color del ícono (ver .card-icono--* en global.css):
 // urgente = reportar, material = ayuda económica/en especie,
 // acompanamiento = pedir ayuda / voluntariado.
@@ -68,8 +93,9 @@ const wikiLinks = [
   <div class="hero-panel">
     <h1>Terremoto de Colombia, agosto 2026</h1>
     <p class="hero-lead">
-      Sismo de magnitud {cifras.evento.magnitud} el {new Date(cifras.evento.fecha).toLocaleDateString('es-CO', { day: 'numeric', month: 'long', timeZone: 'UTC' })},
-      epicentro en {cifras.evento.epicentro}. Afecta principalmente a{' '}
+      Sismo de magnitud {cifras.evento.magnitud} el {new Date(cifras.evento.fecha).toLocaleDateString('es-CO', { day: 'numeric', month: 'long', timeZone: 'UTC' })} a
+      las {cifras.evento.hora.slice(0, 5)}, epicentro en {cifras.evento.epicentro},
+      a {cifras.evento.profundidadKm} km de profundidad. Afecta principalmente a{' '}
       {regionesData.departamentos.map((d, i) => (
         <>
           {i > 0 && (i === regionesData.departamentos.length - 1 ? ' y ' : ', ')}
@@ -88,6 +114,8 @@ const wikiLinks = [
       <h2><span class="icono-linea" aria-hidden="true" set:html={iconos.buscar} /> Busco información o ayuda</h2>
       <ul>
         <li><a href="#cifras">Ver las cifras oficiales</a> del sismo.</li>
+        <li><a href="/wiki/revisar-grietas/">¿Tu casa quedó con grietas?</a> Qué revisar y cuándo salir.</li>
+        <li><a href="/sismos/">Actividad sísmica</a>: las réplicas registradas desde el 10 de agosto.</li>
         <li><a href="/wiki/">Wiki de canales nacionales</a>: reportar, pedir ayuda, donar, voluntariado.</li>
         <li><a href="#region">Elige tu departamento y ciudad</a> para canales locales (gobernación, alcaldía).</li>
       </ul>
@@ -139,7 +167,7 @@ const wikiLinks = [
     <a href="/reportar/">¿Ves algo mal? Repórtalo aquí →</a>
   </div>
 
-  <h2 id="cifras">Cifras oficiales — corte {fechaCorte}</h2>
+  <h2 id="cifras">Cifras oficiales — corte {fechaCorte}{horaCorte && `, ${horaCorte}`}</h2>
 
   <div class="filtro-region">
     <label for="filtro-cifras-select">Ver cifras de:</label>
@@ -161,8 +189,21 @@ const wikiLinks = [
     <StatTile label="Fallecidos" value={corte.fallecidos} serie={historial('fallecidos')} metric="fallecidos" />
     <StatTile label="Heridos" value={corte.heridos} serie={historial('heridos')} metric="heridos" />
     <StatTile label="Desaparecidos" value={corte.desaparecidos} serie={historial('desaparecidos')} metric="desaparecidos" />
+    <StatTile label="Rescatados" value={corte.rescatados} metric="rescatados" />
     <StatTile label="Personas afectadas" value={corte.personasAfectadas} metric="personasAfectadas" />
   </div>
+
+  <p class="source-note">
+    <strong>Identificación de víctimas</strong> ({identificacion.fuente.split('—')[0].trim()},
+    corte {fechaIdentificacion}{horaIdentificacion && `, ${horaIdentificacion}`}):
+    {' '}{fmt.format(identificacion.cuerposRecibidos)} cuerpos recibidos,
+    {' '}{fmt.format(identificacion.cuerposEntregados)} ya entregados a sus familias,
+    {' '}{identificacion.menoresIdentificados} de ellos menores de edad.
+    Este conteo va por una vía distinta al de la UNGRD y no tiene por qué cuadrar
+    con la cifra de fallecidos: Medicina Legal solo cuenta los cuerpos que llegaron
+    a sus instalaciones.
+    {' '}<a href={identificacion.fuenteUrl} target="_blank" rel="noopener">Ver reporte ↗</a>
+  </p>
 
   <h3 class="subgrupo-titulo">Infraestructura</h3>
   <div class="stat-grid stat-grid--infraestructura">
@@ -173,6 +214,16 @@ const wikiLinks = [
     <StatTile label="Centros comunitarios afectados" value={corte.centrosComunitariosAfectados} metric="centrosComunitariosAfectados" />
     <StatTile label="Centros de salud afectados" value={corte.centrosSaludAfectados} metric="centrosSaludAfectados" />
   </div>
+
+  {corte.departamentosAfectados && corte.municipiosAfectados && (
+    <p class="source-note">
+      <strong>Alcance de la emergencia en este corte:</strong> {corte.departamentosAfectados} departamentos
+      y {corte.municipiosAfectados} municipios con afectación reportada. El filtro de
+      arriba solo cubre los {regionesData.departamentos.length} departamentos más
+      golpeados, que son para los que conseguimos cifras desagregadas — no son
+      todos los afectados.
+    </p>
+  )}
 
   <p class="source-note">
     Fuente (cifras nacionales): {corte.fuente} — <a href={corte.fuenteUrl} target="_blank" rel="noopener">ver reporte ↗</a>.
@@ -235,6 +286,11 @@ const wikiLinks = [
     fechaCorteLegible: string;
     fuente: string;
     valores: Record<string, number | null>;
+    // Por qué falta (o por qué desconfiar de) el dato de un departamento
+    // concreto. "No lo encontramos" y "la autoridad dice que todavía no
+    // existe el conteo" no son lo mismo, y quien vive ahí merece saber cuál
+    // de las dos es. Cuando hay nota, reemplaza al texto genérico.
+    notas?: Record<string, string>;
   }
 
   function activarFiltroCifras() {
@@ -274,6 +330,7 @@ const wikiLinks = [
 
         const infoMetrica = desglose[metric];
         const valorRegional = infoMetrica?.valores?.[depto];
+        const nota = infoMetrica?.notas?.[depto];
 
         if (infoMetrica && valorRegional !== undefined && valorRegional !== null) {
           if (valorEl) valorEl.textContent = fmt.format(valorRegional);
@@ -281,15 +338,25 @@ const wikiLinks = [
           tile.classList.add('regional-activo');
           if (tagEl) {
             tagEl.hidden = false;
-            tagEl.className = 'region-tag';
-            tagEl.textContent = `corte ${infoMetrica.fechaCorteLegible}`;
+            // Hay dato regional, pero con reserva conocida (p. ej. un censo a
+            // medias que lo deja corto): se marca en ámbar en vez del color de
+            // acento, para que no se lea como una cifra cerrada.
+            tagEl.className = nota ? 'region-tag region-tag--alerta' : 'region-tag';
+            tagEl.textContent = nota
+              ? `corte ${infoMetrica.fechaCorteLegible} · ${nota}`
+              : `corte ${infoMetrica.fechaCorteLegible}`;
           }
         } else {
           restaurarNacional();
           if (tagEl) {
             tagEl.hidden = false;
             tagEl.className = 'region-tag region-tag--nacional';
-            tagEl.textContent = 'cifra nacional (sin desglose)';
+            // La nota explica POR QUÉ falta, pero nunca reemplaza al aviso de
+            // que el número grande sigue siendo el nacional: sin eso, la cifra
+            // de Colombia se leería como la del departamento elegido.
+            tagEl.textContent = nota
+              ? `cifra nacional · ${nota}`
+              : 'cifra nacional (sin desglose)';
           }
         }
       });

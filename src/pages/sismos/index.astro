@@ -1,0 +1,169 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import StatTile from '../../components/StatTile.astro';
+import GraficoLinea from '../../components/charts/GraficoLinea.astro';
+import registro from '../../../data/sismos.json';
+import {
+  conteoPorDia,
+  etiquetaDia,
+  fechaHoraLegible,
+  resumen,
+  RADIO_CERCANIA_KM,
+  type Sismo,
+} from '../../lib/sismos';
+
+const sismos = registro.sismos as Sismo[];
+const r = resumen(sismos);
+
+// Solo los últimos días en el gráfico: la secuencia se va a alargar semanas y
+// un eje con 40 etiquetas no se lee en un teléfono. Se grafica únicamente la
+// secuencia cercana al epicentro — meter la sismicidad de fondo del resto del
+// país aplanaría la tendencia que interesa ver.
+const DIAS_GRAFICO = 14;
+const porDia = conteoPorDia(r.secuencia).slice(-DIAS_GRAFICO);
+const puntosGrafico = porDia.map((d) => ({ etiqueta: etiquetaDia(d.dia), valor: d.total }));
+
+// La tabla completa serían cientos de filas; se muestran las más recientes de
+// la secuencia y el resto vive en data/sismos.json, enlazado abajo.
+const ULTIMOS = 15;
+const recientes = r.secuencia.slice(0, ULTIMOS);
+
+const actualizado = new Date(registro.ultimaActualizacion).toLocaleString('es-CO', {
+  day: 'numeric',
+  month: 'long',
+  hour: 'numeric',
+  minute: '2-digit',
+  timeZone: 'America/Bogota',
+});
+---
+
+<Layout
+  title="Actividad sísmica"
+  description="Registro de los sismos ocurridos en Colombia desde el terremoto del 10 de agosto de 2026, con datos del Servicio Geológico Colombiano."
+>
+  <h1>Actividad sísmica desde el terremoto</h1>
+  <p>
+    Sismos registrados por el <strong>Servicio Geológico Colombiano</strong> en
+    la zona del epicentro desde el 10 de agosto. Sirve para entender si la
+    actividad está bajando y para no asustarse de más: que siga temblando
+    después de un terremoto de esta magnitud es lo esperado.
+  </p>
+
+  <div class="banner">
+    <strong>Esto no es un sistema de alertas.</strong> Los datos se actualizan
+    cada pocas horas y pueden estar atrasados. Ningún sistema del mundo avisa
+    de un sismo antes de que ocurra. Para el dato oficial y en vivo, ve al
+    <a href="https://sgc.gov.co/sismos" target="_blank" rel="noopener">SGC ↗</a>.
+  </div>
+
+  <h2>En la zona del epicentro</h2>
+  <div class="stat-grid">
+    <StatTile label="Sismos después del principal" value={r.totalSecuencia} />
+    <StatTile label="De magnitud 3 o más" value={r.magnitud3oMas} />
+    <StatTile label="De magnitud 4 o más" value={r.magnitud4oMas} />
+    <StatTile label="Que alguien reportó haber sentido" value={r.reportadosPorGente} />
+  </div>
+
+  <p class="source-note">
+    Cuenta los sismos ocurridos a menos de {RADIO_CERCANIA_KM} km del epicentro, que es
+    donde se concentra la secuencia de este terremoto. <strong>La mayoría no se
+    sienten:</strong> de los {r.totalSecuencia} registrados, solo {r.magnitud3oMas} llegaron a
+    magnitud 3. Que un instrumento los detecte no significa que la gente los note.
+    {r.masFuerte && (
+      <>
+        {' '}El más fuerte después del principal fue de magnitud <strong>{r.masFuerte.magnitud}</strong>,
+        el {fechaHoraLegible(r.masFuerte.local)}, en {r.masFuerte.lugar.replace(', Colombia', '')}.
+      </>
+    )}
+  </p>
+
+  <p class="source-note">
+    ⚠️ <strong>En el mismo periodo hubo {r.totalRestoDelPais} sismos más en otras zonas del
+    país</strong> (el nido sísmico de Los Santos en Santander, Cundinamarca, Tolima,
+    Antioquia). No los contamos arriba porque <strong>no son réplicas de este
+    terremoto</strong>: son la sismicidad normal de Colombia, que ocurre todas las
+    semanas y ocurriría igual sin el sismo del Chocó. Están en el archivo de
+    datos, pero mezclarlos acá haría creer que tiembla en todo el país por
+    causa de este evento.
+  </p>
+
+  <h2>Cómo ha evolucionado</h2>
+  <p class="source-note">
+    Sismos por día en la zona del epicentro, sin contar el principal. Lo normal
+    en una secuencia de réplicas es que la cantidad baje con los días, aunque
+    puede repuntar en cualquier momento — no es una curva que solo baje. El
+    último día del gráfico suele ir incompleto, porque todavía está corriendo.
+  </p>
+  <div class="charts-grid">
+    <GraficoLinea id="grafico-sismos-dia" titulo="Sismos por día" puntos={puntosGrafico} />
+  </div>
+
+  <h2>Los más recientes en la zona del epicentro</h2>
+  <div class="tabla-scroll">
+    <table class="tabla-sismos">
+      <thead>
+        <tr>
+          <th scope="col">Fecha y hora</th>
+          <th scope="col">Magnitud</th>
+          <th scope="col">Profundidad</th>
+          <th scope="col">Lugar</th>
+        </tr>
+      </thead>
+      <tbody>
+        {recientes.map((s) => (
+          <tr>
+            <td>{fechaHoraLegible(s.local)}</td>
+            <td class="celda-num">
+              {s.magnitud}
+              {s.estado !== 'manual' && <span class="marca-preliminar" title="Solución automática, todavía sin revisar por un sismólogo">*</span>}
+            </td>
+            <td class="celda-num">{Math.round(s.profundidadKm)} km</td>
+            <td>{s.lugar.replace(', Colombia', '')}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="source-note">
+    Hora local de Colombia. <strong>*</strong> = solución automática, todavía sin
+    revisar por un sismólogo: su magnitud puede cambiar. Se muestran los
+    últimos {ULTIMOS} de {r.totalSecuencia} de la zona; el registro completo del país
+    ({sismos.length} eventos) está en
+    <a href="https://github.com/jdramirezzu/terremoto-colombia-2026/blob/master/data/sismos.json" target="_blank" rel="noopener">data/sismos.json</a>.
+  </p>
+
+  <h2>Qué hacer con esto</h2>
+  <div class="card-grid">
+    <a class="card" href="/wiki/revisar-grietas/">
+      <h3>Revisa tu vivienda otra vez</h3>
+      <p>
+        Una grieta que aguantó el sismo principal puede abrirse con una réplica.
+        Revisar no es algo que se haga una sola vez.
+      </p>
+    </a>
+    <a class="card" href="https://sismosentido.sgc.gov.co" target="_blank" rel="noopener">
+      <h3>¿Lo sentiste? Repórtalo ↗</h3>
+      <p>
+        El reporte ciudadano al SGC alimenta los mapas reales de intensidad.
+        Al sismo del 10 de agosto lo reportaron {new Intl.NumberFormat('es-CO').format(r.principal.sentidoPor)} personas.
+      </p>
+    </a>
+    <a class="card" href="https://sgc.gov.co/sismos" target="_blank" rel="noopener">
+      <h3>Dato oficial en vivo ↗</h3>
+      <p>
+        El SGC es la autoridad sísmica del país. Esta página es una copia
+        con retraso de su información, no un reemplazo.
+      </p>
+    </a>
+  </div>
+
+  <p class="source-note nota-verificacion">
+    Fuente: {registro.fuente.nombre} —
+    <a href={registro.fuente.feed} target="_blank" rel="noopener">feed público ↗</a>.
+    Última actualización de este sitio: {actualizado}.
+    El feed del SGC solo conserva los últimos 5 días, así que este registro es
+    la memoria acumulada de la secuencia completa. La profundidad y la magnitud
+    del sismo principal ({r.principal.magnitud} {r.principal.tipoMagnitud},
+    {' '}{Math.round(r.principal.profundidadKm)} km) vienen de la solución revisada del SGC.
+  </p>
+</Layout>
