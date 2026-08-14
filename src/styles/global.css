@@ -303,6 +303,66 @@ a {
   color: var(--text-muted);
 }
 
+/* Sí hay cifra regional, pero sabemos que no es de fiar todavía (censo a
+   medias, subconteo conocido). Ni el acento —que diría "dato bueno"— ni el
+   gris apagado del caso "no hay desglose": ámbar, el mismo rol de advertencia
+   que ya usa el badge sin verificar. El texto de la nota lleva el detalle;
+   el color es refuerzo, no el único canal. */
+.stat-tile .region-tag--alerta {
+  color: var(--status-warning);
+}
+
+/* ---- Tabla de sismos ---- */
+
+/* La tabla puede desbordar en móvil (4 columnas con nombres de municipio
+   largos): scrollea dentro de su propio contenedor para que el body de la
+   página nunca scrollee en horizontal. */
+.tabla-scroll {
+  overflow-x: auto;
+  margin: 16px 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.tabla-sismos {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  background: var(--surface);
+}
+
+.tabla-sismos th,
+.tabla-sismos td {
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.tabla-sismos th {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.tabla-sismos tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.tabla-sismos .celda-num {
+  font-variant-numeric: tabular-nums;
+}
+
+.marca-preliminar {
+  color: var(--status-warning);
+  font-weight: 700;
+}
+
+.marca-cercano {
+  color: var(--text-muted);
+  font-size: 0.85em;
+}
+
 .source-note {
   font-size: 0.8rem;
   color: var(--text-muted);
