@@ -1,0 +1,49 @@
+name: Actualizar registro de sismos
+
+# El feed del SGC es una ventana rodante de 5 días: un evento desaparece de
+# ahí al sexto día. Esta acción es la que conserva la memoria de la secuencia
+# completa en data/sismos.json.
+#
+# Cada 3 horas es suficiente a propósito: la página avisa explícitamente que
+# no es un sistema de alertas, y correr más seguido solo generaría ruido de
+# commits sin mejorar la utilidad real para nadie.
+on:
+  schedule:
+    - cron: '17 */3 * * *'
+  workflow_dispatch:
+
+# Permiso mínimo: solo escribir en el repo para el commit de datos.
+permissions:
+  contents: write
+
+# Si una corrida se demora, que la siguiente espere en vez de pisarla — dos
+# procesos escribiendo el mismo archivo se sobrescribirían entre sí.
+concurrency:
+  group: actualizar-sismos
+  cancel-in-progress: false
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Consultar el feed del SGC y acumular
+        run: npm run sismos:actualizar
+
+      - name: Commitear si hubo cambios
+        run: |
+          if [[ -z "$(git status --porcelain data/sismos.json)" ]]; then
+            echo "Sin sismos nuevos — no hay nada que commitear."
+            exit 0
+          fi
+          total=$(node -p "require('./data/sismos.json').totalSismos")
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/sismos.json
+          git commit -m "Actualiza registro de sismos (${total} eventos)"
+          git push
