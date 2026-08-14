@@ -2,6 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import StatTile from '../components/StatTile.astro';
 import GraficoLinea from '../components/charts/GraficoLinea.astro';
+import MapaRegiones from '../components/MapaRegiones.astro';
+import { iconos } from '../lib/iconos';
 import cifras from '../../data/cifras.json';
 import regionesData from '../../data/regiones.json';
 
@@ -50,32 +52,40 @@ const fechaCorte = new Date(corte.fechaCorte).toLocaleDateString('es-CO', {
   timeZone: 'UTC',
 });
 
+// grupo determina el color del ícono (ver .card-icono--* en global.css):
+// urgente = reportar, material = ayuda económica/en especie,
+// acompanamiento = pedir ayuda / voluntariado.
 const wikiLinks = [
-  { href: '/wiki/reportar-danos/', h: 'Reportar daños o desaparecidos', p: 'Líneas oficiales de reporte.' },
-  { href: '/wiki/pedir-ayuda/', h: 'Pedir ayuda', p: 'Censo de damnificados, albergues, ayuda humanitaria.' },
-  { href: '/wiki/donar-dinero/', h: 'Donar dinero', p: 'Canales económicos, con link directo a cada entidad.' },
-  { href: '/wiki/donar-especie/', h: 'Donar en especie', p: 'Centros de acopio y qué se necesita.' },
-  { href: '/wiki/voluntariado/', h: 'Ser voluntario', p: 'Canales formales de voluntariado.' },
+  { href: '/wiki/reportar-danos/', h: 'Reportar daños o desaparecidos', p: 'Líneas oficiales de reporte.', grupo: 'urgente' },
+  { href: '/wiki/pedir-ayuda/', h: 'Pedir ayuda', p: 'Censo de damnificados, albergues, ayuda humanitaria.', grupo: 'acompanamiento' },
+  { href: '/wiki/donar-dinero/', h: 'Donar dinero', p: 'Canales económicos, con link directo a cada entidad.', grupo: 'material' },
+  { href: '/wiki/donar-especie/', h: 'Donar en especie', p: 'Centros de acopio y qué se necesita.', grupo: 'material' },
+  { href: '/wiki/voluntariado/', h: 'Ser voluntario', p: 'Canales formales de voluntariado.', grupo: 'acompanamiento' },
 ];
 ---
 
 <Layout title="Inicio">
-  <h1>Terremoto de Colombia, agosto 2026</h1>
-  <p>
-    Sismo de magnitud {cifras.evento.magnitud} el {new Date(cifras.evento.fecha).toLocaleDateString('es-CO', { day: 'numeric', month: 'long', timeZone: 'UTC' })},
-    epicentro en {cifras.evento.epicentro}. Afecta principalmente a{' '}
-    {regionesData.departamentos.map((d, i) => (
-      <>
-        {i > 0 && (i === regionesData.departamentos.length - 1 ? ' y ' : ', ')}
-        <a href={`/wiki/${d.slug}/`}>{d.nombre}</a>
-      </>
-    ))}
-    .
-  </p>
+  <div class="hero-panel">
+    <h1>Terremoto de Colombia, agosto 2026</h1>
+    <p class="hero-lead">
+      Sismo de magnitud {cifras.evento.magnitud} el {new Date(cifras.evento.fecha).toLocaleDateString('es-CO', { day: 'numeric', month: 'long', timeZone: 'UTC' })},
+      epicentro en {cifras.evento.epicentro}. Afecta principalmente a{' '}
+      {regionesData.departamentos.map((d, i) => (
+        <>
+          {i > 0 && (i === regionesData.departamentos.length - 1 ? ' y ' : ', ')}
+          <a href={`/wiki/${d.slug}/`}>{d.nombre}</a>
+        </>
+      ))}
+      .
+    </p>
+    <a class="pill-btn" href="#region">Elige tu departamento</a>
+
+    <MapaRegiones departamentos={regionesData.departamentos} />
+  </div>
 
   <div class="intro-grid">
     <div class="intro-card">
-      <h2>🔎 Busco información o ayuda</h2>
+      <h2><span class="icono-linea" aria-hidden="true" set:html={iconos.buscar} /> Busco información o ayuda</h2>
       <ul>
         <li><a href="#cifras">Ver las cifras oficiales</a> del sismo.</li>
         <li><a href="/wiki/">Wiki de canales nacionales</a>: reportar, pedir ayuda, donar, voluntariado.</li>
@@ -83,7 +93,7 @@ const wikiLinks = [
       </ul>
     </div>
     <div class="intro-card">
-      <h2>🤝 Quiero contribuir</h2>
+      <h2><span class="icono-linea" aria-hidden="true" set:html={iconos.contribuir} /> Quiero contribuir</h2>
       <ul>
         <li>
           <a href="/reportar/">Reporta un dato mal o desactualizado</a> — sin necesitar cuenta de GitHub,
@@ -101,7 +111,7 @@ const wikiLinks = [
       </ul>
     </div>
     <div class="intro-card">
-      <h2>🧭 Directorio comunitario de ayuda</h2>
+      <h2><span class="icono-linea" aria-hidden="true" set:html={iconos.directorio} /> Directorio comunitario de ayuda</h2>
       <p class="source-note" style="margin-top: 0;">
         Herramienta externa, no forma parte de este sitio ni pasa por nuestra
         revisión de canales oficiales.
@@ -124,8 +134,8 @@ const wikiLinks = [
 
   <div class="banner">
     <strong>Proyecto en construcción, mantenido por voluntarios.</strong>
-    Cada canal indica si ya fue confirmado directamente con la entidad oficial (✅) o
-    sigue pendiente de esa confirmación (⚠️) — revisa el badge antes de donar.
+    Cada canal indica si ya fue confirmado directamente con la entidad oficial o
+    sigue pendiente de esa confirmación — revisa el badge antes de donar.
     <a href="/reportar/">¿Ves algo mal? Repórtalo aquí →</a>
   </div>
 
@@ -139,7 +149,7 @@ const wikiLinks = [
     </select>
   </div>
   <p class="source-note" id="nota-filtro-cifras" hidden>
-    📍 Mostrando lo que tenemos para el departamento elegido. Cada cifra indica su
+    Mostrando lo que tenemos para el departamento elegido. Cada cifra indica su
     propia fecha de corte — no todas vienen del mismo momento, y las que dicen
     <strong>"cifra nacional"</strong> es porque todavía no encontramos ese dato
     desagregado por departamento. ¿Lo tienes? <a href="/reportar/">Repórtalo</a>.
@@ -147,7 +157,7 @@ const wikiLinks = [
   <script type="application/json" id="desglose-regional-data" set:html={JSON.stringify(desgloseRegional)} />
 
   <h3 class="subgrupo-titulo">Personas</h3>
-  <div class="stat-grid">
+  <div class="stat-grid stat-grid--personas">
     <StatTile label="Fallecidos" value={corte.fallecidos} serie={historial('fallecidos')} metric="fallecidos" />
     <StatTile label="Heridos" value={corte.heridos} serie={historial('heridos')} metric="heridos" />
     <StatTile label="Desaparecidos" value={corte.desaparecidos} serie={historial('desaparecidos')} metric="desaparecidos" />
@@ -155,7 +165,7 @@ const wikiLinks = [
   </div>
 
   <h3 class="subgrupo-titulo">Infraestructura</h3>
-  <div class="stat-grid">
+  <div class="stat-grid stat-grid--infraestructura">
     <StatTile label="Viviendas destruidas" value={corte.viviendasDestruidas} metric="viviendasDestruidas" />
     <StatTile label="Viviendas averiadas" value={corte.viviendasAveriadas} metric="viviendasAveriadas" />
     <StatTile label="Edificios colapsados" value={corte.edificiosColapsados} metric="edificiosColapsados" />
@@ -178,22 +188,25 @@ const wikiLinks = [
     mientras la información se va confirmando, no un error.
   </p>
   <div class="charts-grid">
-    <GraficoLinea id="grafico-fallecidos" titulo="Fallecidos" puntos={serie('fallecidos')} />
-    <GraficoLinea id="grafico-heridos" titulo="Heridos" puntos={serie('heridos')} />
-    <GraficoLinea id="grafico-desaparecidos" titulo="Desaparecidos" puntos={serie('desaparecidos')} />
+    <GraficoLinea id="grafico-fallecidos" titulo="Fallecidos" puntos={serie('fallecidos')} color="var(--status-fallecidos)" />
+    <GraficoLinea id="grafico-heridos" titulo="Heridos" puntos={serie('heridos')} color="var(--status-heridos)" />
+    <GraficoLinea id="grafico-desaparecidos" titulo="Desaparecidos" puntos={serie('desaparecidos')} color="var(--accent)" />
   </div>
 
   <h2>Cómo ayudar</h2>
   <div class="card-grid">
     {wikiLinks.map((l) => (
       <a class="card" href={l.href}>
-        <h3>{l.h}</h3>
+        <h3>
+          <span class:list={['icono-linea', `card-icono--${l.grupo}`]} aria-hidden="true" set:html={iconos[l.grupo as keyof typeof iconos]} />
+          {l.h}
+        </h3>
         <p>{l.p}</p>
       </a>
     ))}
   </div>
 
-  <h2 id="region">📍 Ayuda por región</h2>
+  <h2 id="region"><span class="icono-linea" aria-hidden="true" set:html={iconos.pin} /> Ayuda por región</h2>
   <p class="source-note">
     Cada departamento tiene canales oficiales propios (gobernación, alcaldías) además
     de los nacionales de arriba — elige el tuyo.
@@ -269,7 +282,7 @@ const wikiLinks = [
           if (tagEl) {
             tagEl.hidden = false;
             tagEl.className = 'region-tag';
-            tagEl.textContent = `📍 corte ${infoMetrica.fechaCorteLegible}`;
+            tagEl.textContent = `corte ${infoMetrica.fechaCorteLegible}`;
           }
         } else {
           restaurarNacional();

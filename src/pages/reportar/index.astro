@@ -15,12 +15,14 @@ const error = Astro.url.searchParams.get('error') === '1';
   title="Reportar un error o pedir verificación"
   description="Reporta un canal no verificado, una cifra desactualizada o cualquier otro error, sin necesitar cuenta de GitHub."
 >
-  <p><a href="/wiki/">← Volver a la wiki</a></p>
-  <h1>Reportar un error o pedir verificación</h1>
-  <p class="source-note">
-    Este formulario crea automáticamente un reporte que el equipo revisa
-    antes de publicar cualquier cambio — no necesitas cuenta de GitHub.
-  </p>
+  <div class="page-intro">
+    <a class="volver" href="/wiki/">← Volver a la wiki</a>
+    <h1>Reportar un error o pedir verificación</h1>
+    <p>
+      Este formulario crea automáticamente un reporte que el equipo revisa
+      antes de publicar cualquier cambio — no necesitas cuenta de GitHub.
+    </p>
+  </div>
 
   {enviado && (
     <div class="banner">

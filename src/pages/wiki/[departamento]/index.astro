@@ -68,8 +68,10 @@ function nombreMunicipio(slug: string) {
   title={`Ayuda en ${depto.nombre}`}
   description={`Canales oficiales de ayuda para el terremoto, específicos de ${depto.nombre}.`}
 >
-  <p><a href="/wiki/">← Volver a la wiki</a></p>
-  <h1>Ayuda en {depto.nombre}</h1>
+  <div class="page-intro">
+    <a class="volver" href="/wiki/">← Volver a la wiki</a>
+    <h1>Ayuda en {depto.nombre}</h1>
+  </div>
 
   {cifrasDepto.length > 0 && (
     <>

@@ -4,6 +4,7 @@ import NotaVerificacion from '../../../components/NotaVerificacion.astro';
 import { getCollection } from 'astro:content';
 import { CATEGORIAS } from '../../../content/config';
 import { entriesForMunicipio, parseWikiSlug } from '../../../lib/wiki';
+import { iconos } from '../../../lib/iconos';
 import regionesData from '../../../../data/regiones.json';
 
 export async function getStaticPaths() {
@@ -42,14 +43,16 @@ const combinadas = [...nacional, ...departamento, ...municipio];
   title={`Ayuda en ${nombreMunicipio}, ${depto.nombre}`}
   description={`Canales oficiales de ayuda para el terremoto, específicos de ${nombreMunicipio}.`}
 >
-  <p>
-    <a href="/wiki/">Wiki</a> → <a href={`/wiki/${depto.slug}/`}>{depto.nombre}</a> → {nombreMunicipio}
-  </p>
-  <h1>Ayuda en {nombreMunicipio}</h1>
-  <p class="source-note">
-    Combina canales nacionales, departamentales ({depto.nombre}) y locales
-    de {nombreMunicipio} — cada tarjeta indica su alcance.
-  </p>
+  <div class="page-intro">
+    <p class="volver">
+      <a href="/wiki/">Wiki</a> → <a href={`/wiki/${depto.slug}/`}>{depto.nombre}</a> → {nombreMunicipio}
+    </p>
+    <h1>Ayuda en {nombreMunicipio}</h1>
+    <p>
+      Combina canales nacionales, departamentales ({depto.nombre}) y locales
+      de {nombreMunicipio} — cada tarjeta indica su alcance.
+    </p>
+  </div>
 
   {CATEGORIAS.map((cat) => {
     const items = combinadas.filter((e) => e.data.categoria === cat.slug);
@@ -60,13 +63,17 @@ const combinadas = [...nacional, ...departamento, ...municipio];
         <div class="card-grid">
           {items.map((entry) => {
             const ambito = parseWikiSlug(entry.slug).ambito;
+            const esRegional = ambito === 'municipio' || ambito === 'departamento';
             const etiquetaAlcance =
-              ambito === 'municipio' ? `📍 ${nombreMunicipio}` : ambito === 'departamento' ? `📍 ${depto.nombre}` : '🇨🇴 Nacional';
+              ambito === 'municipio' ? nombreMunicipio : ambito === 'departamento' ? depto.nombre : 'Nacional';
             return (
               <a class="card" href={`/wiki/${entry.slug}/`}>
                 <h3>{entry.data.titulo}</h3>
                 <p>{entry.data.resumen}</p>
-                <span class="verify-badge">{etiquetaAlcance}</span>
+                <span class="verify-badge">
+                  {esRegional && <span class="icono-linea" aria-hidden="true" set:html={iconos.pin} />}
+                  {etiquetaAlcance}
+                </span>
               </a>
             );
           })}
