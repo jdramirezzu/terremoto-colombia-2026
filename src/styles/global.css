@@ -202,6 +202,10 @@ a {
   border-radius: 12px;
   padding: 16px;
   margin: 24px 0;
+  /* Tinte neutro por defecto — las páginas que no usan un modificador de
+     grupo (Sismos, la cifra suelta de departamento) necesitan igual el
+     fondo que separa el bloque de tarjetas del resto del contenido. */
+  background: var(--group-infra-tint);
 }
 
 .stat-grid--personas {
@@ -309,7 +313,7 @@ a {
    que ya usa el badge sin verificar. El texto de la nota lleva el detalle;
    el color es refuerzo, no el único canal. */
 .stat-tile .region-tag--alerta {
-  color: var(--status-warning);
+  color: var(--status-pendiente);
 }
 
 /* ---- Tabla de sismos ---- */
@@ -354,7 +358,7 @@ a {
 }
 
 .marca-preliminar {
-  color: var(--status-warning);
+  color: var(--status-pendiente);
   font-weight: 700;
 }
 
@@ -655,20 +659,24 @@ footer.site {
   stroke-width: 1;
 }
 
-.grafico-linea-trazo {
+/* Línea de tendencia sobre las barras — sutil a propósito (semitransparente,
+   más delgada que el trazo de un gráfico de solo línea) para que lea como
+   contexto encima del dato principal, que son las barras. */
+.grafico-tendencia-trazo {
   fill: none;
   stroke: var(--linea-color, var(--accent));
   stroke-width: 1.5;
-  stroke-linejoin: miter;
-  stroke-linecap: butt;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  opacity: 0.6;
 }
 
-.grafico-punto-hit {
+.grafico-barra-hit {
   fill: transparent;
   cursor: pointer;
 }
 
-.grafico-punto-hit:focus-visible {
+.grafico-barra-hit:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }

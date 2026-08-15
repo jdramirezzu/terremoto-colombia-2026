@@ -1,7 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import StatTile from '../../components/StatTile.astro';
-import GraficoLinea from '../../components/charts/GraficoLinea.astro';
+import GraficoBarras from '../../components/charts/GraficoBarras.astro';
+import { iconos } from '../../lib/iconos';
 import registro from '../../../data/sismos.json';
 import {
   conteoPorDia,
@@ -41,13 +42,15 @@ const actualizado = new Date(registro.ultimaActualizacion).toLocaleString('es-CO
   title="Actividad sísmica"
   description="Registro de los sismos ocurridos en Colombia desde el terremoto del 10 de agosto de 2026, con datos del Servicio Geológico Colombiano."
 >
-  <h1>Actividad sísmica desde el terremoto</h1>
-  <p>
-    Sismos registrados por el <strong>Servicio Geológico Colombiano</strong> en
-    la zona del epicentro desde el 10 de agosto. Sirve para entender si la
-    actividad está bajando y para no asustarse de más: que siga temblando
-    después de un terremoto de esta magnitud es lo esperado.
-  </p>
+  <div class="page-intro">
+    <h1>Actividad sísmica desde el terremoto</h1>
+    <p>
+      Sismos registrados por el <strong>Servicio Geológico Colombiano</strong> en
+      la zona del epicentro desde el 10 de agosto. Sirve para entender si la
+      actividad está bajando y para no asustarse de más: que siga temblando
+      después de un terremoto de esta magnitud es lo esperado.
+    </p>
+  </div>
 
   <div class="banner">
     <strong>Esto no es un sistema de alertas.</strong> Los datos se actualizan
@@ -78,7 +81,8 @@ const actualizado = new Date(registro.ultimaActualizacion).toLocaleString('es-CO
   </p>
 
   <p class="source-note">
-    ⚠️ <strong>En el mismo periodo hubo {r.totalRestoDelPais} sismos más en otras zonas del
+    <span class="icono-linea" aria-hidden="true" set:html={iconos.alerta} />
+    <strong>En el mismo periodo hubo {r.totalRestoDelPais} sismos más en otras zonas del
     país</strong> (el nido sísmico de Los Santos en Santander, Cundinamarca, Tolima,
     Antioquia). No los contamos arriba porque <strong>no son réplicas de este
     terremoto</strong>: son la sismicidad normal de Colombia, que ocurre todas las
@@ -95,7 +99,7 @@ const actualizado = new Date(registro.ultimaActualizacion).toLocaleString('es-CO
     último día del gráfico suele ir incompleto, porque todavía está corriendo.
   </p>
   <div class="charts-grid">
-    <GraficoLinea id="grafico-sismos-dia" titulo="Sismos por día" puntos={puntosGrafico} />
+    <GraficoBarras id="grafico-sismos-dia" titulo="Sismos por día" puntos={puntosGrafico} />
   </div>
 
   <h2>Los más recientes en la zona del epicentro</h2>
