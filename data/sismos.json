@@ -11,8 +11,8 @@
     "desdeUtc": "2026-08-10 12:34",
     "criterio": "Eventos con epicentro en Colombia ocurridos desde el sismo principal (inclusive)."
   },
-  "ultimaActualizacion": "2026-08-15T01:49:33.931Z",
-  "totalSismos": 688,
+  "ultimaActualizacion": "2026-08-15T03:53:29.733Z",
+  "totalSismos": 689,
   "sismos": [
     {
       "id": "SGC2026pyyplk",
@@ -63,16 +63,16 @@
       "id": "SGC2026pyviaw",
       "utc": "2026-08-14 23:35",
       "local": "2026-08-14 18:35",
-      "magnitud": 2.8,
+      "magnitud": 2.9,
       "tipoMagnitud": "MLr_vmm",
-      "profundidadKm": 109,
-      "lat": 6.143166666666667,
-      "lon": -73.6745,
+      "profundidadKm": 117,
+      "lat": 6.129833333333333,
+      "lon": -73.64483333333334,
       "lugar": "Vélez - Santander, Colombia",
       "sentidoPor": 0,
       "agencia": "SGC",
       "estado": "manual",
-      "actualizado": "2026-08-14 18:43:20"
+      "actualizado": "2026-08-14 20:54:48"
     },
     {
       "id": "SGC2026pyuotd",
@@ -538,6 +538,21 @@
       "agencia": "SGC",
       "estado": "manual",
       "actualizado": "2026-08-14 15:40:50"
+    },
+    {
+      "id": "SGC2026pyever",
+      "utc": "2026-08-14 15:18",
+      "local": "2026-08-14 10:18",
+      "magnitud": 1.5,
+      "tipoMagnitud": "MLr_1",
+      "profundidadKm": 36,
+      "lat": 4.594891546299042,
+      "lon": -76.71777729537351,
+      "lugar": "Sipí - Chocó, Colombia",
+      "sentidoPor": 0,
+      "agencia": "SGC",
+      "estado": "manual",
+      "actualizado": "2026-08-14 21:03:50"
     },
     {
       "id": "SGC2026pydydv",
@@ -6125,14 +6140,14 @@
       "local": "2026-08-11 17:24",
       "magnitud": 3.5,
       "tipoMagnitud": "MLr_1",
-      "profundidadKm": 91,
-      "lat": 4.896286217771214,
-      "lon": -76.37284479538661,
+      "profundidadKm": 88,
+      "lat": 4.898401268097335,
+      "lon": -76.3856514320249,
       "lugar": "San José del Palmar - Chocó, Colombia",
       "sentidoPor": 8,
       "agencia": "SGC",
       "estado": "manual",
-      "actualizado": "2026-08-11 22:50:05"
+      "actualizado": "2026-08-14 21:47:53"
     },
     {
       "id": "SGC2026ptfsko",
