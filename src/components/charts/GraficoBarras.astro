@@ -1,0 +1,166 @@
+---
+// Barras + línea de tendencia sutil por encima — para series de conteos
+// discretos (sismos por día, cortes de una cifra) donde una barra es más
+// honesta con el dato que una línea continua. El degradado de cada barra
+// es el mismo color de identidad en dos opacidades (no dos colores
+// distintos), así funciona con cualquier --linea-color sin necesitar una
+// versión "clara" por métrica.
+interface Punto {
+  etiqueta: string;
+  valor: number;
+}
+
+interface Props {
+  puntos: Punto[];
+  titulo: string;
+  id: string;
+  // Color de identidad de la métrica (no de tendencia) — mismo valor que
+  // usa el StatTile correspondiente.
+  color?: string;
+}
+
+const { puntos, titulo, id, color } = Astro.props;
+
+const W = 480;
+const H = 180;
+const PAD_L = 12;
+const PAD_R = 12;
+const PAD_T = 20;
+const PAD_B = 28;
+
+const valores = puntos.map((p) => p.valor);
+const max = Math.max(...valores);
+const yMax = max * 1.15 || 1;
+
+const n = puntos.length;
+const bw = (W - PAD_L - PAD_R) / n;
+const anchoBarra = bw * 0.6;
+
+function xBarra(i: number) {
+  return PAD_L + i * bw;
+}
+function y(v: number) {
+  return H - PAD_B - (v / yMax) * (H - PAD_T - PAD_B);
+}
+
+const puntosLinea = puntos.map((p, i) => {
+  const cx = xBarra(i) + bw / 2;
+  const yTope = y(p.valor) - 4;
+  // El primer y último punto van al borde exterior de su barra (no al
+  // centro), para que la línea empiece y termine exactamente donde
+  // empieza/termina la barra.
+  if (i === 0) return `${xBarra(i)},${yTope}`;
+  if (i === n - 1) return `${xBarra(i) + bw},${yTope}`;
+  return `${cx},${yTope}`;
+});
+
+const ultimo = puntos[n - 1];
+const formateador = new Intl.NumberFormat('es-CO');
+const gradId = `grad-${id}`;
+---
+
+<div class="grafico-linea" data-grafico-barras style={color ? `--linea-color: ${color}` : undefined}>
+  <h3 class="grafico-titulo">{titulo}</h3>
+  <div class="grafico-svg-wrap">
+    <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-labelledby={`${id}-desc`} class="grafico-svg">
+      <desc id={`${id}-desc`}>
+        {titulo}: {puntos.map((p) => `${p.etiqueta} ${formateador.format(p.valor)}`).join(', ')}.
+      </desc>
+      <defs>
+        <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="var(--linea-color, var(--accent))" stop-opacity="0.7" />
+          <stop offset="100%" stop-color="var(--linea-color, var(--accent))" stop-opacity="1" />
+        </linearGradient>
+      </defs>
+      <line x1={PAD_L} y1={H - PAD_B} x2={W - PAD_R} y2={H - PAD_B} class="grafico-eje" />
+      {puntos.map((p, i) => {
+        const bx = xBarra(i) + (bw - anchoBarra) / 2;
+        const by = y(p.valor);
+        const alto = H - PAD_B - by;
+        const cx = xBarra(i) + bw / 2;
+        return (
+          <g>
+            <rect x={bx} y={by} width={anchoBarra} height={Math.max(alto, 1)} rx="4" fill={`url(#${gradId})`} />
+            <rect
+              x={xBarra(i)}
+              y={PAD_T}
+              width={bw}
+              height={H - PAD_T - PAD_B}
+              class="grafico-barra-hit"
+              tabindex="0"
+              role="img"
+              aria-label={`${p.etiqueta}: ${formateador.format(p.valor)}`}
+              data-etiqueta={p.etiqueta}
+              data-valor={formateador.format(p.valor)}
+              data-cx={cx}
+              data-cy={by}
+            />
+            <text x={cx} y={H - PAD_B + 16} class="grafico-eje-label" text-anchor={i === 0 ? 'start' : i === n - 1 ? 'end' : 'middle'}>
+              {p.etiqueta}
+            </text>
+          </g>
+        );
+      })}
+      <polyline points={puntosLinea.join(' ')} class="grafico-tendencia-trazo" />
+      <text x={xBarra(n - 1) + bw} y={y(ultimo.valor) - 12} class="grafico-valor-final" text-anchor="end">
+        {formateador.format(ultimo.valor)}
+      </text>
+    </svg>
+    <div class="grafico-tooltip" hidden></div>
+  </div>
+  <details class="grafico-tabla">
+    <summary>Ver como tabla</summary>
+    <table>
+      <thead>
+        <tr><th>Corte</th><th>Valor</th></tr>
+      </thead>
+      <tbody>
+        {puntos.map((p) => (
+          <tr><td>{p.etiqueta}</td><td>{formateador.format(p.valor)}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </details>
+</div>
+
+<script>
+  function activarGraficosBarras() {
+    document.querySelectorAll<HTMLElement>('[data-grafico-barras]').forEach((contenedor) => {
+      const tooltip = contenedor.querySelector<HTMLElement>('.grafico-tooltip');
+      if (!tooltip) return;
+
+      function mostrar(barra: SVGRectElement) {
+        const etiqueta = barra.dataset.etiqueta ?? '';
+        const valor = barra.dataset.valor ?? '';
+        tooltip!.innerHTML = '';
+        const strong = document.createElement('strong');
+        strong.textContent = valor;
+        const span = document.createElement('span');
+        span.textContent = etiqueta;
+        tooltip!.append(strong, document.createElement('br'), span);
+        tooltip!.hidden = false;
+
+        const cx = Number(barra.dataset.cx);
+        const cy = Number(barra.dataset.cy);
+        const svg = barra.ownerSVGElement!;
+        const ptRect = svg.getBoundingClientRect();
+        const escalaX = ptRect.width / svg.viewBox.baseVal.width;
+        const escalaY = ptRect.height / svg.viewBox.baseVal.height;
+        tooltip!.style.left = `${cx * escalaX}px`;
+        tooltip!.style.top = `${cy * escalaY}px`;
+      }
+      function ocultar() {
+        tooltip!.hidden = true;
+      }
+
+      contenedor.querySelectorAll<SVGRectElement>('.grafico-barra-hit').forEach((barra) => {
+        barra.addEventListener('pointerenter', () => mostrar(barra));
+        barra.addEventListener('focus', () => mostrar(barra));
+        barra.addEventListener('pointerleave', ocultar);
+        barra.addEventListener('blur', ocultar);
+      });
+    });
+  }
+  activarGraficosBarras();
+  document.addEventListener('astro:page-load', activarGraficosBarras);
+</script>

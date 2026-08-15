@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import StatTile from '../components/StatTile.astro';
-import GraficoLinea from '../components/charts/GraficoLinea.astro';
+import GraficoBarras from '../components/charts/GraficoBarras.astro';
 import MapaRegiones from '../components/MapaRegiones.astro';
 import { iconos } from '../lib/iconos';
 import cifras from '../../data/cifras.json';
@@ -239,9 +239,9 @@ const wikiLinks = [
     mientras la información se va confirmando, no un error.
   </p>
   <div class="charts-grid">
-    <GraficoLinea id="grafico-fallecidos" titulo="Fallecidos" puntos={serie('fallecidos')} color="var(--status-fallecidos)" />
-    <GraficoLinea id="grafico-heridos" titulo="Heridos" puntos={serie('heridos')} color="var(--status-heridos)" />
-    <GraficoLinea id="grafico-desaparecidos" titulo="Desaparecidos" puntos={serie('desaparecidos')} color="var(--accent)" />
+    <GraficoBarras id="grafico-fallecidos" titulo="Fallecidos" puntos={serie('fallecidos')} color="var(--status-fallecidos)" />
+    <GraficoBarras id="grafico-heridos" titulo="Heridos" puntos={serie('heridos')} color="var(--status-heridos)" />
+    <GraficoBarras id="grafico-desaparecidos" titulo="Desaparecidos" puntos={serie('desaparecidos')} color="var(--accent)" />
   </div>
 
   <h2>Cómo ayudar</h2>
