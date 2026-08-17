@@ -9,7 +9,7 @@ fechaVerificacion: 2026-08-13
 orden: 1
 ---
 
-🔗 **Portales oficiales:** [valledelcauca.gov.co](https://www.valledelcauca.gov.co) ·
+**Portales oficiales:** [valledelcauca.gov.co](https://www.valledelcauca.gov.co) ·
 [cali.gov.co](https://www.cali.gov.co)
 
 La Gobernación del Valle del Cauca declaró **calamidad pública** en el

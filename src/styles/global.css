@@ -152,6 +152,22 @@ a {
   color: var(--text-secondary);
 }
 
+/* Las citas del contenido de la wiki se usan para las advertencias de estafa,
+   así que tienen que resaltar. Antes no tenían estilo y salían como un párrafo
+   indentado cualquiera: el peso visual lo cargaba un emoji al inicio de la
+   línea, y al quitarlo la advertencia quedaba invisible. */
+blockquote {
+  background: var(--status-pendiente-soft);
+  border-left: 4px solid var(--status-pendiente);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 20px;
+  margin: 24px 0;
+}
+
+blockquote > * + * {
+  margin-top: 8px;
+}
+
 .page-intro {
   background: var(--surface);
   border-radius: 20px;
@@ -448,8 +464,9 @@ a {
   margin: 4px 8px 4px 0;
 }
 
-/* El estado nunca depende solo del color: cada variante trae su propio
-   ícono + texto (✅/⚠️), el borde es un refuerzo, no el único canal. */
+/* El estado nunca depende solo del color: cada variante trae su propio ícono
+   de línea y su texto ("Verificado" / "Sin verificar"), y el borde es un
+   refuerzo, no el único canal. */
 .verify-badge--ok {
   border-color: var(--status-verificado);
   background: var(--status-verificado-soft);

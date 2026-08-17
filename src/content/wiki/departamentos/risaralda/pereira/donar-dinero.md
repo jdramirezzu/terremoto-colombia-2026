@@ -12,7 +12,7 @@ orden: 1
 
 ## Sociedad de Mejoras de Pereira
 
-🔗 **Portal oficial:** [smpereira.org](https://www.smpereira.org/es/) —
+**Portal oficial:** [smpereira.org](https://www.smpereira.org/es/) —
 confirma ahí antes de transferir.
 
 Reportada con cuenta de ahorros **Bancolombia** número `27000000533`.

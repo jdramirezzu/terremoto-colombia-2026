@@ -9,9 +9,9 @@ export const prerender = false;
 const REPO = 'jdramirezzu/terremoto-colombia-2026';
 
 const TIPOS: Record<string, string> = {
-  'canal-no-verificado': '🚨 Canal no verificado / posible estafa',
-  'actualizar-cifra': '📊 Actualizar cifra oficial',
-  'agregar-centro-acopio': '📦 Agregar/actualizar centro de acopio',
+  'canal-no-verificado': 'Canal no verificado / posible estafa',
+  'actualizar-cifra': 'Actualizar cifra oficial',
+  'agregar-centro-acopio': 'Agregar/actualizar centro de acopio',
   otro: 'Otro',
 };
 

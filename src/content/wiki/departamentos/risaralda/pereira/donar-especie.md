@@ -10,7 +10,7 @@ municipio: "Pereira"
 orden: 1
 ---
 
-🔗 **Portal oficial:** [pereira.gov.co](https://www.pereira.gov.co)
+**Portal oficial:** [pereira.gov.co](https://www.pereira.gov.co)
 
 ## Centros de Desarrollo Empresarial (CDE) — Alcaldía de Pereira
 

@@ -10,7 +10,7 @@ municipio: "Quibdó"
 orden: 1
 ---
 
-🔗 **Portal oficial:** [quibdo-choco.gov.co](https://www.quibdo-choco.gov.co)
+**Portal oficial:** [quibdo-choco.gov.co](https://www.quibdo-choco.gov.co)
 
 ## Coliseo de Boxeo de Quibdó
 

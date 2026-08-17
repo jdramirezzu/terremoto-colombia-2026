@@ -18,9 +18,9 @@ pasos:
     detalle: "Conserva todos los papeles relacionados con tu vivienda y el proceso. El subsidio de arriendo y la ayuda humanitaria dependen de que tu información esté correctamente registrada en el RUD."
 ---
 
-🔗 **Portal oficial:** [gestiondelriesgo.gov.co](https://www.gestiondelriesgo.gov.co)
+**Portal oficial:** [gestiondelriesgo.gov.co](https://www.gestiondelriesgo.gov.co)
 
-> ⚠️ La inscripción en el censo de damnificados es **gratuita y sin
+> La inscripción en el censo de damnificados es **gratuita y sin
 > intermediarios**. No entregues dinero ni información bancaria a cambio
 > de "agilizar" tu trámite — es una de las estafas más comunes en este
 > tipo de emergencias.

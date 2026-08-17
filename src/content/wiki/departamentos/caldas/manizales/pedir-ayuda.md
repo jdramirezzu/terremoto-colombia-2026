@@ -10,7 +10,7 @@ municipio: "Manizales"
 orden: 1
 ---
 
-🔗 **Portales oficiales:** [manizales.gov.co](https://www.manizales.gov.co) ·
+**Portales oficiales:** [manizales.gov.co](https://www.manizales.gov.co) ·
 [caldas.gov.co](https://www.caldas.gov.co)
 
 ## Albergues habilitados

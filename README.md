@@ -18,10 +18,10 @@ optimizado para gente con datos móviles limitados en zonas afectadas.
 
 ## Estado actual
 
-🟡 **Fase 0 — la mayor parte del contenido sigue sin verificar.** La wiki
+**Fase 0 — la mayor parte del contenido sigue sin verificar.** La wiki
 nació como borrador armado desde cobertura de prensa, y esa sigue siendo la
-situación de casi todas las entradas: revisa el badge (✅ / ⚠️) y el campo
-`verificadoPor` de cada archivo antes de confiar en un dato.
+situación de casi todas las entradas: revisa el badge de verificación y el
+campo `verificadoPor` de cada archivo antes de confiar en un dato.
 
 Lo que ya está confirmado en primera fuente, a modo de ejemplo de lo que
 buscamos:
@@ -84,7 +84,7 @@ datos:
   interfaz muestra esa diferencia.
 - **Guarda `horaCorte` cuando la fuente la declare.** Hay días con varios
   cortes y cifras distintas; la fecha sola no los identifica.
-- ⚠️ **Cuidado con los artículos "en vivo".** Varios medios reescriben el
+- **Cuidado con los artículos "en vivo".** Varios medios reescriben el
   balance sobre la misma URL, así que el enlace deja de mostrar las cifras
   que documenta (a veces el titular ya no coincide ni con su propio slug).
   Prefiere un artículo fechado del día sobre un minuto a minuto, y anota en
