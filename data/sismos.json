@@ -11,9 +11,24 @@
     "desdeUtc": "2026-08-10 12:34",
     "criterio": "Eventos con epicentro en Colombia ocurridos desde el sismo principal (inclusive)."
   },
-  "ultimaActualizacion": "2026-08-19T09:48:44.130Z",
-  "totalSismos": 1286,
+  "ultimaActualizacion": "2026-08-19T13:07:58.076Z",
+  "totalSismos": 1288,
   "sismos": [
+    {
+      "id": "SGC2026qhdunc",
+      "utc": "2026-08-19 12:27",
+      "local": "2026-08-19 07:27",
+      "magnitud": 2.7,
+      "tipoMagnitud": "MLr_1",
+      "profundidadKm": 28,
+      "lat": 4.521666666666667,
+      "lon": -76.58183333333334,
+      "lugar": "Sipí - Chocó, Colombia",
+      "sentidoPor": 0,
+      "agencia": "SGC",
+      "estado": "manual",
+      "actualizado": "2026-08-19 07:32:39"
+    },
     {
       "id": "SGC2026qgwxmv",
       "utc": "2026-08-19 08:59",
@@ -45,19 +60,34 @@
       "actualizado": "2026-08-19 03:59:48"
     },
     {
+      "id": "SGC2026qgvurg",
+      "utc": "2026-08-19 08:26",
+      "local": "2026-08-19 03:26",
+      "magnitud": 2.4,
+      "tipoMagnitud": "M",
+      "profundidadKm": 43,
+      "lat": 4.341085507164581,
+      "lon": -76.78894416601767,
+      "lugar": "El Litoral del San Juán (Docordó) - Chocó, Colombia",
+      "sentidoPor": 0,
+      "agencia": "SGC",
+      "estado": "manual",
+      "actualizado": "2026-08-19 07:54:08"
+    },
+    {
       "id": "SGC2026qgvtzt",
       "utc": "2026-08-19 08:25",
       "local": "2026-08-19 03:25",
-      "magnitud": 2.6,
-      "tipoMagnitud": "M",
-      "profundidadKm": 11,
-      "lat": 4.453784942626953,
-      "lon": -76.6631851196289,
-      "lugar": "Sipí - Chocó, Colombia",
+      "magnitud": 2.5,
+      "tipoMagnitud": "MLr_1",
+      "profundidadKm": 40,
+      "lat": 4.510289533254221,
+      "lon": -76.6917625339113,
+      "lugar": "Istmina - Chocó, Colombia",
       "sentidoPor": 0,
       "agencia": "SGC",
-      "estado": "automatic",
-      "actualizado": "2026-08-19 03:43:10"
+      "estado": "manual",
+      "actualizado": "2026-08-19 07:40:31"
     },
     {
       "id": "SGC2026qgrcct",
@@ -65,14 +95,14 @@
       "local": "2026-08-19 01:04",
       "magnitud": 2.8,
       "tipoMagnitud": "MLr_3",
-      "profundidadKm": 157,
-      "lat": 7.048333333333333,
-      "lon": -73.0795,
-      "lugar": "Floridablanca - Santander, Colombia",
+      "profundidadKm": 151,
+      "lat": 6.997588716771938,
+      "lon": -73.08568439899224,
+      "lugar": "Piedecuesta - Santander, Colombia",
       "sentidoPor": 0,
       "agencia": "SGC",
       "estado": "manual",
-      "actualizado": "2026-08-19 01:08:59"
+      "actualizado": "2026-08-19 07:28:02"
     },
     {
       "id": "SGC2026qgowza",
