@@ -11,9 +11,24 @@
     "desdeUtc": "2026-08-10 12:34",
     "criterio": "Eventos con epicentro en Colombia ocurridos desde el sismo principal (inclusive)."
   },
-  "ultimaActualizacion": "2026-08-20T07:05:52.812Z",
-  "totalSismos": 1426,
+  "ultimaActualizacion": "2026-08-20T09:49:40.021Z",
+  "totalSismos": 1428,
   "sismos": [
+    {
+      "id": "SGC2026qiryfo",
+      "utc": "2026-08-20 08:38",
+      "local": "2026-08-20 03:38",
+      "magnitud": 2.9,
+      "tipoMagnitud": "MLr_1",
+      "profundidadKm": 44,
+      "lat": 4.457833333333333,
+      "lon": -76.74233333333333,
+      "lugar": "Istmina - Chocó, Colombia",
+      "sentidoPor": 0,
+      "agencia": "SGC",
+      "estado": "manual",
+      "actualizado": "2026-08-20 03:45:35"
+    },
     {
       "id": "SGC2026qiokjt",
       "utc": "2026-08-20 06:52",
@@ -24,10 +39,10 @@
       "lat": 4.408166666666666,
       "lon": -76.8055,
       "lugar": "Istmina - Chocó, Colombia",
-      "sentidoPor": 0,
+      "sentidoPor": 15,
       "agencia": "SGC",
       "estado": "manual",
-      "actualizado": "2026-08-20 01:57:47"
+      "actualizado": "2026-08-20 03:33:15"
     },
     {
       "id": "SGC2026qinewv",
@@ -1573,6 +1588,21 @@
       "agencia": "SGC",
       "estado": "manual",
       "actualizado": "2026-08-19 07:40:31"
+    },
+    {
+      "id": "SGC2026qgvuld",
+      "utc": "2026-08-19 08:25",
+      "local": "2026-08-19 03:25",
+      "magnitud": 2.5,
+      "tipoMagnitud": "MLr_1",
+      "profundidadKm": 13,
+      "lat": 4.5135,
+      "lon": -76.80216666666666,
+      "lugar": "Istmina - Chocó, Colombia",
+      "sentidoPor": 0,
+      "agencia": "SGC",
+      "estado": "manual",
+      "actualizado": "2026-08-20 04:08:25"
     },
     {
       "id": "SGC2026qgvsiz",
