@@ -24,33 +24,33 @@ canales directamente:
 
 ## UNGRD — Unidad Nacional para la Gestión del Riesgo de Desastres
 
-✅ **Datos tomados directamente del portal de la UNGRD** (noticia oficial del
+**Datos tomados directamente del portal de la UNGRD** (noticia oficial del
 10 de agosto de 2026), no de prensa.
 
-- 🔗 **Portal oficial:** [portal.gestiondelriesgo.gov.co](http://portal.gestiondelriesgo.gov.co/Paginas/inicio.aspx)
-- ☎️ **Línea gratuita nacional:** **01-8000-113200**
-- ✉️ **Atención al ciudadano:** contactenos@gestiondelriesgo.gov.co
-- ✉️ **Correspondencia:** correspondencia@gestiondelriesgo.gov.co
+- **Portal oficial:** [portal.gestiondelriesgo.gov.co](http://portal.gestiondelriesgo.gov.co/Paginas/inicio.aspx)
+- **Línea gratuita nacional:** **01-8000-113200**
+- **Atención al ciudadano:** contactenos@gestiondelriesgo.gov.co
+- **Correspondencia:** correspondencia@gestiondelriesgo.gov.co
 
 Coordina la respuesta nacional desde la **Sala de Crisis Nacional** y
 consolida las cifras oficiales de personas fallecidas, heridas y
 desaparecidas. Su director es Javier Pava Sánchez.
 
-⚠️ La línea gratuita es el canal general de atención al ciudadano de la
+La línea gratuita es el canal general de atención al ciudadano de la
 entidad, **no una línea de emergencia**. Si hay vidas en riesgo, personas
 atrapadas o riesgo de colapso, el número es el **123**. Para el censo de
 damnificados, el canal sigue siendo tu alcaldía (ver los pasos de arriba).
 
 ## Servicio Geológico Colombiano (SGC)
 
-🔗 **Reportar si sentiste un sismo:** [sismosentido.sgc.gov.co](https://sismosentido.sgc.gov.co)
+**Reportar si sentiste un sismo:** [sismosentido.sgc.gov.co](https://sismosentido.sgc.gov.co)
 
 Autoridad oficial de la actividad sísmica en Colombia — reporta réplicas
 en tiempo real.
 
 ## Cruz Roja Colombiana y Defensa Civil Colombiana
 
-🔗 [cruzrojacolombiana.org](https://www.cruzrojacolombiana.org) — apoyan la
+[cruzrojacolombiana.org](https://www.cruzrojacolombiana.org) — apoyan la
 búsqueda de personas desaparecidas y la atención humanitaria en terreno.
 
 ## Consejos Departamentales de Gestión del Riesgo

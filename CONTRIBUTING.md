@@ -24,7 +24,7 @@ wiki y las cifras. Son dos flujos distintos:
 ### Editar una entrada de la wiki
 
 1. Ve a `src/content/wiki/` en GitHub.
-2. Haz clic en el lápiz (✏️ "Edit this file") — GitHub crea automáticamente
+2. Haz clic en el lápiz ("Edit this file") — GitHub crea automáticamente
    una copia (fork) y una rama para ti.
 3. Edita el contenido. **Reglas no negociables:**
    - Todo dato debe tener una fuente verificable en el campo `fuente` (URL
@@ -35,8 +35,8 @@ wiki y las cifras. Son dos flujos distintos:
    - Cambia `estado` a `"verificado"` **solo** si confirmaste el dato
      directamente en el canal oficial de la entidad (no un artículo de
      prensa). Si no, déjalo en `"sin-verificar"` — ese campo es lo que
-     controla el badge que ve la persona visitante (✅ vs ⚠️), así que nunca
-     lo cambies "para que se vea mejor".
+     controla el badge que ve la persona visitante ("Verificado" o "Sin
+     verificar"), así que nunca lo cambies "para que se vea mejor".
 4. Abre el Pull Request (GitHub te guía). Alguien del equipo lo revisa
    antes de publicarlo — por el riesgo de canales de donación falsos,
    **el contenido de `donar-dinero` y `donar-especie` siempre pasa por
@@ -90,7 +90,7 @@ y su hora de corte. El archivo tiene cuatro bloques (`evento`, `cortes`,
 - **Si dos fuentes se contradicen, no promedies ni elijas en silencio.** Deja
   el campo en `null` y documenta el conflicto en `verificadoPor`. Publicar una
   de las dos sin más es inventar una precisión que no tenemos.
-- ⚠️ **Cuidado con los artículos "en vivo".** Varios medios reescriben el
+- **Cuidado con los artículos "en vivo".** Varios medios reescriben el
   balance sobre la misma URL: el enlace deja de mostrar las cifras que
   documenta (hemos visto titulares que ya no coinciden ni con su propio slug).
   Si usas uno, anótalo en `verificadoPor`. Ver `$avisoFuentes` en el archivo.

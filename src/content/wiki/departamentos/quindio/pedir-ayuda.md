@@ -9,7 +9,7 @@ fechaVerificacion: 2026-08-13
 orden: 1
 ---
 
-🔗 **Portales oficiales:** [quindio.gov.co](https://www.quindio.gov.co) ·
+**Portales oficiales:** [quindio.gov.co](https://www.quindio.gov.co) ·
 [armenia.gov.co](https://www.armenia.gov.co)
 
 Armenia, Calarcá, Circasia, Montenegro y Quimbaya concentran buena parte

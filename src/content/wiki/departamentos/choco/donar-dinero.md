@@ -11,7 +11,7 @@ orden: 1
 
 ## Gobernación del Chocó — cuenta de ayuda humanitaria
 
-🔗 **Portal oficial:** [choco.gov.co](https://www.choco.gov.co) — confirma
+**Portal oficial:** [choco.gov.co](https://www.choco.gov.co) — confirma
 ahí antes de transferir.
 
 Reportada como cuenta de ahorros en **Banco de Bogotá**, número

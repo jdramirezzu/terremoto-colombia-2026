@@ -10,7 +10,7 @@ municipio: "Cali"
 orden: 1
 ---
 
-🔗 **Portal oficial:** [cali.gov.co](https://www.cali.gov.co)
+**Portal oficial:** [cali.gov.co](https://www.cali.gov.co)
 
 ## Puntos de acopio en Cali
 

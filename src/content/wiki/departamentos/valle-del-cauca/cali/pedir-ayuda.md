@@ -10,7 +10,7 @@ municipio: "Cali"
 orden: 2
 ---
 
-🔗 **Portal oficial:** [cali.gov.co](https://www.cali.gov.co)
+**Portal oficial:** [cali.gov.co](https://www.cali.gov.co)
 
 ## Coliseo de Hockey — Complejo Panamericano
 
