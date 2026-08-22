@@ -469,6 +469,7 @@ a {
 
 nav.topnav {
   display: flex;
+  flex-wrap: wrap;
   gap: 16px;
   align-items: center;
   padding: 16px 0;
@@ -484,6 +485,104 @@ nav.topnav a {
 nav.topnav a[aria-current="page"] {
   color: var(--text-primary);
   font-weight: 600;
+}
+
+.theme-toggle {
+  --toggle-size: 48px;
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  width: var(--toggle-size);
+  height: 28px;
+  margin-left: auto;
+  padding: 3px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-muted);
+  background: var(--group-infra-tint);
+  cursor: pointer;
+  isolation: isolate;
+  transition: border-color 150ms ease, background-color 200ms ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.theme-toggle__icon {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 20px;
+  height: 20px;
+  place-items: center;
+  transition: color 200ms ease;
+}
+
+.theme-toggle__icon svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+.theme-toggle__thumb {
+  position: absolute;
+  z-index: 0;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: 0 1px 3px rgba(11, 11, 11, 0.22);
+  transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1), background-color 200ms ease;
+}
+
+.theme-toggle[data-theme-state="dark"] {
+  background: var(--accent-soft);
+}
+
+.theme-toggle[data-theme-state="dark"] .theme-toggle__thumb {
+  transform: translateX(20px);
+}
+
+.theme-toggle[data-theme-state="light"] .theme-toggle__icon--sun,
+.theme-toggle[data-theme-state="dark"] .theme-toggle__icon--moon {
+  color: var(--accent-strong);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle,
+  .theme-toggle__icon,
+  .theme-toggle__thumb {
+    transition: none;
+  }
+}
+
+@media (max-width: 620px) {
+  nav.topnav {
+    position: relative;
+    gap: 12px;
+    padding-right: 64px;
+  }
+
+  .theme-toggle {
+    position: absolute;
+    top: 16px;
+    right: 0;
+    margin-left: 0;
+  }
 }
 
 footer.site {
