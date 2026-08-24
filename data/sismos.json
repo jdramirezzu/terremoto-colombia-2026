@@ -11,9 +11,84 @@
     "desdeUtc": "2026-08-10 12:34",
     "criterio": "Eventos con epicentro en Colombia ocurridos desde el sismo principal (inclusive)."
   },
-  "ultimaActualizacion": "2026-08-24T07:20:01.411Z",
-  "totalSismos": 1991,
+  "ultimaActualizacion": "2026-08-24T10:03:21.559Z",
+  "totalSismos": 2000,
   "sismos": [
+    {
+      "id": "SGC2026qqbdjy",
+      "utc": "2026-08-24 08:47",
+      "local": "2026-08-24 03:47",
+      "magnitud": 2.3,
+      "tipoMagnitud": "M",
+      "profundidadKm": 0,
+      "lat": 4.603114128112793,
+      "lon": -76.70489501953125,
+      "lugar": "Sipí - Chocó, Colombia",
+      "sentidoPor": 0,
+      "agencia": "SGC",
+      "estado": "automatic",
+      "actualizado": "2026-08-24 03:49:38"
+    },
+    {
+      "id": "SGC2026qqabpd",
+      "utc": "2026-08-24 08:15",
+      "local": "2026-08-24 03:15",
+      "magnitud": 2.5,
+      "tipoMagnitud": "M",
+      "profundidadKm": 156,
+      "lat": 5.30486011505127,
+      "lon": -73.75679016113281,
+      "lugar": "Lenguazaque - Cundinamarca, Colombia",
+      "sentidoPor": 0,
+      "agencia": "SGC",
+      "estado": "automatic",
+      "actualizado": "2026-08-24 03:18:30"
+    },
+    {
+      "id": "SGC2026qpzouj",
+      "utc": "2026-08-24 08:00",
+      "local": "2026-08-24 03:00",
+      "magnitud": 1.9,
+      "tipoMagnitud": "M",
+      "profundidadKm": 5,
+      "lat": 6.944185256958008,
+      "lon": -76.0668716430664,
+      "lugar": "Uramita - Antioquia, Colombia",
+      "sentidoPor": 0,
+      "agencia": "SGC",
+      "estado": "automatic",
+      "actualizado": "2026-08-24 03:02:18"
+    },
+    {
+      "id": "SGC2026qpzerx",
+      "utc": "2026-08-24 07:48",
+      "local": "2026-08-24 02:48",
+      "magnitud": 2.2,
+      "tipoMagnitud": "MLr_1",
+      "profundidadKm": 24,
+      "lat": 4.6205,
+      "lon": -76.75333333333333,
+      "lugar": "Sipí - Chocó, Colombia",
+      "sentidoPor": 0,
+      "agencia": "SGC",
+      "estado": "manual",
+      "actualizado": "2026-08-24 02:54:16"
+    },
+    {
+      "id": "SGC2026qpydgh",
+      "utc": "2026-08-24 07:16",
+      "local": "2026-08-24 02:16",
+      "magnitud": 2,
+      "tipoMagnitud": "MLr_1",
+      "profundidadKm": 22,
+      "lat": 4.596666666666667,
+      "lon": -76.89066666666666,
+      "lugar": "Istmina - Chocó, Colombia",
+      "sentidoPor": 0,
+      "agencia": "SGC",
+      "estado": "manual",
+      "actualizado": "2026-08-24 02:31:14"
+    },
     {
       "id": "SGC2026qpwcnf",
       "utc": "2026-08-24 06:15",
@@ -84,10 +159,10 @@
       "lat": 4.639333333333333,
       "lon": -76.74566666666666,
       "lugar": "Sipí - Chocó, Colombia",
-      "sentidoPor": 19,
+      "sentidoPor": 20,
       "agencia": "SGC",
       "estado": "manual",
-      "actualizado": "2026-08-24 01:08:56"
+      "actualizado": "2026-08-24 03:45:25"
     },
     {
       "id": "SGC2026qpuxso",
@@ -132,7 +207,22 @@
       "sentidoPor": 29,
       "agencia": "SGC",
       "estado": "manual",
-      "actualizado": "2026-08-24 01:08:41"
+      "actualizado": "2026-08-24 03:44:56"
+    },
+    {
+      "id": "SGC2026qptirn",
+      "utc": "2026-08-24 04:52",
+      "local": "2026-08-23 23:52",
+      "magnitud": 1.5,
+      "tipoMagnitud": "MLr_1",
+      "profundidadKm": 40,
+      "lat": 4.484908929340776,
+      "lon": -76.73426187267641,
+      "lugar": "Istmina - Chocó, Colombia",
+      "sentidoPor": 0,
+      "agencia": "SGC",
+      "estado": "manual",
+      "actualizado": "2026-08-24 02:48:46"
     },
     {
       "id": "SGC2026qptgmj",
@@ -148,6 +238,21 @@
       "agencia": "SGC",
       "estado": "manual",
       "actualizado": "2026-08-24 01:41:25"
+    },
+    {
+      "id": "SGC2026qpscvy",
+      "utc": "2026-08-24 04:15",
+      "local": "2026-08-23 23:15",
+      "magnitud": 1.5,
+      "tipoMagnitud": "MLr_3",
+      "profundidadKm": 150,
+      "lat": 6.813333333333333,
+      "lon": -72.9825,
+      "lugar": "Piedecuesta - Santander, Colombia",
+      "sentidoPor": 0,
+      "agencia": "SGC",
+      "estado": "manual",
+      "actualizado": "2026-08-24 02:35:57"
     },
     {
       "id": "SGC2026qpryzn",
@@ -178,6 +283,36 @@
       "agencia": "SGC",
       "estado": "manual",
       "actualizado": "2026-08-24 01:33:35"
+    },
+    {
+      "id": "SGC2026qprtuw",
+      "utc": "2026-08-24 04:04",
+      "local": "2026-08-23 23:04",
+      "magnitud": 1.8,
+      "tipoMagnitud": "MLr_1",
+      "profundidadKm": 54,
+      "lat": 4.442833333333334,
+      "lon": -76.74166666666666,
+      "lugar": "Istmina - Chocó, Colombia",
+      "sentidoPor": 0,
+      "agencia": "SGC",
+      "estado": "manual",
+      "actualizado": "2026-08-24 02:54:47"
+    },
+    {
+      "id": "SGC2026qpqwfh",
+      "utc": "2026-08-24 03:37",
+      "local": "2026-08-23 22:37",
+      "magnitud": 2.1,
+      "tipoMagnitud": "MLr_1",
+      "profundidadKm": 39,
+      "lat": 4.46481595124263,
+      "lon": -76.74801309835559,
+      "lugar": "Istmina - Chocó, Colombia",
+      "sentidoPor": 0,
+      "agencia": "SGC",
+      "estado": "manual",
+      "actualizado": "2026-08-24 02:20:26"
     },
     {
       "id": "SGC2026qpqvux",
@@ -290,14 +425,14 @@
       "local": "2026-08-23 21:45",
       "magnitud": 1.5,
       "tipoMagnitud": "MLr_3",
-      "profundidadKm": 133,
-      "lat": 8.893833333333333,
-      "lon": -72.87816666666667,
+      "profundidadKm": 134,
+      "lat": 8.899166666666666,
+      "lon": -72.875,
       "lugar": "Tibú - Norte de Santander, Colombia",
       "sentidoPor": 0,
       "agencia": "SGC",
       "estado": "manual",
-      "actualizado": "2026-08-24 01:08:45"
+      "actualizado": "2026-08-24 02:55:30"
     },
     {
       "id": "SGC2026qppbjh",
