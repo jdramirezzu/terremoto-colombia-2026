@@ -11,9 +11,39 @@
     "desdeUtc": "2026-08-10 12:34",
     "criterio": "Eventos con epicentro en Colombia ocurridos desde el sismo principal (inclusive)."
   },
-  "ultimaActualizacion": "2026-08-26T01:57:50.488Z",
-  "totalSismos": 2235,
+  "ultimaActualizacion": "2026-08-26T04:02:23.356Z",
+  "totalSismos": 2237,
   "sismos": [
+    {
+      "id": "SGC2026qthuuh",
+      "utc": "2026-08-26 03:22",
+      "local": "2026-08-25 22:22",
+      "magnitud": 3.3,
+      "tipoMagnitud": "MLr_1",
+      "profundidadKm": 0,
+      "lat": 4.421166666666666,
+      "lon": -76.75833333333334,
+      "lugar": "Istmina - Chocó, Colombia",
+      "sentidoPor": 0,
+      "agencia": "SGC",
+      "estado": "manual",
+      "actualizado": "2026-08-25 22:27:04"
+    },
+    {
+      "id": "SGC2026qthshc",
+      "utc": "2026-08-26 03:19",
+      "local": "2026-08-25 22:19",
+      "magnitud": 2.8,
+      "tipoMagnitud": "M",
+      "profundidadKm": 104,
+      "lat": 4.559920787811279,
+      "lon": -76.7132568359375,
+      "lugar": "Medio San Juan (Andagoya) - Chocó, Colombia",
+      "sentidoPor": 0,
+      "agencia": "SGC",
+      "estado": "automatic",
+      "actualizado": "2026-08-25 22:22:26"
+    },
     {
       "id": "SGC2026qteupn",
       "utc": "2026-08-26 01:51",
