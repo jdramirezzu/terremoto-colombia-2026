@@ -10,7 +10,7 @@ municipio: "Buenaventura"
 orden: 1
 ---
 
-🔗 **Portal oficial:** [buenaventura.gov.co](https://www.buenaventura.gov.co)
+**Portal oficial:** [buenaventura.gov.co](https://www.buenaventura.gov.co)
 
 ## Centro comercial Único Uno
 

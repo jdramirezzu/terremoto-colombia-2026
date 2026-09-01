@@ -1,38 +1,47 @@
 ---
 titulo: "Donar dinero a canales verificados"
 categoria: "donar-dinero"
-resumen: "Cuentas y campañas para donación económica — cada una con su propio estado de verificación individual."
+resumen: "Cuentas y campañas para donar dinero. Cada una dice si confirmamos el canal en el portal de la entidad o no."
 fuente: "https://www.solidaridadporcolombia.org/"
 estado: "sin-verificar"
-verificadoPor: "Estado mixto — cada organización de abajo tiene su propio badge, ese es el que importa, no este general."
+verificadoPor: "Estado mixto. Cada organización de abajo dice si la confirmamos o no; ese es el dato que importa, no este general."
 fechaVerificacion: 2026-08-13
 orden: 1
 ---
 
-Antes de transferir, confirma el canal directamente en el sitio oficial de la entidad — cada sección de abajo indica si ya lo hicimos.
+Antes de transferir, confirma la cuenta en el portal oficial de la entidad.
+Abajo decimos en cuáles ya lo hicimos y en cuáles no.
+
+Dos cosas que conviene saber: ninguna organización legítima pide donaciones
+por WhatsApp, y ninguna cambia de cuenta de un día para otro. Si alguien te
+pasa una cuenta distinta a las de aquí, búscala en el portal de la entidad
+antes de enviar nada.
 
 ## Fundación Solidaridad por Colombia
 
-<span class="verify-badge verify-badge--ok">✅ Verificado en solidaridadporcolombia.org</span>
+Confirmado en su portal el 13 de agosto de 2026.
 
-🔗 **Portal oficial:** [solidaridadporcolombia.org](https://www.solidaridadporcolombia.org/)
+**Portal oficial:** [solidaridadporcolombia.org](https://www.solidaridadporcolombia.org/)
 
 Cuenta de ahorros **Bancolombia** `167-000109-63` y llave BRE-B
 `@juntosxcolombia`, campaña "Juntos por Colombia".
 
 ## Cruz Roja Colombiana
 
-<span class="verify-badge verify-badge--ok">✅ Canal oficial confirmado</span>
+Confirmado en su portal el 13 de agosto de 2026.
 
-🔗 **Donar en esta emergencia:** [ayuda.cruzrojacolombiana.org/emergencia-colombia-terremoto](https://ayuda.cruzrojacolombiana.org/emergencia-colombia-terremoto)
+**Donar en esta emergencia:** [ayuda.cruzrojacolombiana.org/emergencia-colombia-terremoto](https://ayuda.cruzrojacolombiana.org/emergencia-colombia-terremoto)
 
-Usan plataforma de pago propia en vez de publicar una cuenta — dona
-directamente ahí.
+No publican cuenta bancaria: reciben las donaciones por su propia plataforma
+de pago. Si alguien te ofrece una cuenta a nombre de la Cruz Roja, no es de
+ellos.
 
-## Banco de Alimentos de Bogotá — #JuntosContraElHambre
+## Banco de Alimentos de Bogotá, #JuntosContraElHambre
 
-<span class="verify-badge verify-badge--warn">⚠️ Sin verificar directamente</span>
+> **Sin confirmar.** Esta llave la reportaron varios medios, pero no la hemos
+> verificado en el portal del Banco de Alimentos. Búscala ahí antes de
+> transferir.
 
-🔗 **Portal:** [bancodealimentos.org.co](https://www.bancodealimentos.org.co/)
+**Portal:** [bancodealimentos.org.co](https://www.bancodealimentos.org.co/)
 
-Llave BRE-B reportada por varios medios: `0091677852`.
+Llave BRE-B reportada: `0091677852`.

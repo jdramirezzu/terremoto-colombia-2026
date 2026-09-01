@@ -35,7 +35,7 @@ Y una advertencia que aplica a todo lo de abajo: **estamos en periodo de
 réplicas.** Una grieta que hoy parece estable puede abrirse con el próximo
 movimiento. Revisar no es algo que se hace una vez.
 
-## 🔴 Señales para salir ya y llamar al 123
+## Señales para salir ya y llamar al 123
 
 Si encuentras **cualquiera** de estas, no sigas inspeccionando: sal.
 
@@ -54,7 +54,7 @@ Si encuentras **cualquiera** de estas, no sigas inspeccionando: sal.
 - **Olor a gas, chispas o cables sueltos** — ahí el riesgo inmediato no es
   el colapso, es el incendio.
 
-## 🟠 Señales para no dormir ahí y hacer revisar cuanto antes
+## Señales para no dormir ahí y hacer revisar cuanto antes
 
 Estas no obligan necesariamente a evacuar de inmediato, pero **sí requieren
 que un técnico las mire antes de seguir haciendo vida normal en el sitio**:
@@ -76,7 +76,7 @@ que un técnico las mire antes de seguir haciendo vida normal en el sitio**:
 - Grietas alrededor de **escaleras**, o en el **primer piso** de un edificio
   de varios niveles.
 
-## 🟢 Lo que normalmente es cosmético
+## Lo que normalmente es cosmético
 
 - **Fisuras finas y superficiales** en la pintura, el estuco o el pañete
   (menos de 1 mm), sin patrón diagonal y que no atraviesan el muro.
@@ -129,7 +129,7 @@ empresa de servicios.
 ## A quién llamar
 
 - **Emergencia inmediata (riesgo de colapso, gas, personas atrapadas):**
-  📞 **123**.
+  **123**.
 - **Inspección técnica y censo de damnificados:** la alcaldía o la oficina de
   Gestión del Riesgo de tu municipio — ver
   [Reportar daños](/wiki/reportar-danos/) y la

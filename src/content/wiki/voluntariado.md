@@ -11,7 +11,7 @@ orden: 1
 
 ## Cruz Roja Colombiana
 
-🔗 **Portal oficial:** [cruzrojacolombiana.org](https://www.cruzrojacolombiana.org)
+**Portal oficial:** [cruzrojacolombiana.org](https://www.cruzrojacolombiana.org)
 
 Programa de voluntariado formal con capacitación previa — no envían
 voluntarios sin entrenamiento a zonas de desastre activo.

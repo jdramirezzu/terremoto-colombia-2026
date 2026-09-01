@@ -9,7 +9,7 @@ fechaVerificacion: 2026-08-13
 orden: 1
 ---
 
-🔗 **Portal oficial:** [risaralda.gov.co](https://www.risaralda.gov.co)
+**Portal oficial:** [risaralda.gov.co](https://www.risaralda.gov.co)
 
 La Gobernación de Risaralda declaró **calamidad pública** (con vigencia de
 seis meses) y **urgencia manifiesta** (mientras dure la emergencia) para
